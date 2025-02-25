@@ -1,15 +1,16 @@
 NAME = cub3D
 CC = cc
+SRC = src/
 CFLAGS = -Wall -Werror -Wextra
-CFILES =
+CFILES = $(SRC)main.c $(SRC)errors.c $(SRC)check_map.c
 OFILES = $(CFILES:.c=.o)
 RM = rm -f
 
 all: $(NAME)
-$(NAME): $(OFILES)
-	$(CC) $(OFILES) -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz -o $(NAME)
+$(NAME): $(OFILES) 
+	$(CC) $(OFILES) -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz -L./includes -lft -o $(NAME)
 %.o: %.c
-	$(CC) $(CFLAGS) -I/usr/include -Imlx -O3 -c $< -o $@
+	$(CC) $(CFLAGS) -I/usr/include -I ./includes  -Imlx -O3 -c $< -o $@
 clean:
 	$(RM) $(OFILES)
 fclean: clean

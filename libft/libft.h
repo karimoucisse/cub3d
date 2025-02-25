@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 19:45:24 by kcisse            #+#    #+#             */
-/*   Updated: 2024/05/30 15:09:27 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/02/24 17:43:56 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <fcntl.h>
 # include <unistd.h>
 # include <ctype.h>
 # include <string.h>
@@ -24,6 +25,19 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }	t_list;
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
+// GET_NEXT_LINE FUNCTIONS
+char	*get_next_line(int fd, int error);
+char	*fill_buffer(int fd, char *buffer);
+char	*fill_line(char *buffer);
+char	*fill_remain_char(char *buffer);
+char	*handle_temp_var(char *remain_char, char *buffer);
+size_t	ft_strlcpy_gnl(char *dst, const char *src, size_t size);
+int		ft_strchr_gnl(const char *s, int c);
 
 int		ft_isalnum(int i);
 int		ft_isalpha(int c);
