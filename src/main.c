@@ -6,14 +6,16 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:25 by kcisse            #+#    #+#             */
-/*   Updated: 2025/02/25 01:41:44 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/02/25 13:31:10 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	init_texture(t_texture *textures)
+t_texture	*init_texture(void)
 {
+	t_texture	*textures;
+
 	textures = malloc(sizeof(t_texture));
 	if (!textures)
 		return (0);
@@ -25,16 +27,24 @@ int	init_texture(t_texture *textures)
 	textures->ceiling_color = malloc(sizeof(t_color));
 	if (!textures->floor_color || !textures->ceiling_color)
 		return (0);
-	return (1);
+	textures->floor_color->r = -1;
+	textures->floor_color->g = -1;
+	textures->floor_color->b = -1;
+	textures->ceiling_color->r = -1;
+	textures->ceiling_color->g = -1;
+	textures->ceiling_color->b = -1;
+	return (textures);
 }
 
 int	main(int ac, char **av)
 {
 	t_texture	*textures;
+
 	textures = NULL;
 	if (ac != 2)
 		exit(printf("Error\n"));
-	if (!init_texture(textures))
+	textures = init_texture();
+	if(!textures)
 		exit(printf("Error\n"));
 	check_map_file(av[1], textures);
 }
