@@ -1,8 +1,8 @@
 NAME = cub3D
 CC = cc
 SRC = src/
-CFLAGS = -Wall -Werror -Wextra
-CFILES = $(SRC)main.c $(SRC)errors.c $(SRC)check_map.c
+CFLAGS = 
+CFILES = $(SRC)main.c
 OFILES = $(CFILES:.c=.o)
 RM = rm -f
 
