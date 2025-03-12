@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/03/03 23:21:25 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/03/12 08:44:18 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,18 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
-# define T 65362 //w
-# define B 65364 //s
-# define L 65361 //a
-# define R 65363 //d
-# define LEFT 113
-# define RIGHT 100
+
+# define T 119 //w
+# define B 115 //s
+# define L 97 //a
+# define R 100 //d
+# define LEFT 65361
+# define RIGHT 65363
+
+// # define T 65362 //w
+// # define B 65364 //s
+// # define L 65361 //a
+// # define R 65363 //d
 # define PI 3.14159265359
 
 typedef struct s_player
@@ -40,15 +46,15 @@ typedef struct s_player
 	float		pdx;
 	float		pdy;
 	float		pa;
-	// float		angle;
+	float		angle;
 
 	bool		key_up;
 	bool		key_down;
 	bool		key_left;
 	bool		key_right;
 
-	// bool		left_rotate;
-	// bool		right_rotate;
+	bool		left_rotate;
+	bool		right_rotate;
 }				t_player;
 typedef struct s_color
 {
