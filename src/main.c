@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:25 by kcisse            #+#    #+#             */
-/*   Updated: 2025/03/12 09:18:44 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/03/12 09:35:49 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,20 @@ int	touch(int x, int y, char **map)
 	return (0);
 }
 
+void	draw_line(t_game *game, float start, int i, char **map)
+{
+	float cos_angle = cos(start);
+	float sin_angle = sin(start);
+	float ray_x = game->player.x;
+	float ray_y = game->player.y;
+	while (!touch(ray_x, ray_y, map))
+	{
+		ft_put_pixel(ray_x, ray_y, 0x00FF00, game);
+		ray_x += cos_angle;
+		ray_y += sin_angle;
+	}
+}
+
 int	start_game(t_game *game)
 {
 	char	**map;
@@ -176,6 +190,8 @@ int	start_game(t_game *game)
 	float	ray_y;
 	float	cos_angle;
 	float	sin_angle;
+	float	star_x;
+	float	fraction;
 
 	i = 0;
 	move_player(&(game->player));
@@ -199,16 +215,13 @@ int	start_game(t_game *game)
 		i++;
 	}
 	i = 0;
-	ray_x = game->player.x;
-	ray_y = game->player.y;
-	cos_angle = cos(game->player.angle);
-	sin_angle = sin(game->player.angle);
-	while (!touch(ray_x, ray_y, map))
+	star_x = game->player.angle - PI / 6;
+	fraction = PI / 3 / WIDTH;
+	while (i < WIDTH)
 	{
-		ft_put_pixel(ray_x, ray_y, 0x00FF00, game);
-		ray_x += cos_angle;
-		ray_y += sin_angle;
+		draw_line(game, star_x, i, map);
 		i++;
+		star_x += fraction;
 	}
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	return (0);
