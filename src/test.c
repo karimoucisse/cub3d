@@ -53,7 +53,7 @@ void	raycasting(t_data *data)
 		deltaDistY = fabs(1 / rayDirY);
 		double sideDistX, sideDistY;
 		int stepX, stepY;
-		hit = 0, side;
+		int hit = 0, side;
 		// Calcul du step et de la distance initiale jusqu'au premier mur
 		if (rayDirX < 0)
 		{
