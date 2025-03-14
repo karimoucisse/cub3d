@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:25 by kcisse            #+#    #+#             */
-/*   Updated: 2025/03/12 09:35:49 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/03/14 13:03:49 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	init_game(t_game *game)
 	game->player.key_right = False;
 	game->player.left_rotate = False;
 	game->player.right_rotate = False;
-	game->player.x = 6 * 50;
-	game->player.y = 7 * 50;
-	game->player.angle = PI / 2;
+	game->player.x = 6 * 64;
+	game->player.y = 6 * 64;
+	game->player.angle = N;
 	game->player.pdx = cos(game->player.pa) * 5;
 	game->player.pdy = sin(game->player.pa) * 5;
 }
@@ -88,8 +88,8 @@ char	**get_map(void)
 	map[3] = "100000100000001";
 	map[4] = "100000000000001";
 	map[5] = "100000010000001";
-	map[6] = "100001000000001";
-	map[7] = "100000N00000001";
+	map[6] = "100001N00000001";
+	map[7] = "100000000000001";
 	map[8] = "100000000000001";
 	map[9] = "111111111111111";
 	map[10] = NULL;
@@ -114,14 +114,111 @@ void	clear_image(t_game *game)
 		for (int x = 0; x < WIDTH; x++)
 			ft_put_pixel(x, y, 0, game);
 }
+int	touch(int x, int y, char **map)
+{
+	int	i;
+	int	j;
+
+	i = x / 64;
+	j = y / 64;
+	if (map[j][i] == '1')
+		return (1);
+	return (0);
+}
+
+double	v_intersection(t_game *game, double angle, char **map)
+{
+	double	step_x;
+	int		step_y;
+	double	next_ay;
+	double	next_ax;
+	bool	isRayFacingDown;
+	bool	isRayFacingUp;
+	bool	isRayFacingRight;
+	bool	isRayFacingLeft;
+
+	isRayFacingDown = angle > 0 && angle < PI;
+	isRayFacingUp = !isRayFacingDown;
+	isRayFacingRight = angle < (0.5 * PI) || angle > (1.5 * PI);
+	isRayFacingLeft = !isRayFacingRight;
+	next_ax = ((int)(game->player.x / 64) * 64) - 1;
+	if (isRayFacingRight)
+		next_ax = ((int)(game->player.x / 64) * 64) + 64;
+	next_ay = game->player.y + ((next_ax - game->player.x) / tanl(angle));
+	step_x = 64;
+	step_y = 64 * tanl(angle);
+	if (isRayFacingLeft)
+		step_x *= -1;
+	step_y = step_x * tanl(angle);
+	if (isRayFacingUp && step_y > 0)
+		step_y *= -1;
+	if (isRayFacingDown && step_y < 0)
+		step_y *= -1;
+	while (!touch(next_ax, next_ay, map))
+	{
+		next_ay += step_y;
+		next_ax += step_x;
+	}
+	// return (sqrt((pow((next_ax - game->player.x), 2) + pow((next_ay
+	// 					+ game->player.y), 2))));
+	return (1);
+}
+
+double	h_intersection(t_game *game, double angle, char **map)
+{
+	double	step_x;
+	int		step_y;
+	double	next_ay;
+	double	next_ax;
+	bool	isRayFacingDown;
+	bool	isRayFacingUp;
+	bool	isRayFacingRight;
+	bool	isRayFacingLeft;
+
+	isRayFacingDown = angle > 0 && angle < PI;
+	isRayFacingUp = !isRayFacingDown;
+	isRayFacingRight = angle < (0.5 * PI) || angle > (1.5 * PI);
+	isRayFacingLeft = !isRayFacingRight;
+	step_y = 64;
+	step_x = 64 / tanl(angle);
+	next_ay = ((int)(game->player.y / 64) * 64) - 1;
+	if (isRayFacingDown)
+		next_ay = ((int)(game->player.y / 64) * 64) + 64;
+	next_ax = game->player.x + ((next_ay - game->player.y) / tanl(angle));
+	if (isRayFacingUp)
+		step_y *= -1;
+	if (isRayFacingLeft && step_x > 0)
+		step_x *= -1;
+	if (isRayFacingRight && step_x < 0)
+		step_x *= -1;
+	while (!touch(next_ax, next_ay, map))
+	{
+		next_ay += step_y;
+		next_ax += step_x;
+	}
+	// return (sqrt((pow((next_ax - game->player.x), 2) + pow((next_ay
+	// 					+ game->player.y), 2))));
+	return (1);
+}
+int	intersection(t_game *game, double angle, char **map)
+{
+	double	h;
+	double	v;
+
+	h = h_intersection(game, angle, map);
+	v = v_intersection(game, angle, map);
+	if (h > v)
+		return (h);
+	return (v);
+}
 void	move_player(t_player *player)
 {
-	float	cos_angle;
-	float	sin_angle;
-	float	angle_speed;
-	int		speed;
+	double	cos_angle;
+	double	sin_angle;
+	double	angle_speed;
+	double	speed;
 
-	speed = 1;
+	speed = 0.8;
 	cos_angle = cos(player->angle);
 	sin_angle = sin(player->angle);
 	angle_speed = 0.01;
@@ -155,30 +252,25 @@ void	move_player(t_player *player)
 	}
 }
 
-int	touch(int x, int y, char **map)
+void	draw_line(t_game *game, double start, char **map)
 {
-	int	i;
-	int	j;
+	double	cos_angle;
+	double	sin_angle;
+	double	ray_x;
+	double	ray_y;
 
-	i = x / 64;
-	j = y / 64;
-	if (map[j][i] == '1')
-		return (1);
-	return (0);
-}
-
-void	draw_line(t_game *game, float start, int i, char **map)
-{
-	float cos_angle = cos(start);
-	float sin_angle = sin(start);
-	float ray_x = game->player.x;
-	float ray_y = game->player.y;
+	cos_angle = cos(start);
+	sin_angle = sin(start);
+	ray_x = game->player.x;
+	ray_y = game->player.y;
+	// printf("ay = %f et rad %f\n", start * 180/PI, start);
 	while (!touch(ray_x, ray_y, map))
 	{
-		ft_put_pixel(ray_x, ray_y, 0x00FF00, game);
+		ft_put_pixel(ray_x, ray_y, 0xFFF000, game);
 		ray_x += cos_angle;
 		ray_y += sin_angle;
 	}
+	intersection(game, start, map);
 }
 
 int	start_game(t_game *game)
@@ -186,12 +278,12 @@ int	start_game(t_game *game)
 	char	**map;
 	int		i;
 	int		j;
-	float	ray_x;
-	float	ray_y;
-	float	cos_angle;
-	float	sin_angle;
-	float	star_x;
-	float	fraction;
+	double	ray_x;
+	double	ray_y;
+	double	cos_angle;
+	double	sin_angle;
+	double	star_x;
+	double	fraction;
 
 	i = 0;
 	move_player(&(game->player));
@@ -206,8 +298,9 @@ int	start_game(t_game *game)
 				draw_square(j * 64, i * 64, 64, 0x00FF00, game);
 			if (map[i][j] == 'N')
 			{
-				printf("x = %f, pdx = %f\n y = %f, pdy = %f\n", game->player.x,
-					game->player.pdx, game->player.y, game->player.y);
+				// printf("x = %f, pdx = %f\n y = %f, pdy = %f\n",
+				// game->player.x,
+				// 	game->player.pdx, game->player.y, game->player.y);
 				draw_square(game->player.x, game->player.y, 32, 0x00FFF0, game);
 			}
 			j++;
@@ -219,7 +312,7 @@ int	start_game(t_game *game)
 	fraction = PI / 3 / WIDTH;
 	while (i < WIDTH)
 	{
-		draw_line(game, star_x, i, map);
+		draw_line(game, star_x, map);
 		i++;
 		star_x += fraction;
 	}
