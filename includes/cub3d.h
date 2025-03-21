@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/03/14 12:10:41 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/03/21 12:02:24 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,16 @@
 # include <stdlib.h>
 # include <sys/stat.h>
 # include <unistd.h>
+#include "libft.h"
 
+# define MAX_MAP_SIZE 100
 # define WIDTH 1280
 # define HEIGHT 720
 
-# define T 119 //w
-# define B 115 //s
-# define L 97 //a
-# define R 100 //d
+# define T 119 // w
+# define B 115 // s
+# define L 97  // a
+# define R 100 // d
 # define LEFT 65361
 # define RIGHT 65363
 // # define T 65362 //w
@@ -59,30 +61,19 @@ typedef struct s_player
 	bool		left_rotate;
 	bool		right_rotate;
 }				t_player;
-typedef struct s_color
-{
-	int			r;
-	int			g;
-	int			b;
-}				t_color;
-typedef struct s_texture
-{
-	char		*no_texture;
-	char		*so_texture;
-	char		*we_texture;
-	char		*ea_texture;
-	t_color		*floor_color;
-	t_color		*ceiling_color;
-}				t_texture;
 
-typedef struct s_map
+typedef struct s_game_info
 {
-	void		*mlx;
-	void		*win;
-	double posX, posY;     // Position du joueur
-	double dirX, dirY;     // Direction du regard
-	double planeX, planeY; // Plan de la caméra
-}				t_map;
+	double		x;
+	double		y;
+	char		*north_texture;
+	char		*south_texture;
+	char		*west_texture;
+	char		*east_texture;
+	int			floor_color[3];
+	int			ceiling_color[3];
+	char		**map;
+}				t_game_info;
 
 typedef struct s_game
 {
@@ -94,8 +85,25 @@ typedef struct s_game
 	int			line_length;
 	int			endian;
 	t_player	player;
+	t_game_info	game_info;
 }				t_game;
 
-int				check_map_file(char *map, t_texture *textures);
+// PARSING
+//		FILE
+t_game_info		*parse_file(char *file);
+void			init_game_info(t_game_info *info);
+void			ft_trim(char *line);
+int				file_exist(char *str, char **texture_var);
+int				ft_tab_len(char **tab);
+int				check_file_name(char *file_name);
+//		MAP
+char			**parse_map(int fd, char *line);
+int				check_map_wall(char **map, int map_height);
+int				check_map_content(char **map);
+//		TEXTURE
+int				check_texture(t_game_info *info);
+int				parse_texture(char *str, t_game_info *info);
+int				parse_color(char *str, int *texture_var);
+int				check_is_valid_color(char **colors, int *texture_var);
 
 #endif
