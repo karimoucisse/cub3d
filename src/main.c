@@ -73,6 +73,34 @@ void	init_game(t_game *game)
 				game->player.y = i * TILE;
 				j++;
 			}
+			if(game->game_info->map[i][j] == 'N')
+			{
+				game->player.dirX = 0;
+				game->player.dirY = -1;
+				game->player.planeX = 0.66;
+				game->player.planeY = 0;
+			}
+			if(game->game_info->map[i][j] == 'S')
+			{
+				game->player.dirX = 0;
+				game->player.dirY = 1;
+				game->player.planeX = -0.66;
+				game->player.planeY = 0;
+			}
+			if(game->game_info->map[i][j] == 'E')
+			{
+				game->player.dirX = 1;
+				game->player.dirY = 0;
+				game->player.planeX = 0;
+				game->player.planeY = 0.66;
+			}
+			if(game->game_info->map[i][j] == 'W')
+			{
+				game->player.dirX = -1;
+				game->player.dirY = 0;
+				game->player.planeX = 0;
+				game->player.planeY = -0.66;
+			}
 		i++;
 	}
 }
