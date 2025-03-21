@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/03/21 12:02:24 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/03/21 12:53:51 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../mlx/mlx.h"
 # include "../mlx/mlx_int.h"
+# include "libft.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdbool.h>
@@ -22,12 +23,11 @@
 # include <stdlib.h>
 # include <sys/stat.h>
 # include <unistd.h>
-#include "libft.h"
 
 # define MAX_MAP_SIZE 100
 # define WIDTH 1280
 # define HEIGHT 720
-
+# define TILE 64
 # define T 119 // w
 # define B 115 // s
 # define L 97  // a
@@ -77,15 +77,15 @@ typedef struct s_game_info
 
 typedef struct s_game
 {
-	void		*mlx;
-	void		*win;
-	void		*img;
+	void		*mlx_ptr;
+	void		*mlx_win;
+	void		*img_ptr;
 	char		*addr;
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
 	t_player	player;
-	t_game_info	game_info;
+	t_game_info	*game_info;
 }				t_game;
 
 // PARSING

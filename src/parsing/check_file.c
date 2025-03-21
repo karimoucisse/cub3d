@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:10 by kcisse            #+#    #+#             */
-/*   Updated: 2025/03/21 12:21:09 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/03/21 12:38:16 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,12 +108,6 @@ t_game_info	*parse_file(char *file)
 		free(line);
 		line = get_next_line(fd, 0);
 	}
-	int i = 0;
 	game_info->map = parse_map(fd, line);
-	while(game_info->map[i])
-	{
-		printf("%s\n", game_info->map[i]);
-		i++;
-	}
-	return (0);
+	return (game_info);
 }

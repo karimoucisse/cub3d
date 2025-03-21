@@ -1,7 +1,7 @@
-NO ./test.cub
-SO ./test.cub
-WE ./test.cub
-EA ./test.cub
+NO ./file.cub
+SO ./file.cub
+WE ./file.cub
+EA ./file.cub
 F 220,100,0
 C 25, 30, 0
 
