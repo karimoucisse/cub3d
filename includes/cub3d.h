@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/03/21 13:03:10 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/03/23 14:11:26 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_player
 	double		dirY;
 	double		planeX;
 	double		planeY;
+	
 	bool		key_up;
 	bool		key_down;
 	bool		key_left;
