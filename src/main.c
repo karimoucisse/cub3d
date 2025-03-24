@@ -17,6 +17,9 @@ void	init_game(t_game *game)
 	game->player.key_right = False;
 	game->player.left_rotate = False;
 	game->player.right_rotate = False;
+	// game->player.radius;
+	game->player.turn_dir = 0;
+	game->player.walk_dir = 0;
 	while (game->game_info->map[i])
 	{
 		j = 0;
@@ -24,42 +27,36 @@ void	init_game(t_game *game)
 		{
 			if (ft_strchr("NWES", game->game_info->map[i][j]))
 			{
-				game->player.x = j * TILE;
-				game->player.y = i * TILE;
+				game->player.x = j * TILE + TILE / 2;
+				game->player.y = i * TILE + TILE / 2;
 			}
 			if (game->game_info->map[i][j] == 'N')
-			{
-				game->player.dirX = 0;
-				game->player.dirY = -1;
-				game->player.planeX = 0.66;
-				game->player.planeY = 0;
-			}
+				game->player.rot_angle = N;
 			if (game->game_info->map[i][j] == 'S')
-			{
-				game->player.dirX = 0;
-				game->player.dirY = 1;
-				game->player.planeX = -0.66;
-				game->player.planeY = 0;
-			}
+				game->player.rot_angle = S;
 			if (game->game_info->map[i][j] == 'E')
-			{
-				game->player.dirX = 1;
-				game->player.dirY = 0;
-				game->player.planeX = 0;
-				game->player.planeY = 0.66;
-			}
+				game->player.rot_angle = E;
 			if (game->game_info->map[i][j] == 'W')
-			{
-				game->player.dirX = -1;
-				game->player.dirY = 0;
-				game->player.planeX = 0;
-				game->player.planeY = -0.66;
-			}
+				game->player.rot_angle = W;
 			j++;
 		}
 		i++;
 	}
 }
+
+
+int	is_a_wall(char **map, double x, double y)
+{
+	int	x_block;
+	int	y_block;
+
+	x_block = floor(x / TILE);
+	y_block = floor(y / TILE);
+	if (map[y_block][x_block] != '1')
+		return (0);
+	return (1);
+}
+
 int	key_press(int keycode, t_player *player)
 {
 	if (keycode == T)
@@ -144,58 +141,33 @@ void	move_player(t_game *game)
 {
 	double	mv_speed;
 	char	**map;
-	double	angle_speed;
-	double	old_planeX;
-	double	old_dirX;
+	double	rot_speed;
+	double	x_cpy;
+	double	y_cpy;
 
-	angle_speed = 0.005;
+	rot_speed = 0.004;
 	map = game->game_info->map;
-	mv_speed = 0.4;
+	mv_speed = 0.3;
+	x_cpy = game->player.x;
+	y_cpy = game->player.y;
+	if (game->player.left_rotate)
+		game->player.rot_angle -= rot_speed;
+	if (game->player.right_rotate)
+		game->player.rot_angle += rot_speed;
 	if (game->player.key_up)
 	{
-		game->player.x += game->player.dirX * mv_speed;
-		game->player.y += game->player.dirY * mv_speed;
+		x_cpy = game->player.x + cos(game->player.rot_angle) * mv_speed;
+		y_cpy = game->player.y + sin(game->player.rot_angle) * mv_speed;
 	}
 	if (game->player.key_down)
 	{
-		game->player.x -= game->player.dirX * mv_speed;
-		game->player.y -= game->player.dirY * mv_speed;
+		x_cpy -= cos(game->player.rot_angle) * mv_speed;
+		y_cpy -= sin(game->player.rot_angle) * mv_speed;
 	}
-	if (game->player.key_left)
+	if (!is_a_wall(map, x_cpy, y_cpy))
 	{
-		game->player.x -= game->player.planeX * mv_speed;
-		game->player.y -= game->player.planeY * mv_speed;
-	}
-	if (game->player.key_right)
-	{
-		game->player.x += game->player.planeX * mv_speed;
-		game->player.y += game->player.planeY * mv_speed;
-	}
-	if (game->player.left_rotate)
-	{
-		old_planeX = game->player.planeX;
-		old_dirX = game->player.dirX;
-		game->player.dirX = game->player.dirX * cos(angle_speed)
-			- game->player.dirY * sin(angle_speed);
-		game->player.dirY = old_dirX * sin(angle_speed) + game->player.dirY
-			* cos(angle_speed);
-		game->player.planeX = game->player.planeX * cos(angle_speed)
-			- game->player.planeY * sin(angle_speed);
-		game->player.planeY = old_planeX * sin(angle_speed)
-			+ game->player.planeY * cos(angle_speed);
-	}
-	if (game->player.right_rotate)
-	{
-		old_planeX = game->player.planeX;
-		old_dirX = game->player.dirX;
-		game->player.dirX = game->player.dirX * cos(-angle_speed)
-			- game->player.dirY * sin(-angle_speed);
-		game->player.dirY = old_dirX * sin(-angle_speed) + game->player.dirY
-			* cos(-angle_speed);
-		game->player.planeX = game->player.planeX * cos(-angle_speed)
-			- game->player.planeY * sin(-angle_speed);
-		game->player.planeY = old_planeX * sin(-angle_speed)
-			+ game->player.planeY * cos(-angle_speed);
+		game->player.x = x_cpy;
+		game->player.y = y_cpy;
 	}
 }
 
@@ -217,30 +189,104 @@ void	clear_map(t_game *game)
 	}
 }
 
-void	raycast_2d(t_game *game)
+void	draw_ray(t_game *game, double angle)
 {
 	int		i;
 	double	x;
 	double	y;
-	double	px;
-	double	py;
+
+	i = 0;
+	x = (game->player.x + 5) + cos(angle) * i;
+	y = (game->player.y + 5) + sin(angle) * i;
+	while (i < 200)
+	{
+		x = (game->player.x) + cos(angle) * i;
+		y = (game->player.y) + sin(angle) * i;
+		if (is_a_wall(game->game_info->map, x - 0.2, y - 0.2)
+			|| is_a_wall(game->game_info->map, x + 0.2, y + 0.2))
+			break ;
+		if (is_a_wall(game->game_info->map, x, y))
+			break ;
+		i++;
+		ft_put_pixel(x, y, 0x00FFF0, game);
+	}
+}
+
+void	h_intersection(t_game *game, double angle)
+{
+	double	xstep;
+	double	ystep;
+	double	xa;
+	double	ya;
+
+	ya = floor(game->player.y / TILE) * TILE;
+	xa = (ya - game->player.y) / tan(angle) + game->player.x;
+	if (angle > 0 && angle < PI) // bottom
+		ystep = TILE;
+	else // top
+		ystep = -TILE;
+	xstep = ystep / tan(angle);
+	if ((angle < (0.5 * PI) || angle > (1.5 * PI)) && xstep < 0) // right
+		xstep *= -1;
+	else if (!(angle < (0.5 * PI) || angle > (1.5 * PI)) && xstep > 0) // left
+		xstep *= -1;
+	while (!is_a_wall(game->game_info->map, xa, ya))
+	{
+		xa += xstep;
+		ya += ystep;
+	}
+	// printf("xa = %f, ya = %f\n", xa, ya);
+}
+
+// void	v_intersection(t_game *game, double angle)
+// {
+// 	double	xstep;
+// 	double	ystep;
+// 	double	xa;
+// 	double	ya;
+
+// 	xa = floor(xa / TILE) * TILE;
+// 	ya = (xa - game->player.x) * tan(angle) + game->player.y;
+// 	xstep = TILE;
+// 	if (!(angle < (0.5 * PI) || angle > (1.5 * PI)) && xstep > 0) // left
+// 		xstep *= -1;
+// 	ystep = xstep * tan(angle);
+// 	if (angle > 0 && angle < PI && ystep < 0) // bottom
+// 		ystep = TILE;
+// 	else if (angle > 0 && angle < PI && ystep > 0) // top
+// 		ystep = -TILE;
+// 	while (!is_a_wall(game->game_info->map, xa, ya))
+// 	{
+// 		xa += xstep;
+// 		ya += ystep;
+// 	}
+// }
+void	intersections(t_game *game, double angle)
+{
+	h_intersection(game, angle);
+	// v_intersection(game, angle);
+	// printf("x = %f, y = %f\n", xstep, ystep);
+}
+
+void	raycast_2d(t_game *game)
+{
+	int		i;
+	double	angle;
 
 	move_player(game);
 	clear_map(game);
 	create_map(game);
-	draw_square(game->player.x + TILE / 2, game->player.y + TILE / 2, 0x00FFF0,
-		10, game);
-	i = 0;
-	px = game->player.planeX;
-	py = game->player.planeY;
-	while (i < 40)
-	{
-		x = ((game->player.x + TILE/2 + (px * i)));
-		y = ((game->player.y + TILE/2 + (py * i)));
-		i++;
-		ft_put_pixel(x, y, 0x00FFF0, game);
-	}
+	draw_square(game->player.x, game->player.y, 0x00FFF0, 10, game);
 	mlx_put_image_to_window(game->mlx_ptr, game->mlx_win, game->img_ptr, 0, 0);
+	i = 0;
+	angle = game->player.rot_angle - (FOV / 2);
+	while (i < WIDTH / 2)
+	{
+		draw_ray(game, angle);
+		intersections(game, angle);
+		angle += FOV / WIDTH;
+		i++;
+	}
 }
 
 int	start_game(t_game *game)

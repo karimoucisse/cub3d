@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/03/23 14:11:26 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/03/24 12:53:06 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,18 @@
 # include <sys/stat.h>
 # include <unistd.h>
 
+# define PI 3.14159265359
 # define MAX_MAP_SIZE 100
-# define WIDTH 1280
-# define HEIGHT 720
+# define WIDTH 980
+# define HEIGHT 620
 # define TILE 64
+# define FOV 66 * (PI / 180)
 # define T 119 // w
 # define B 115 // s
 # define L 97  // a
 # define R 100 // d
 # define LEFT 65361
 # define RIGHT 65363
-// # define T 65362 //w
-// # define B 65364 //s
-// # define L 65361 //a
-// # define R 65363 //d
-# define PI 3.14159265359
 # define N (3 * PI / 2)
 # define S PI / 2
 # define E 0
@@ -48,11 +45,10 @@ typedef struct s_player
 {
 	double		x;
 	double		y;
-	double		dirX;
-	double		dirY;
-	double		planeX;
-	double		planeY;
-	
+	// double		dirX;
+	// double		dirY;
+	// double		planeX;
+	// double		planeY;
 	bool		key_up;
 	bool		key_down;
 	bool		key_left;
@@ -60,6 +56,11 @@ typedef struct s_player
 
 	bool		left_rotate;
 	bool		right_rotate;
+
+	double		radius;
+	int turn_dir; // -1 == left, +1 == right
+	int walk_dir; // -1 == back, +1 == front
+	double		rot_angle;
 }				t_player;
 
 typedef struct s_game_info
