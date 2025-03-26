@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/03/24 12:53:06 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/03/26 15:03:14 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # define MAX_MAP_SIZE 100
 # define WIDTH 980
 # define HEIGHT 620
-# define TILE 64
-# define FOV 66 * (PI / 180)
+# define TILE 34
+# define FOV 60 * (PI / 180)
 # define T 119 // w
 # define B 115 // s
 # define L 97  // a
@@ -40,6 +40,22 @@
 # define S PI / 2
 # define E 0
 # define W PI
+
+typedef struct s_raycast
+{
+	bool		was_hit_vertical;
+	double		v_hit_posx;
+	double		v_hit_posy;
+	double		v_hit_dist;
+	double		h_hit_posx;
+	double		h_hit_posy;
+	double		h_hit_dist;
+	double		wall_hitx;
+	double		wall_hity;
+	double		wall_hit_dist;
+	double		wall_height;
+	int			color;
+}				t_raycast;
 
 typedef struct s_player
 {
@@ -87,6 +103,7 @@ typedef struct s_game
 	int			endian;
 	t_player	player;
 	t_game_info	*game_info;
+	t_raycast	raycast_info;
 }				t_game;
 
 // PARSING
