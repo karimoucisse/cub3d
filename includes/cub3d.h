@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/03/26 15:03:14 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/03/31 16:27:50 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define HEIGHT 620
 # define TILE 34
 # define FOV 60 * (PI / 180)
+# define MOVE_SPEED 0.4
+# define ROTATION_SPEED 0.008
 # define T 119 // w
 # define B 115 // s
 # define L 97  // a
@@ -123,5 +125,33 @@ int				check_texture(t_game_info *info);
 int				parse_texture(char *str, t_game_info *info);
 int				parse_color(char *str, int *texture_var);
 int				check_is_valid_color(char **colors, int *texture_var);
+
+// MOVE PLAYER
+void			move_player(t_game *game);
+int				key_press(int keycode, t_player *player);
+int				key_release(int keycode, t_player *player);
+
+// RAYCASTING
+void			raycast_3d(t_game *game);
+void	raycast_2d(t_game *game);
+// RAYCASTING -> CHECK INTERSECTIONS
+void			check_intersections(t_game *game, double angle);
+void			vertical_intersection(t_game *game, double angle);
+void			horizontal_intersection(t_game *game, double angle);
+
+// RAYCASTING -> CHECK DIRECTION
+bool			is_left(double angle);
+bool			is_right(double angle);
+bool			is_up(double angle);
+bool			is_down(double angle);
+// RAYCASTING -> CALCULATION
+double			calc_dist(double x1, double y1, double x2, double y2);
+double			puissance2(double val);
+double			normalize_angle(double angle);
+
+// UTILS
+void			clear_map(t_game *game);
+void			ft_put_pixel(int x, int y, int color, t_game *game);
+int				is_a_wall(char **map, double x, double y);
 
 #endif

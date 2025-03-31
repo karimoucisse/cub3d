@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:10 by kcisse            #+#    #+#             */
-/*   Updated: 2025/03/21 12:38:16 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/03/26 18:01:03 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,30 +84,44 @@ void	init_game_info(t_game_info *info)
 
 t_game_info	*parse_file(char *file)
 {
-	int			fd;
-	char		*line;
+	// int			fd;
+	// char		*line;
 	t_game_info	*game_info;
 
-	fd = open(file, O_RDONLY);
+	// fd = open(file, O_RDONLY);
 	game_info = malloc(sizeof(t_game_info));
-	if (fd == -1)
-		return (0);
-	line = NULL;
-	line = get_next_line(fd, 0);
-	if (!line)
-		return (0);
-	init_game_info(game_info);
-	while (line && !check_texture(game_info))
-	{
-		ft_trim(line);
-		if ((int)ft_strlen(line) != 0)
-		{
-			if (!parse_texture(line, game_info))
-				return (0);
-		}
-		free(line);
-		line = get_next_line(fd, 0);
-	}
-	game_info->map = parse_map(fd, line);
+	// if (fd == -1)
+	// 	return (0);
+	// line = NULL;
+	// line = get_next_line(fd, 0);
+	// if (!line)
+	// 	return (0);
+	// init_game_info(game_info);
+	// while (line && !check_texture(game_info))
+	// {
+	// 	ft_trim(line);
+	// 	if ((int)ft_strlen(line) != 0)
+	// 	{
+	// 		if (!parse_texture(line, game_info))
+	// 			return (0);
+	// 	}
+	// 	free(line);
+	// 	line = get_next_line(fd, 0);
+	// }
+	game_info->map = malloc(sizeof(char *) * 11);
+	if (!game_info->map)
+		return NULL;
+	game_info->map[0] = "11111111111111111111111111";
+	game_info->map[1] = "10000000000000000011000011";
+	game_info->map[2] = "1000000E000000000010000001";
+	game_info->map[3] = "10000000000011101100000001";
+	game_info->map[4] = "1000000001110 100000001011";
+	game_info->map[5] = "10000000110011100011000011";
+	game_info->map[6] = "10100100000011000010000001";
+	game_info->map[7] = "10100100000011001100000001";
+	game_info->map[8] = "10000000011110000000001011";
+	game_info->map[9] = "11111111111111111111111111";
+	game_info->map[10] = NULL; // Marqueur de fin
+	// parse_map(fd, line);
 	return (game_info);
 }
