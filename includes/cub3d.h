@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/03/31 16:27:50 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/03/31 16:40:30 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define HEIGHT 620
 # define TILE 34
 # define FOV 60 * (PI / 180)
-# define MOVE_SPEED 0.4
+# define MOVE_SPEED 0.38
 # define ROTATION_SPEED 0.008
 # define T 119 // w
 # define B 115 // s
