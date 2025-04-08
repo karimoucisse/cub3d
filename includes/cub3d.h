@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/03/31 16:40:30 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/01 16:33:27 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 # define HEIGHT 620
 # define TILE 34
 # define FOV 60 * (PI / 180)
-# define MOVE_SPEED 0.38
-# define ROTATION_SPEED 0.008
+# define MOVE_SPEED 0.4
+# define ROTATION_SPEED 0.009
 # define T 119 // w
 # define B 115 // s
 # define L 97  // a
@@ -43,6 +43,17 @@
 # define E 0
 # define W PI
 
+typedef struct s_texture
+{
+	void		*img_ptr;
+	char		*addr;
+	int			width;
+	int			height;
+	int			bpp;
+	int			line_len;
+	int			endian;
+	int			*pixels;
+}				t_texture;
 typedef struct s_raycast
 {
 	bool		was_hit_vertical;
@@ -106,6 +117,11 @@ typedef struct s_game
 	t_player	player;
 	t_game_info	*game_info;
 	t_raycast	raycast_info;
+
+	t_texture	NO_data;
+	t_texture	SO_data;
+	t_texture	WE_data;
+	t_texture	EA_data;
 }				t_game;
 
 // PARSING
@@ -133,9 +149,10 @@ int				key_release(int keycode, t_player *player);
 
 // RAYCASTING
 void			raycast_3d(t_game *game);
-void	raycast_2d(t_game *game);
+void			render_3d_map(t_game *game, t_texture texture, int column);
+void			raycast_2d(t_game *game);
 // RAYCASTING -> CHECK INTERSECTIONS
-void			check_intersections(t_game *game, double angle);
+void			check_intersections(t_game *game, double angle, int x);
 void			vertical_intersection(t_game *game, double angle);
 void			horizontal_intersection(t_game *game, double angle);
 

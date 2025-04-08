@@ -72,7 +72,9 @@ void	vertical_intersection(t_game *game, double angle)
 	double	hit_x;
 	double	hit_y;
 	double	verif;
-	bool	hit_wall= false;
+	bool	hit_wall;
+
+	hit_wall = false;
 	xa = floor(game->player.x / TILE) * TILE;
 	if (is_right(angle))
 		xa += TILE;
@@ -122,12 +124,14 @@ void	vertical_intersection(t_game *game, double angle)
 		game->raycast_info.v_hit_dist = __INT_MAX__;
 }
 
-void	check_intersections(t_game *game, double angle)
+void	check_intersections(t_game *game, double angle, int x)
 {
 	horizontal_intersection(game, angle);
 	vertical_intersection(game, angle);
+	game->raycast_info.was_hit_vertical = false;
 	if (game->raycast_info.v_hit_dist < game->raycast_info.h_hit_dist)
 	{
+		game->raycast_info.was_hit_vertical = true;
 		game->raycast_info.wall_hit_dist = game->raycast_info.v_hit_dist
 			* cos(angle - game->player.rot_angle);
 		game->raycast_info.wall_hitx = game->raycast_info.v_hit_posx;
@@ -145,15 +149,27 @@ void	check_intersections(t_game *game, double angle)
 	// Si l'intersection horizontale est la plus proche
 	{
 		if (sin(angle) > 0)
+		{
+			render_3d_map(game, game->NO_data, x);
 			game->raycast_info.color = 0xFF0000;
+		}
 		else
+		{
+			render_3d_map(game, game->SO_data, x);
 			game->raycast_info.color = 0x00FF00;
+		}
 	}
 	else // Sinon, l'intersection verticale est la plus proche
 	{
 		if (cos(angle) > 0)
+		{
+			render_3d_map(game, game->WE_data, x);
 			game->raycast_info.color = 0x0000FF;
+		}
 		else
+		{
+			render_3d_map(game, game->EA_data, x);
 			game->raycast_info.color = 0xFFA500;
+		}
 	}
 }

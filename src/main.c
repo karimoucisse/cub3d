@@ -1,5 +1,27 @@
 #include "cub3d.h"
 
+int	init_textures(void *mlx, char *file, t_texture *img)
+{
+	int	pixel_pos;
+
+	img->img_ptr = mlx_xpm_file_to_image(mlx, file, &img->width, &img->height);
+	img->addr = mlx_get_data_addr(img->img_ptr, &img->bpp, &img->line_len,
+			&img->endian);
+	img->pixels = malloc(sizeof(int) * img->width * img->height);
+	if (!img->pixels)
+		return (printf("Error: malloc failed for texture pixels.\n"), 1);
+	// Récupérer les pixels de l'image
+	for (int y = 0; y < img->height; y++)
+	{
+		for (int x = 0; x < img->width; x++)
+		{
+			pixel_pos = (y * img->line_len) + (x * (img->bpp / 8));
+			img->pixels[y * img->width + x] = *(int *)(img->addr + pixel_pos);
+		}
+	}
+	return (1);
+}
+
 void	init_game(t_game *game)
 {
 	int	i;
@@ -42,6 +64,22 @@ void	init_game(t_game *game)
 		}
 		i++;
 	}
+	game->NO_data.img_ptr = NULL;
+	game->NO_data.addr = NULL;
+	game->SO_data.img_ptr = NULL;
+	game->SO_data.addr = NULL;
+	game->WE_data.img_ptr = NULL;
+	game->WE_data.addr = NULL;
+	game->EA_data.img_ptr = NULL;
+	game->EA_data.addr = NULL;
+	init_textures(game->mlx_ptr, "./textures/path_to_the_east_texture.xpm",
+		&game->EA_data);
+	init_textures(game->mlx_ptr, "./textures/NORTH.xpm",
+		&game->NO_data);
+	init_textures(game->mlx_ptr, "./textures/path_to_the_south_texture.xpm",
+		&game->SO_data);
+	init_textures(game->mlx_ptr, "./textures/path_to_the_west_texture.xpm",
+		&game->WE_data);
 }
 
 int	start_game(t_game *game)

@@ -41,6 +41,7 @@ void	draw_ray(t_game *game, double angle)
 	int		i;
 	double	x;
 	double	y;
+	double step;
 
 	i = 0;
 	x = (game->player.x + 5) + cos(angle) * i;
@@ -49,6 +50,8 @@ void	draw_ray(t_game *game, double angle)
 	{
 		x = (game->player.x) + cos(angle) * i;
 		y = (game->player.y) + sin(angle) * i;
+		// if (x >= game->raycast_info.wall_hitx || y >= game->raycast_info.wall_hity)
+			// break;
 		if (is_a_wall(game->game_info->map, x - 0.2, y - 0.2)
 			|| is_a_wall(game->game_info->map, x + 0.2, y + 0.2))
 			break ;
@@ -71,7 +74,7 @@ void	raycast_2d(t_game *game)
 	angle = game->player.rot_angle - (FOV / 2);
 	while (i < WIDTH)
 	{
-		// intersections(game, normalize_angle(angle));
+		check_intersections(game, normalize_angle(angle), i);
 		draw_ray(game, angle);
 		angle += FOV / WIDTH;
 		i++;
