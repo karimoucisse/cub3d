@@ -74,7 +74,7 @@ void	init_game(t_game *game)
 	game->EA_data.addr = NULL;
 	init_textures(game->mlx_ptr, "./textures/wolfenstein/blue_stone.xpm",
 		&game->EA_data);
-	init_textures(game->mlx_ptr, "./textures/NORTH.xpm",
+	init_textures(game->mlx_ptr, "./textures/wolfenstein/wood.xpm",
 		&game->NO_data);
 	init_textures(game->mlx_ptr, "./textures/wolfenstein/color_stone.xpm",
 		&game->SO_data);
