@@ -29,7 +29,8 @@ void	create_map(t_game *game)
 		while (map[i][j])
 		{
 			if (map[i][j] == '1')
-				draw_square(j * TILE, i * TILE, 0x00FF00, TILE, game);
+				draw_square(j * MINIMAP_TILE, i * MINIMAP_TILE, 0,
+					MINIMAP_TILE, game);
 			j++;
 		}
 		i++;
@@ -41,24 +42,30 @@ void	draw_ray(t_game *game, double angle)
 	int		i;
 	double	x;
 	double	y;
-	double step;
+	double	new_x;
+	double	new_y;
+	double	step;
 
 	i = 0;
-	x = (game->player.x + 5) + cos(angle) * i;
-	y = (game->player.y + 5) + sin(angle) * i;
+	new_x = game->player.x / TILE * MINIMAP_TILE;
+	new_y = game->player.y / TILE * MINIMAP_TILE;
+	// x = (new_x + 5) + cos(angle) * i;
+	// y = (new_y + 5) + sin(angle) * i;
 	while (1)
 	{
-		x = (game->player.x) + cos(angle) * i;
-		y = (game->player.y) + sin(angle) * i;
-		// if (x >= game->raycast_info.wall_hitx || y >= game->raycast_info.wall_hity)
-			// break;
-		if (is_a_wall(game->game_info->map, x - 0.2, y - 0.2)
-			|| is_a_wall(game->game_info->map, x + 0.2, y + 0.2))
-			break ;
-		if (is_a_wall(game->game_info->map, x, y))
+		x = (new_x) + cos(angle) * i;
+		y = (new_y) + sin(angle) * i;
+		// if (x >= game->raycast_info.wall_hitx
+		// 	|| y >= game->raycast_info.wall_hity)
+		// break ;
+		// if (is_a_wall(game->game_info->map, x - 0.2, y - 0.2)
+		// 	|| is_a_wall(game->game_info->map, x + 0.2, y + 0.2))
+		// 	break ;
+		if (is_a_wall(game->game_info->map, x / MINIMAP_TILE * TILE, y
+				/ MINIMAP_TILE * TILE))
 			break ;
 		i++;
-		ft_put_pixel(x, y, 0x00FFF0, game);
+		ft_put_pixel(x, y, 0xFFFFF0, game);
 	}
 }
 
@@ -66,18 +73,19 @@ void	raycast_2d(t_game *game)
 {
 	int		i;
 	double	angle;
+	double	x;
+	double	y;
 
-	move_player(game);
 	create_map(game);
-	draw_square(game->player.x, game->player.y, 0x00FFF0, 10, game);
+	x = game->player.x / TILE * MINIMAP_TILE;
+	y = game->player.y / TILE * MINIMAP_TILE;
+	draw_square(x, y, 0, 2, game);
 	i = 0;
 	angle = game->player.rot_angle - (FOV / 2);
 	while (i < WIDTH)
 	{
-		check_intersections(game, normalize_angle(angle), i);
 		draw_ray(game, angle);
 		angle += FOV / WIDTH;
 		i++;
 	}
-	mlx_put_image_to_window(game->mlx_ptr, game->mlx_win, game->img_ptr, 0, 0);
 }

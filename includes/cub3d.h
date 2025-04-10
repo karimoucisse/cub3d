@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/01 16:33:27 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/10 19:36:34 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@
 # define MAX_MAP_SIZE 100
 # define WIDTH 980
 # define HEIGHT 620
-# define TILE 34
+# define TILE 64
+# define MINIMAP_TILE 8
 # define FOV 60 * (PI / 180)
-# define MOVE_SPEED 0.4
+# define MOVE_SPEED 1.2
 # define ROTATION_SPEED 0.009
 # define T 119 // w
 # define B 115 // s
@@ -168,6 +169,7 @@ double			normalize_angle(double angle);
 
 // UTILS
 void			clear_map(t_game *game);
+void			mini_map(t_game *game);
 void			ft_put_pixel(int x, int y, int color, t_game *game);
 int				is_a_wall(char **map, double x, double y);
 
