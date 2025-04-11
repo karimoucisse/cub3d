@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/10 19:36:34 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/11 13:31:06 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 # define TILE 64
 # define MINIMAP_TILE 8
 # define FOV 60 * (PI / 180)
-# define MOVE_SPEED 1.2
-# define ROTATION_SPEED 0.009
+# define MOVE_SPEED 1.8
+# define ROTATION_SPEED 0.02
 # define T 119 // w
 # define B 115 // s
 # define L 97  // a
@@ -152,11 +152,11 @@ int				key_release(int keycode, t_player *player);
 void			raycast_3d(t_game *game);
 void			render_3d_map(t_game *game, t_texture texture, int column);
 void			raycast_2d(t_game *game);
+
 // RAYCASTING -> CHECK INTERSECTIONS
 void			check_intersections(t_game *game, double angle, int x);
 void			vertical_intersection(t_game *game, double angle);
 void			horizontal_intersection(t_game *game, double angle);
-
 // RAYCASTING -> CHECK DIRECTION
 bool			is_left(double angle);
 bool			is_right(double angle);
@@ -169,7 +169,6 @@ double			normalize_angle(double angle);
 
 // UTILS
 void			clear_map(t_game *game);
-void			mini_map(t_game *game);
 void			ft_put_pixel(int x, int y, int color, t_game *game);
 int				is_a_wall(char **map, double x, double y);
 

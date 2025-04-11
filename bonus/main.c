@@ -84,7 +84,6 @@ void	init_game(t_game *game)
 
 int	start_game(t_game *game)
 {
-	// raycast_2d(game);
 	raycast_3d(game);
 	return (0);
 }

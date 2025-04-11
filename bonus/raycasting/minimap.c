@@ -44,7 +44,6 @@ void	draw_ray(t_game *game, double angle)
 	double	y;
 	double	new_x;
 	double	new_y;
-	double	step;
 
 	i = 0;
 	new_x = game->player.x / TILE * MINIMAP_TILE;

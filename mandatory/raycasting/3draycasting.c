@@ -72,13 +72,8 @@ void	raycast_3d(t_game *game)
 	while (i < WIDTH)
 	{
 		check_intersections(game, normalize_angle(angle), i);
-		// render_3d_map(game, i, angle);
-		// render_3d_map(game, texture);
 		angle += FOV / WIDTH;
 		i++;
 	}
-	raycast_2d(game);
-	// mini_map(game);
-	// clear_map(game);
 	mlx_put_image_to_window(game->mlx_ptr, game->mlx_win, game->img_ptr, 0, 0);
 }
