@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:10 by kcisse            #+#    #+#             */
-/*   Updated: 2025/03/26 18:01:03 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/11 15:51:09 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ t_game_info	*parse_file(char *file)
 {
 	// int			fd;
 	// char		*line;
+	(void)file;
 	t_game_info	*game_info;
 
 	// fd = open(file, O_RDONLY);

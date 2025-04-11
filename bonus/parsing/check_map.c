@@ -56,11 +56,9 @@ int	check_map_wall(char **map, int map_height)
 
 char	**parse_map(int fd, char *line)
 {
-	int		direction;
 	char	**map;
 	int		len;
 	int		map_height;
-	int		map_max_width;
 
 	map = malloc(sizeof(char *) * MAX_MAP_SIZE);
 	map_height = 0;

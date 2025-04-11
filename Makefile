@@ -6,8 +6,8 @@ PARSING = parsing/
 RAYCASTING = raycasting/
 CFLAGS = -Wall -Werror -Wextra
 CFILES = $(MANDATORY)main.c $(MANDATORY)$(PARSING)check_file.c $(MANDATORY)$(PARSING)check_map.c $(MANDATORY)$(PARSING)check_texture.c\
-	$(MANDATORY)player_move.c $(MANDATORY)utils.c $(MANDATORY)$(RAYCASTING)3draycasting.c $(MANDATORY)$(RAYCASTING)check_intersections.c\
-	$(MANDATORY)$(RAYCASTING)check_direction.c $(MANDATORY)$(RAYCASTING)calculation.c
+	$(MANDATORY)player_move.c $(MANDATORY)utils.c $(MANDATORY)$(RAYCASTING)3draycasting.c $(MANDATORY)$(RAYCASTING)horizontal_intersection.c\
+	$(MANDATORY)$(RAYCASTING)vertical_intersinction.c $(MANDATORY)$(RAYCASTING)check_direction.c $(MANDATORY)$(RAYCASTING)calculation.c
 OFILES = $(CFILES:.c=.o)
 CFILESBONUS = $(BONUS)main.c $(BONUS)$(PARSING)check_file.c $(BONUS)$(PARSING)check_map.c $(BONUS)$(PARSING)check_texture.c\
 	$(BONUS)player_move.c $(BONUS)utils.c $(BONUS)$(RAYCASTING)3draycasting.c $(BONUS)$(RAYCASTING)check_intersections.c\

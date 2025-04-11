@@ -48,7 +48,7 @@ int	parse_color(char *str, int *texture_var)
 	{
 		if (str[i] == ',')
 		{
-			if (i == 0 || i == ft_strlen(str) - 1)
+			if (i == 0 || i == (int)ft_strlen(str) - 1)
 				return (0);
 			count++;
 		}

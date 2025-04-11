@@ -1,6 +1,7 @@
 #include "cub3d.h"
 
-void calc_hit_distance(t_game *game, bool is_wall_hit, )
+void	calc_h_hit_distance(t_game *game, bool is_wall_hit, double hit_x,
+		double hit_y)
 {
 	if (is_wall_hit)
 	{
@@ -17,20 +18,16 @@ void	horizontal_intersection(t_game *game, double angle)
 {
 	double	xstep;
 	double	ystep;
-	double	xa;
-	double	ya;
 	double	nxt_xstep;
 	double	nxt_ystep;
-	double	hit_x;
-	double	hit_y;
 	double	verif;
 	bool	hit_wall;
 
 	hit_wall = false;
-	ya = floor(game->player.y / TILE) * TILE;
+	nxt_ystep = floor(game->player.y / TILE) * TILE;
 	if (is_down(angle))
-		ya += TILE;
-	xa = game->player.x + ((ya - game->player.y) / tan(angle));
+		nxt_ystep += TILE;
+	nxt_xstep = game->player.x + ((nxt_ystep - game->player.y) / tan(angle));
 	ystep = TILE;
 	if (is_up(angle))
 		ystep *= -1;
@@ -39,8 +36,6 @@ void	horizontal_intersection(t_game *game, double angle)
 		xstep *= -1;
 	if (is_right(angle) && xstep < 0)
 		xstep *= -1;
-	nxt_xstep = xa;
-	nxt_ystep = ya;
 	verif = nxt_ystep;
 	while (nxt_xstep >= 0 && (int)floor(nxt_xstep / TILE) <= 25
 		&& nxt_ystep >= 0 && (int)floor(nxt_ystep / TILE) <= 9)
@@ -49,22 +44,16 @@ void	horizontal_intersection(t_game *game, double angle)
 			verif = nxt_ystep - 1;
 		else
 			verif = nxt_ystep;
-		if (is_a_wall(game->game_info->map, nxt_xstep, verif))
+		if (is_a_wall(game->game_info->map, nxt_xstep, nxt_ystep - 1))
 		{
 			hit_wall = true;
-			hit_x = nxt_xstep;
-			hit_y = nxt_ystep;
 			break ;
 		}
-		else
-		{
-			nxt_xstep += xstep;
-			nxt_ystep += ystep;
-		}
+		nxt_xstep += xstep;
+		nxt_ystep += ystep;
 	}
-
+	calc_h_hit_distance(game, hit_wall, nxt_xstep, nxt_ystep);
 }
-
 
 void	check_intersections(t_game *game, double angle, int x)
 {
