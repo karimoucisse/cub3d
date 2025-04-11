@@ -65,13 +65,15 @@ void	raycast_3d(t_game *game)
 {
 	int		i;
 	double	angle;
-
+	// t_texture texture;
 	move_player(game);
 	i = 0;
 	angle = game->player.rot_angle - (FOV / 2);
 	while (i < WIDTH)
 	{
 		check_intersections(game, normalize_angle(angle), i);
+		// texture = get_texture(game, i);
+		// render_3d_map(game, texture, i);
 		angle += FOV / WIDTH;
 		i++;
 	}

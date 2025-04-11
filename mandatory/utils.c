@@ -42,3 +42,21 @@ void	clear_map(t_game *game)
 	}
 }
 
+t_texture	get_texture(t_game *game, double angle)
+{
+	if (game->raycast_info.v_hit_dist > game->raycast_info.h_hit_dist)
+	// Si l'intersection horizontale est la plus proche
+	{
+		if (sin(angle) > 0)
+			return (game->NO_data);
+		else
+			return (game->SO_data);
+	}
+	else // Sinon, l'intersection verticale est la plus proche
+	{
+		if (cos(angle) > 0)
+			return(game->WE_data);
+		else
+			return(game->EA_data);
+	}
+}

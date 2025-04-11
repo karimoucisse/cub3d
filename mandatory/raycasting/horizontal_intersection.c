@@ -44,7 +44,7 @@ void	horizontal_intersection(t_game *game, double angle)
 			verif = nxt_ystep - 1;
 		else
 			verif = nxt_ystep;
-		if (is_a_wall(game->game_info->map, nxt_xstep, nxt_ystep - 1))
+		if (is_a_wall(game->game_info->map, nxt_xstep, verif))
 		{
 			hit_wall = true;
 			break ;
@@ -76,7 +76,7 @@ void	check_intersections(t_game *game, double angle, int x)
 		game->raycast_info.wall_hity = game->raycast_info.h_hit_posy;
 	}
 	// Déterminer la face du mur touchée
-	if (game->raycast_info.v_hit_dist > game->raycast_info.h_hit_dist)
+	if (!game->raycast_info.was_hit_vertical)
 	// Si l'intersection horizontale est la plus proche
 	{
 		if (sin(angle) > 0)

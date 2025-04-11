@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/11 13:31:06 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/11 16:16:32 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,5 +171,5 @@ double			normalize_angle(double angle);
 void			clear_map(t_game *game);
 void			ft_put_pixel(int x, int y, int color, t_game *game);
 int				is_a_wall(char **map, double x, double y);
-
+t_texture		get_texture(t_game *game, double angle);
 #endif
