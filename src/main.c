@@ -72,13 +72,13 @@ void	init_game(t_game *game)
 	game->WE_data.addr = NULL;
 	game->EA_data.img_ptr = NULL;
 	game->EA_data.addr = NULL;
-	init_textures(game->mlx_ptr, "./textures/path_to_the_east_texture.xpm",
+	init_textures(game->mlx_ptr, "./textures/wolfenstein/blue_stone.xpm",
 		&game->EA_data);
-	init_textures(game->mlx_ptr, "./textures/NORTH.xpm",
+	init_textures(game->mlx_ptr, "./textures/wolfenstein/eagle.xpm",
 		&game->NO_data);
-	init_textures(game->mlx_ptr, "./textures/path_to_the_south_texture.xpm",
+	init_textures(game->mlx_ptr, "./textures/wolfenstein/color_stone.xpm",
 		&game->SO_data);
-	init_textures(game->mlx_ptr, "./textures/path_to_the_west_texture.xpm",
+	init_textures(game->mlx_ptr, "./textures/wolfenstein/grey_stone.xpm",
 		&game->WE_data);
 }
 
