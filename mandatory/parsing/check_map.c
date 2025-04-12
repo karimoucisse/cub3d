@@ -73,7 +73,7 @@ char	**parse_map(int fd, char *line)
 			len++;
 		}
 		free(line);
-		line = get_next_line(fd, 0);
+		line = get_next_line(fd);
 	}
 	if (!check_map_content(map))
 		return (0);

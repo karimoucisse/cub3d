@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 18:12:36 by kcisse            #+#    #+#             */
-/*   Updated: 2025/02/24 17:46:12 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/11 20:05:54 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,14 @@ char	*fill_remain_char(char *buffer)
 	return (remain_char);
 }
 
-char	*get_next_line(int fd, int error)
+char	*get_next_line(int fd)
 {
 	char		*buffer;
 	char		*str_line;
 	static char	*remain_char;
 
 	str_line = NULL;
-	if ((BUFFER_SIZE <= 0 || fd < 0) || read(fd, 0, 0) < 0 || error)
+	if ((BUFFER_SIZE <= 0 || fd < 0) || read(fd, 0, 0) < 0)
 	{
 		free(remain_char);
 		remain_char = NULL;

@@ -33,14 +33,13 @@ void	render_3d_map(t_game *game, t_texture texture, int x)
 		wall_bottom_pixel = HEIGHT;
 	texture_offset_x = get_xcord(game);
 	y = 0;
-	// ceilling color
 	while (y < wall_top_pixel)
 	{
-		ft_put_pixel(x, y, 0x87CEEB, game);
+		color = rgbToInt(game->game_info->ceiling_color[0], game->game_info->ceiling_color[1], game->game_info->ceiling_color[2]);
+		ft_put_pixel(x, y, color, game);
 		y++;
 	}
 	y = wall_top_pixel;
-	// render texture wall
 	while (y < wall_bottom_pixel)
 	{
 		distanceFromTop = y + (game->raycast_info.wall_height / 2) - (HEIGHT
@@ -53,10 +52,10 @@ void	render_3d_map(t_game *game, t_texture texture, int x)
 		y++;
 	}
 	y = wall_bottom_pixel;
-	// floor color
 	while (y < HEIGHT)
 	{
-		ft_put_pixel(x, y, 0xFF4500, game);
+		color = rgbToInt(game->game_info->floor_color[0], game->game_info->floor_color[1], game->game_info->floor_color[2]);
+		ft_put_pixel(x, y, color, game);
 		y++;
 	}
 }

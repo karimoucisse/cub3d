@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/11 16:16:32 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/12 17:52:06 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 # include <sys/stat.h>
 # include <unistd.h>
 
+
+# define SUCCESS 0
+# define ERROR 1
 # define PI 3.14159265359
 # define MAX_MAP_SIZE 100
 # define WIDTH 980
@@ -31,14 +34,15 @@
 # define TILE 64
 # define MINIMAP_TILE 8
 # define FOV 60 * (PI / 180)
-# define MOVE_SPEED 1.8
-# define ROTATION_SPEED 0.02
+# define MOVE_SPEED 0.5
+# define ROTATION_SPEED 0.010
 # define T 119 // w
 # define B 115 // s
 # define L 97  // a
 # define R 100 // d
 # define LEFT 65361
 # define RIGHT 65363
+# define ECHAP 65307
 # define N (3 * PI / 2)
 # define S PI / 2
 # define E 0
@@ -104,6 +108,11 @@ typedef struct s_game_info
 	int			floor_color[3];
 	int			ceiling_color[3];
 	char		**map;
+	t_list		*map_list;
+	int			lock;
+	int			lock_valid_map_lines;
+	int			lock_NEWS;
+
 }				t_game_info;
 
 typedef struct s_game
@@ -145,7 +154,7 @@ int				check_is_valid_color(char **colors, int *texture_var);
 
 // MOVE PLAYER
 void			move_player(t_game *game);
-int				key_press(int keycode, t_player *player);
+int				key_press(int keycode, t_game *game);
 int				key_release(int keycode, t_player *player);
 
 // RAYCASTING
@@ -172,4 +181,15 @@ void			clear_map(t_game *game);
 void			ft_put_pixel(int x, int y, int color, t_game *game);
 int				is_a_wall(char **map, double x, double y);
 t_texture		get_texture(t_game *game, double angle);
+
+// NEW AJOUT KENNY
+int init_structure(t_game *data);
+int opening_parsing(t_game_info *data, char *str);
+int	transforms_list_to_tab(t_game_info *data);
+int	map_parsing(char *line, t_game_info *data);
+int	textures_function(char **file, char *line, int i);
+int	colors_function(int (*tab)[3], char *line);
+int	rgbToInt(int r, int g, int b);
+int	close_win(t_game *game);
+
 #endif

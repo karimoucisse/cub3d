@@ -12,6 +12,7 @@ int	is_a_wall(char **map, double x, double y)
 		return (0);
 	return (1);
 }
+
 void	ft_put_pixel(int x, int y, int color, t_game *game)
 {
 	char	*pxl;

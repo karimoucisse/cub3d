@@ -1,5 +1,10 @@
 #include "cub3d.h"
 
+int	rgbToInt(int r, int g, int b)
+{
+	return ((r << 16) | (g << 8) | b);
+}
+
 int	is_a_wall(char **map, double x, double y)
 {
 	int	x_block;
@@ -7,11 +12,22 @@ int	is_a_wall(char **map, double x, double y)
 
 	x_block = floor(x / TILE);
 	y_block = floor(y / TILE);
-	if (!map[y_block] || !map[y_block][x_block] || (map[y_block][x_block] != '1'
-			&& map[y_block][x_block] != ' '))
-		return (0);
-	return (1);
+
+	int map_height = 7;
+	// Vérifier que les indices sont dans les limites de la carte
+	if (y_block < 0 || y_block >= map_height)
+		return (1); // Hors de la carte en Y
+	if (!map[y_block])  // Si la ligne n'existe pas
+		return (1); // Hors de la carte en Y
+	if (x_block < 0 || x_block >= (int)strlen(map[y_block]))
+		return (1); // Hors de la carte en X
+
+	if (map[y_block][x_block] == '1' || map[y_block][x_block] == ' ')
+		return (1);
+
+	return (0);
 }
+
 void	ft_put_pixel(int x, int y, int color, t_game *game)
 {
 	char	*pxl;

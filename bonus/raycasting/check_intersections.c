@@ -126,6 +126,7 @@ void	vertical_intersection(t_game *game, double angle)
 
 void	check_intersections(t_game *game, double angle, int x)
 {
+	printf("check_intersection\n");
 	horizontal_intersection(game, angle);
 	vertical_intersection(game, angle);
 	game->raycast_info.was_hit_vertical = false;
@@ -136,31 +137,6 @@ void	check_intersections(t_game *game, double angle, int x)
 			* cos(angle - game->player.rot_angle);
 		game->raycast_info.wall_hitx = game->raycast_info.v_hit_posx;
 		game->raycast_info.wall_hity = game->raycast_info.v_hit_posy;
-	}
-	else
-	{
-		game->raycast_info.wall_hit_dist = game->raycast_info.h_hit_dist
-			* cos(angle - game->player.rot_angle);
-		game->raycast_info.wall_hitx = game->raycast_info.h_hit_posx;
-		game->raycast_info.wall_hity = game->raycast_info.h_hit_posy;
-	}
-	// Déterminer la face du mur touchée
-	if (game->raycast_info.v_hit_dist > game->raycast_info.h_hit_dist)
-	// Si l'intersection horizontale est la plus proche
-	{
-		if (sin(angle) > 0)
-		{
-			render_3d_map(game, game->NO_data, x);
-			game->raycast_info.color = 0xFF0000;
-		}
-		else
-		{
-			render_3d_map(game, game->SO_data, x);
-			game->raycast_info.color = 0x00FF00;
-		}
-	}
-	else // Sinon, l'intersection verticale est la plus proche
-	{
 		if (cos(angle) > 0)
 		{
 			render_3d_map(game, game->WE_data, x);
@@ -170,6 +146,23 @@ void	check_intersections(t_game *game, double angle, int x)
 		{
 			render_3d_map(game, game->EA_data, x);
 			game->raycast_info.color = 0xFFA500;
+		}
+	}
+	else
+	{
+		game->raycast_info.wall_hit_dist = game->raycast_info.h_hit_dist
+			* cos(angle - game->player.rot_angle);
+		game->raycast_info.wall_hitx = game->raycast_info.h_hit_posx;
+		game->raycast_info.wall_hity = game->raycast_info.h_hit_posy;
+		if (sin(angle) > 0)
+		{
+			render_3d_map(game, game->NO_data, x);
+			game->raycast_info.color = 0xFF0000;
+		}
+		else
+		{
+			render_3d_map(game, game->SO_data, x);
+			game->raycast_info.color = 0x00FF00;
 		}
 	}
 }
