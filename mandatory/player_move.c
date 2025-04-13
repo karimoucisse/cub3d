@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_move.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 13:42:11 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/13 21:46:40 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/13 23:36:59 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,67 +52,56 @@ void	move_forward(t_game *game)
 {
 	double	x_cpy;
 	double	y_cpy;
-	char	**map;
 
-	map = game->game_info->map;
-	x_cpy = game->player.x + cos(game->player.rot_angle) * MOVE_SPEED;
-	y_cpy = game->player.y + sin(game->player.rot_angle) * MOVE_SPEED;
+	x_cpy = game->player.x + cos(game->player.rot_angle) * (MOVE_SPEED + COLLISION_OFFSET);
+	y_cpy = game->player.y + sin(game->player.rot_angle) * (MOVE_SPEED + COLLISION_OFFSET);
 	if (!is_a_wall(game, x_cpy, game->player.y))
-		game->player.x = x_cpy;
+		game->player.x = game->player.x + cos(game->player.rot_angle) * MOVE_SPEED;
 	if (!is_a_wall(game, game->player.x, y_cpy))
-		game->player.y = y_cpy;
+		game->player.y = game->player.y + sin(game->player.rot_angle) * MOVE_SPEED;
 }
 
 void	move_right(t_game *game)
 {
 	double	x_cpy;
 	double	y_cpy;
-	char	**map;
 
-	map = game->game_info->map;
-	x_cpy = game->player.x - sin(game->player.rot_angle) * MOVE_SPEED;
-	y_cpy = game->player.y + cos(game->player.rot_angle) * MOVE_SPEED;
+	x_cpy = game->player.x - sin(game->player.rot_angle) * (MOVE_SPEED + COLLISION_OFFSET);
+	y_cpy = game->player.y + cos(game->player.rot_angle) * (MOVE_SPEED + COLLISION_OFFSET);
 	if (!is_a_wall(game, x_cpy, game->player.y))
-		game->player.x = x_cpy;
+		game->player.x = game->player.x - sin(game->player.rot_angle) * MOVE_SPEED;
 	if (!is_a_wall(game, game->player.x, y_cpy))
-		game->player.y = y_cpy;
+		game->player.y = game->player.y + cos(game->player.rot_angle) * MOVE_SPEED;
 }
 
 void	move_left(t_game *game)
 {
 	double	x_cpy;
 	double	y_cpy;
-	char	**map;
 
-	map = game->game_info->map;
-	x_cpy = game->player.x + sin(game->player.rot_angle) * MOVE_SPEED;
-	y_cpy = game->player.y - cos(game->player.rot_angle) * MOVE_SPEED;
+	x_cpy = game->player.x + sin(game->player.rot_angle) * (MOVE_SPEED + COLLISION_OFFSET);
+	y_cpy = game->player.y - cos(game->player.rot_angle) * (MOVE_SPEED + COLLISION_OFFSET);
 	if (!is_a_wall(game, x_cpy, game->player.y))
-		game->player.x = x_cpy;
+		game->player.x = game->player.x + sin(game->player.rot_angle) * MOVE_SPEED;
 	if (!is_a_wall(game, game->player.x, y_cpy))
-		game->player.y = y_cpy;
+		game->player.y = game->player.y - cos(game->player.rot_angle) * MOVE_SPEED;
 }
 
 void	move_backward(t_game *game)
 {
 	double	x_cpy;
 	double	y_cpy;
-	char	**map;
 
-	map = game->game_info->map;
-	x_cpy = game->player.x - cos(game->player.rot_angle) * MOVE_SPEED;
-	y_cpy = game->player.y - sin(game->player.rot_angle) * MOVE_SPEED;
+	x_cpy = game->player.x - cos(game->player.rot_angle) * (MOVE_SPEED + COLLISION_OFFSET);
+	y_cpy = game->player.y - sin(game->player.rot_angle) * (MOVE_SPEED + COLLISION_OFFSET);
 	if (!is_a_wall(game, x_cpy, game->player.y))
-		game->player.x = x_cpy;
+		game->player.x = game->player.x - cos(game->player.rot_angle) * MOVE_SPEED;
 	if (!is_a_wall(game, game->player.x, y_cpy))
-		game->player.y = y_cpy;
+		game->player.y = game->player.y - sin(game->player.rot_angle) * MOVE_SPEED;
 }
 
 void	move_player(t_game *game)
 {
-	char	**map;
-
-	map = game->game_info->map;
 	if (game->player.right_rotate)
 		game->player.rot_angle += ROTATION_SPEED;
 	if (game->player.left_rotate)

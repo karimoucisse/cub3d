@@ -35,7 +35,9 @@ void	render_3d_map(t_game *game, t_texture texture, int x)
 	y = 0;
 	while (y < wall_top_pixel)
 	{
-		color = rgb_to_int(game->game_info->ceiling_color[0], game->game_info->ceiling_color[1], game->game_info->ceiling_color[2]);
+		color = rgb_to_int(game->game_info->ceiling_color[0],
+				game->game_info->ceiling_color[1],
+				game->game_info->ceiling_color[2]);
 		ft_put_pixel(x, y, color, game);
 		y++;
 	}
@@ -54,7 +56,9 @@ void	render_3d_map(t_game *game, t_texture texture, int x)
 	y = wall_bottom_pixel;
 	while (y < HEIGHT)
 	{
-		color = rgb_to_int(game->game_info->floor_color[0], game->game_info->floor_color[1], game->game_info->floor_color[2]);
+		color = rgb_to_int(game->game_info->floor_color[0],
+				game->game_info->floor_color[1],
+				game->game_info->floor_color[2]);
 		ft_put_pixel(x, y, color, game);
 		y++;
 	}
@@ -64,15 +68,13 @@ void	raycast_3d(t_game *game)
 {
 	int		i;
 	double	angle;
-	// t_texture texture;
+
 	move_player(game);
 	i = 0;
 	angle = game->player.rot_angle - (FOV / 2);
 	while (i < WIDTH)
 	{
 		check_intersections(game, normalize_angle(angle), i);
-		// texture = get_texture(game, i);
-		// render_3d_map(game, texture, i);
 		angle += FOV / WIDTH;
 		i++;
 	}

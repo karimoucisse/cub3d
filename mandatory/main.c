@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 19:02:23 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/13 21:44:44 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/13 23:00:54 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,12 @@ int	init_game(t_game *game)
 		i++;
 	}
 	game->game_info->map_height = i;
-	init_textures(game->mlx_ptr, game->game_info->east_texture,
-		&game->EA_data);
+	init_textures(game->mlx_ptr, game->game_info->east_texture, &game->EA_data);
 	init_textures(game->mlx_ptr, game->game_info->north_texture,
 		&game->NO_data);
 	init_textures(game->mlx_ptr, game->game_info->south_texture,
 		&game->SO_data);
-	init_textures(game->mlx_ptr, game->game_info->west_texture,
-		&game->WE_data);
+	init_textures(game->mlx_ptr, game->game_info->west_texture, &game->WE_data);
 	return (SUCCESS);
 }
 
@@ -98,7 +96,7 @@ int	start_game(t_game *game)
 	return (0);
 }
 
-void free_list(t_list *lst)
+void	free_list(t_list *lst)
 {
 	t_list	*tmp;
 
@@ -117,12 +115,12 @@ void free_list(t_list *lst)
 
 void	free_map(char **map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!map)
 		return ;
-	while(map[i])
+	while (map[i])
 	{
 		ft_free(&map[i]);
 		i++;
@@ -189,10 +187,8 @@ int	main(int ac, char **av)
 		return (ERROR);
 	if (opening_parsing(game.game_info, av[1]) != SUCCESS)
 		return (free_structure(&game), ERROR);
-
 	if (init_game(&game) != SUCCESS)
 		return (free_structure(&game), ERROR);
-		
 	mlx_hook(game.mlx_win, 2, 1L << 0, key_press, &game);
 	mlx_hook(game.mlx_win, 3, 1L << 1, key_release, &game.player);
 	mlx_hook(game.mlx_win, 17, 0, close_win, &game);

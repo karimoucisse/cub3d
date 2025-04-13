@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/13 21:47:54 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/13 23:33:43 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include <sys/stat.h>
 # include <unistd.h>
 
-
 # define SUCCESS 0
 # define ERROR 1
 # define PI 3.14159265359
@@ -36,6 +35,7 @@
 # define FOV 60 * (PI / 180)
 # define MOVE_SPEED 0.5
 # define ROTATION_SPEED 0.010
+# define COLLISION_OFFSET 20
 # define T 119 // w
 # define B 115 // s
 # define L 97  // a
@@ -184,13 +184,13 @@ int				is_a_wall(t_game *game, double x, double y);
 t_texture		get_texture(t_game *game, double angle);
 
 // NEW AJOUT KENNY
-int init_structure(t_game *data);
-int opening_parsing(t_game_info *data, char *str);
-int	transforms_list_to_tab(t_game_info *data);
-int	map_parsing(char *line, t_game_info *data);
-int	textures_function(char **file, char *line, int i);
-int	colors_function(int (*tab)[3], char *line);
-int	rgb_to_int(int r, int g, int b);
-int	close_win(t_game *game);
+int				init_structure(t_game *data);
+int				opening_parsing(t_game_info *data, char *str);
+int				transforms_list_to_tab(t_game_info *data);
+int				map_parsing(char *line, t_game_info *data);
+int				textures_function(char **file, char *line, int i);
+int				colors_function(int (*tab)[3], char *line);
+int				rgb_to_int(int r, int g, int b);
+int				close_win(t_game *game);
 
 #endif

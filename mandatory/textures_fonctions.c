@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures_fonctions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:16:21 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/13 21:22:19 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/13 22:58:32 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	textures_function(char **file, char *line, int i)
 		new_line = ft_strcopy_until(line + i + 2, ' ');
 		if (!new_line)
 			return (ERROR);
-		printf("new_line = %s\n", new_line);
 		if (ft_strlen(new_line) >= 4
 			&& ft_strncmp(new_line + ft_strlen(new_line) - 4, ".xpm", 4) != 0)
 		{
