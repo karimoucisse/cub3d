@@ -12,11 +12,14 @@ CFILES = $(MANDATORY)main.c $(MANDATORY)$(PARSING)check_file.c $(MANDATORY)$(PAR
     $(MANDATORY)player_move.c $(MANDATORY)utils.c $(MANDATORY)$(RAYCASTING)3draycasting.c $(MANDATORY)$(RAYCASTING)horizontal_intersection.c\
     $(MANDATORY)$(RAYCASTING)vertical_intersinction.c $(MANDATORY)$(RAYCASTING)check_direction.c $(MANDATORY)$(RAYCASTING)calculation.c\
     $(MANDATORY)init_structure.c $(MANDATORY)parsing.c $(MANDATORY)map_parsing.c $(MANDATORY)colors_fonctions.c $(MANDATORY)textures_fonctions.c
-    
+
 OFILES = $(CFILES:.c=.o)
 CFILESBONUS = $(BONUS)main.c $(BONUS)$(PARSING)check_file.c $(BONUS)$(PARSING)check_map.c $(BONUS)$(PARSING)check_texture.c\
-    $(BONUS)player_move.c $(BONUS)utils.c $(BONUS)$(RAYCASTING)3draycasting.c $(BONUS)$(RAYCASTING)check_intersections.c\
-    $(BONUS)$(RAYCASTING)check_direction.c $(BONUS)$(RAYCASTING)calculation.c $(BONUS)$(RAYCASTING)minimap.c
+    $(BONUS)player_move.c $(BONUS)utils.c $(BONUS)$(RAYCASTING)3draycasting.c $(BONUS)$(RAYCASTING)horizontal_intersection.c\
+    $(BONUS)$(RAYCASTING)vertical_intersinction.c $(BONUS)$(RAYCASTING)check_direction.c $(BONUS)$(RAYCASTING)calculation.c\
+	$(BONUS)minimap.c $(BONUS)init_structure.c $(BONUS)parsing.c $(BONUS)map_parsing.c $(BONUS)colors_fonctions.c\
+	$(BONUS)textures_fonctions.c
+
 OFILESBONUS = $(CFILESBONUS:.c=.o)
 RM = rm -f
 

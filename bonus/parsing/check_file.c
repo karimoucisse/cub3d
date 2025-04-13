@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:10 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/11 15:51:09 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/11 13:24:17 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,31 +84,10 @@ void	init_game_info(t_game_info *info)
 
 t_game_info	*parse_file(char *file)
 {
-	// int			fd;
-	// char		*line;
 	(void)file;
 	t_game_info	*game_info;
 
-	// fd = open(file, O_RDONLY);
 	game_info = malloc(sizeof(t_game_info));
-	// if (fd == -1)
-	// 	return (0);
-	// line = NULL;
-	// line = get_next_line(fd, 0);
-	// if (!line)
-	// 	return (0);
-	// init_game_info(game_info);
-	// while (line && !check_texture(game_info))
-	// {
-	// 	ft_trim(line);
-	// 	if ((int)ft_strlen(line) != 0)
-	// 	{
-	// 		if (!parse_texture(line, game_info))
-	// 			return (0);
-	// 	}
-	// 	free(line);
-	// 	line = get_next_line(fd, 0);
-	// }
 	game_info->map = malloc(sizeof(char *) * 11);
 	if (!game_info->map)
 		return NULL;
@@ -122,7 +101,6 @@ t_game_info	*parse_file(char *file)
 	game_info->map[7] = "10100100000011001100000001";
 	game_info->map[8] = "10000000011110000000001011";
 	game_info->map[9] = "11111111111111111111111111";
-	game_info->map[10] = NULL; // Marqueur de fin
-	// parse_map(fd, line);
+	game_info->map[10] = NULL;
 	return (game_info);
 }

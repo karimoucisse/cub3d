@@ -1,46 +1,63 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/12 19:02:23 by knavarre          #+#    #+#             */
+/*   Updated: 2025/04/13 23:00:54 by kcisse           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	init_textures(void *mlx, char *file, t_texture *img)
 {
 	int	pixel_pos;
+	int	y;
+	int	x;
 
+	y = 0;
 	img->img_ptr = mlx_xpm_file_to_image(mlx, file, &img->width, &img->height);
 	img->addr = mlx_get_data_addr(img->img_ptr, &img->bpp, &img->line_len,
 			&img->endian);
+	if (img->width != img->height)
+		return (printf("Error: width and height not identique.\n"), ERROR);
 	img->pixels = malloc(sizeof(int) * img->width * img->height);
 	if (!img->pixels)
-		return (printf("Error: malloc failed for texture pixels.\n"), 1);
-	for (int y = 0; y < img->height; y++)
+		return (printf("Error: malloc failed for texture pixels.\n"), ERROR);
+	while (y < img->height)
 	{
-		for (int x = 0; x < img->width; x++)
+		x = 0;
+		while (x < img->width)
 		{
 			pixel_pos = (y * img->line_len) + (x * (img->bpp / 8));
 			img->pixels[y * img->width + x] = *(int *)(img->addr + pixel_pos);
+			x++;
 		}
+		y++;
 	}
-	return (1);
+	return (0);
 }
 
-void	init_game(t_game *game)
+int	init_game(t_game *game)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	game->mlx_ptr = mlx_init();
+	if (!game->mlx_ptr)
+		return (printf("Error: mlx_init failed\n"), ERROR);
 	game->mlx_win = mlx_new_window(game->mlx_ptr, WIDTH, HEIGHT, "Game");
+	if (!game->mlx_win)
+		return (printf("Error: mlx_new_window failed\n"), ERROR);
 	game->img_ptr = mlx_new_image(game->mlx_ptr, WIDTH, HEIGHT);
+	if (!game->img_ptr)
+		return (printf("Error: mlx_new_image failed\n"), ERROR);
 	game->addr = mlx_get_data_addr(game->img_ptr, &game->bits_per_pixel,
 			&game->line_length, &game->endian);
-	game->player.key_up = False;
-	game->player.key_down = False;
-	game->player.key_left = False;
-	game->player.key_right = False;
-	game->player.left_rotate = False;
-	game->player.right_rotate = False;
-	// game->player.radius;
-	game->player.turn_dir = 0;
-	game->player.walk_dir = 0;
 	while (game->game_info->map[i])
 	{
 		j = 0;
@@ -63,28 +80,99 @@ void	init_game(t_game *game)
 		}
 		i++;
 	}
-	game->NO_data.img_ptr = NULL;
-	game->NO_data.addr = NULL;
-	game->SO_data.img_ptr = NULL;
-	game->SO_data.addr = NULL;
-	game->WE_data.img_ptr = NULL;
-	game->WE_data.addr = NULL;
-	game->EA_data.img_ptr = NULL;
-	game->EA_data.addr = NULL;
-	init_textures(game->mlx_ptr, "./textures/wolfenstein/blue_stone.xpm",
-		&game->EA_data);
-	init_textures(game->mlx_ptr, "./textures/wolfenstein/eagle.xpm",
+	game->game_info->map_height = i;
+	init_textures(game->mlx_ptr, game->game_info->east_texture, &game->EA_data);
+	init_textures(game->mlx_ptr, game->game_info->north_texture,
 		&game->NO_data);
-	init_textures(game->mlx_ptr, "./textures/wolfenstein/color_stone.xpm",
+	init_textures(game->mlx_ptr, game->game_info->south_texture,
 		&game->SO_data);
-	init_textures(game->mlx_ptr, "./textures/wolfenstein/grey_stone.xpm",
-		&game->WE_data);
+	init_textures(game->mlx_ptr, game->game_info->west_texture, &game->WE_data);
+	return (SUCCESS);
 }
 
 int	start_game(t_game *game)
 {
 	raycast_3d(game);
 	return (0);
+}
+
+void	free_list(t_list *lst)
+{
+	t_list	*tmp;
+
+	if (!lst)
+		return ;
+	while (lst != NULL)
+	{
+		tmp = lst->next;
+		if (lst->content != NULL)
+			free(lst->content);
+		free(lst);
+		lst = NULL;
+		lst = tmp;
+	}
+}
+
+void	free_map(char **map)
+{
+	int	i;
+
+	i = 0;
+	if (!map)
+		return ;
+	while (map[i])
+	{
+		ft_free(&map[i]);
+		i++;
+	}
+	free(map);
+}
+
+void	free_structure(t_game *game)
+{
+	if (game->game_info)
+	{
+		ft_free(&game->game_info->north_texture);
+		ft_free(&game->game_info->east_texture);
+		ft_free(&game->game_info->south_texture);
+		ft_free(&game->game_info->west_texture);
+		free_list(game->game_info->map_list);
+		free_map(game->game_info->map);
+		free(game->game_info);
+	}
+}
+
+int	close_win(t_game *game)
+{
+	if (!game)
+		exit(1);
+	if (game->mlx_ptr)
+	{
+		if (game->img_ptr)
+			mlx_destroy_image(game->mlx_ptr, game->img_ptr);
+		if (game->NO_data.img_ptr)
+			mlx_destroy_image(game->mlx_ptr, game->NO_data.img_ptr);
+		if (game->SO_data.img_ptr)
+			mlx_destroy_image(game->mlx_ptr, game->SO_data.img_ptr);
+		if (game->WE_data.img_ptr)
+			mlx_destroy_image(game->mlx_ptr, game->WE_data.img_ptr);
+		if (game->EA_data.img_ptr)
+			mlx_destroy_image(game->mlx_ptr, game->EA_data.img_ptr);
+		if (game->mlx_win)
+			mlx_destroy_window(game->mlx_ptr, game->mlx_win);
+		if (game->EA_data.pixels)
+			free(game->EA_data.pixels);
+		if (game->SO_data.pixels)
+			free(game->SO_data.pixels);
+		if (game->WE_data.pixels)
+			free(game->WE_data.pixels);
+		if (game->NO_data.pixels)
+			free(game->NO_data.pixels);
+		mlx_destroy_display(game->mlx_ptr);
+		free(game->mlx_ptr);
+	}
+	free_structure(game);
+	exit(0);
 }
 
 int	main(int ac, char **av)
@@ -95,10 +183,15 @@ int	main(int ac, char **av)
 		return (EXIT_FAILURE);
 	if (!check_file_name(av[1]))
 		printf("Error\n");
-	game.game_info = parse_file(av[1]);
-	init_game(&game);
-	mlx_hook(game.mlx_win, 2, 1L << 0, key_press, &game.player);
+	if (init_structure(&game) != SUCCESS)
+		return (ERROR);
+	if (opening_parsing(game.game_info, av[1]) != SUCCESS)
+		return (free_structure(&game), ERROR);
+	if (init_game(&game) != SUCCESS)
+		return (free_structure(&game), ERROR);
+	mlx_hook(game.mlx_win, 2, 1L << 0, key_press, &game);
 	mlx_hook(game.mlx_win, 3, 1L << 1, key_release, &game.player);
+	mlx_hook(game.mlx_win, 17, 0, close_win, &game);
 	mlx_loop_hook(game.mlx_ptr, start_game, &game);
 	mlx_loop(game.mlx_ptr);
 	return (0);

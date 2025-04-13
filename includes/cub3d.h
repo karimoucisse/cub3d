@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/13 23:33:43 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/14 00:02:29 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define WIDTH 980
 # define HEIGHT 620
 # define TILE 64
-# define MINIMAP_TILE 8
+# define MINIMAP_TILE 10
 # define FOV 60 * (PI / 180)
 # define MOVE_SPEED 0.5
 # define ROTATION_SPEED 0.010
@@ -161,7 +161,7 @@ int				key_release(int keycode, t_player *player);
 // RAYCASTING
 void			raycast_3d(t_game *game);
 void			render_3d_map(t_game *game, t_texture texture, int column);
-void			raycast_2d(t_game *game);
+void			minimap(t_game *game);
 
 // RAYCASTING -> CHECK INTERSECTIONS
 void			check_intersections(t_game *game, double angle, int x);
