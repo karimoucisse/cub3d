@@ -10,7 +10,6 @@ int	init_textures(void *mlx, char *file, t_texture *img)
 	img->pixels = malloc(sizeof(int) * img->width * img->height);
 	if (!img->pixels)
 		return (printf("Error: malloc failed for texture pixels.\n"), 1);
-	// Récupérer les pixels de l'image
 	for (int y = 0; y < img->height; y++)
 	{
 		for (int x = 0; x < img->width; x++)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player_move.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/13 13:42:11 by knavarre          #+#    #+#             */
+/*   Updated: 2025/04/13 21:46:40 by knavarre         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	key_press(int keycode, t_game *game)
@@ -45,40 +57,41 @@ void	move_forward(t_game *game)
 	map = game->game_info->map;
 	x_cpy = game->player.x + cos(game->player.rot_angle) * MOVE_SPEED;
 	y_cpy = game->player.y + sin(game->player.rot_angle) * MOVE_SPEED;
-	if (!is_a_wall(map, x_cpy, game->player.y))
+	if (!is_a_wall(game, x_cpy, game->player.y))
 		game->player.x = x_cpy;
-	if (!is_a_wall(map, game->player.x, y_cpy))
+	if (!is_a_wall(game, game->player.x, y_cpy))
 		game->player.y = y_cpy;
 }
 
-void move_right(t_game *game) {
-    double x_cpy;
-    double y_cpy;
-    char **map;
+void	move_right(t_game *game)
+{
+	double	x_cpy;
+	double	y_cpy;
+	char	**map;
 
-    map = game->game_info->map;
-    x_cpy = game->player.x - sin(game->player.rot_angle) * MOVE_SPEED;
-    y_cpy = game->player.y + cos(game->player.rot_angle) * MOVE_SPEED;
-    if (!is_a_wall(map, x_cpy, game->player.y))
-        game->player.x = x_cpy;
-    if (!is_a_wall(map, game->player.x, y_cpy))
-        game->player.y = y_cpy;
+	map = game->game_info->map;
+	x_cpy = game->player.x - sin(game->player.rot_angle) * MOVE_SPEED;
+	y_cpy = game->player.y + cos(game->player.rot_angle) * MOVE_SPEED;
+	if (!is_a_wall(game, x_cpy, game->player.y))
+		game->player.x = x_cpy;
+	if (!is_a_wall(game, game->player.x, y_cpy))
+		game->player.y = y_cpy;
 }
 
-void move_left(t_game *game) {
-    double x_cpy;
-    double y_cpy;
-    char **map;
+void	move_left(t_game *game)
+{
+	double	x_cpy;
+	double	y_cpy;
+	char	**map;
 
-    map = game->game_info->map;
-    x_cpy = game->player.x + sin(game->player.rot_angle) * MOVE_SPEED;
-    y_cpy = game->player.y - cos(game->player.rot_angle) * MOVE_SPEED;
-    if (!is_a_wall(map, x_cpy, game->player.y))
-        game->player.x = x_cpy;
-    if (!is_a_wall(map, game->player.x, y_cpy))
-        game->player.y = y_cpy;
+	map = game->game_info->map;
+	x_cpy = game->player.x + sin(game->player.rot_angle) * MOVE_SPEED;
+	y_cpy = game->player.y - cos(game->player.rot_angle) * MOVE_SPEED;
+	if (!is_a_wall(game, x_cpy, game->player.y))
+		game->player.x = x_cpy;
+	if (!is_a_wall(game, game->player.x, y_cpy))
+		game->player.y = y_cpy;
 }
-
 
 void	move_backward(t_game *game)
 {
@@ -89,9 +102,9 @@ void	move_backward(t_game *game)
 	map = game->game_info->map;
 	x_cpy = game->player.x - cos(game->player.rot_angle) * MOVE_SPEED;
 	y_cpy = game->player.y - sin(game->player.rot_angle) * MOVE_SPEED;
-	if (!is_a_wall(map, x_cpy, game->player.y))
+	if (!is_a_wall(game, x_cpy, game->player.y))
 		game->player.x = x_cpy;
-	if (!is_a_wall(map, game->player.x, y_cpy))
+	if (!is_a_wall(game, game->player.x, y_cpy))
 		game->player.y = y_cpy;
 }
 

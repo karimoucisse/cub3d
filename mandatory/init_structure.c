@@ -6,7 +6,7 @@
 /*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:26:28 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/12 13:26:29 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/13 21:14:58 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int	init_texture(t_texture *tex)
 	tex->bpp = 0;
 	tex->line_len = 0;
 	tex->endian = 0;
+	tex->pixels = NULL;
 	return (SUCCESS);
 }
 

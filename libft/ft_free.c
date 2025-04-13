@@ -6,7 +6,7 @@
 /*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 20:18:18 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/11 20:18:31 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/13 21:21:54 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_free(char **str)
 {
+	if (!str && !*str)
+		return ;
 	free(*str);
 	*str = NULL;
 }

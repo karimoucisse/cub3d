@@ -6,7 +6,7 @@
 /*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 19:45:24 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/12 13:21:12 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/13 21:37:13 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_list
 # endif
 
 // GET_NEXT_LINE FUNCTIONS
-char				*get_next_line(int fd);
+char				*get_next_line(int fd, int error);
 char				*fill_buffer(int fd, char *buffer);
 char				*fill_line(char *buffer);
 char				*fill_remain_char(char *buffer);

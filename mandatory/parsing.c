@@ -6,7 +6,7 @@
 /*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:14:38 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/12 13:14:57 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/13 21:37:51 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ int	opening_parsing(t_game_info *data, char *str)
 		printf("Error opening file %s\n", str);
 		return (ERROR);
 	}
-	line = get_next_line(file);
+	line = get_next_line(file, 0);
 	while (line != NULL)
 	{
 		if (parsing(line, data) != SUCCESS)
-			return (ft_free(&line), close(file), ERROR);
+			return (get_next_line(file, 1), ft_free(&line), close(file), ERROR);
 		ft_free(&line);
-		line = get_next_line(file);
+		line = get_next_line(file, 0);
 	}
 	if (transforms_list_to_tab(data) != SUCCESS)
 		return (ERROR);

@@ -6,7 +6,7 @@
 /*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/12 17:52:06 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/13 21:47:54 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ typedef struct s_game_info
 	int			ceiling_color[3];
 	char		**map;
 	t_list		*map_list;
+	int			map_height;
 	int			lock;
 	int			lock_valid_map_lines;
 	int			lock_NEWS;
@@ -179,7 +180,7 @@ double			normalize_angle(double angle);
 // UTILS
 void			clear_map(t_game *game);
 void			ft_put_pixel(int x, int y, int color, t_game *game);
-int				is_a_wall(char **map, double x, double y);
+int				is_a_wall(t_game *game, double x, double y);
 t_texture		get_texture(t_game *game, double angle);
 
 // NEW AJOUT KENNY
@@ -189,7 +190,7 @@ int	transforms_list_to_tab(t_game_info *data);
 int	map_parsing(char *line, t_game_info *data);
 int	textures_function(char **file, char *line, int i);
 int	colors_function(int (*tab)[3], char *line);
-int	rgbToInt(int r, int g, int b);
+int	rgb_to_int(int r, int g, int b);
 int	close_win(t_game *game);
 
 #endif

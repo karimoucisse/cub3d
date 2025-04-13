@@ -37,14 +37,13 @@ void	horizontal_intersection(t_game *game, double angle)
 	if (is_right(angle) && xstep < 0)
 		xstep *= -1;
 	verif = nxt_ystep;
-	while (nxt_xstep >= 0 && (int)floor(nxt_xstep / TILE) <= 25
-		&& nxt_ystep >= 0 && (int)floor(nxt_ystep / TILE) <= 9)
+	while (nxt_xstep >= 0 && nxt_ystep >= 0)
 	{
 		if (is_up(angle))
 			verif = nxt_ystep - 1;
 		else
 			verif = nxt_ystep;
-		if (is_a_wall(game->game_info->map, nxt_xstep, verif))
+		if (is_a_wall(game, nxt_xstep, verif))
 		{
 			hit_wall = true;
 			break ;

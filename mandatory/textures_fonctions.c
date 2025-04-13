@@ -6,7 +6,7 @@
 /*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:16:21 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/12 13:22:56 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/13 21:22:19 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,14 @@ int	textures_function(char **file, char *line, int i)
 		printf("new_line = %s\n", new_line);
 		if (ft_strlen(new_line) >= 4
 			&& ft_strncmp(new_line + ft_strlen(new_line) - 4, ".xpm", 4) != 0)
-			return (printf("not xpm file.\n"), ft_free(&new_line), ERROR);
+		{
+			*file = new_line;
+			return (printf("not xpm file.\n"), ERROR);
+		}
 		if (is_valid_textures(&new_line) != SUCCESS)
 		{
 			printf("Error : unable to open the texture [%s].\n", line);
-			return (ERROR);
+			return (ft_free(&new_line), ERROR);
 		}
 		*file = new_line;
 		return (SUCCESS);

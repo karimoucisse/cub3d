@@ -35,7 +35,7 @@ void	render_3d_map(t_game *game, t_texture texture, int x)
 	y = 0;
 	while (y < wall_top_pixel)
 	{
-		color = rgbToInt(game->game_info->ceiling_color[0], game->game_info->ceiling_color[1], game->game_info->ceiling_color[2]);
+		color = rgb_to_int(game->game_info->ceiling_color[0], game->game_info->ceiling_color[1], game->game_info->ceiling_color[2]);
 		ft_put_pixel(x, y, color, game);
 		y++;
 	}
@@ -54,7 +54,7 @@ void	render_3d_map(t_game *game, t_texture texture, int x)
 	y = wall_bottom_pixel;
 	while (y < HEIGHT)
 	{
-		color = rgbToInt(game->game_info->floor_color[0], game->game_info->floor_color[1], game->game_info->floor_color[2]);
+		color = rgb_to_int(game->game_info->floor_color[0], game->game_info->floor_color[1], game->game_info->floor_color[2]);
 		ft_put_pixel(x, y, color, game);
 		y++;
 	}

@@ -4,7 +4,7 @@ BONUS = bonus/
 MANDATORY = mandatory/
 PARSING = parsing/
 RAYCASTING = raycasting/
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g
 LIBFT_DIR = libft/
 LIBFT = $(LIBFT_DIR)libft.a
 
