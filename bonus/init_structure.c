@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_structure.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:26:28 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/13 21:14:58 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/14 00:25:27 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	init_player(t_player *player)
 	player->rot_angle = 0;
 	player->turn_dir = 0;
 	player->walk_dir = 0;
+	player->sprint = false;
 	return (SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 13:42:11 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/13 23:36:59 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/14 00:37:34 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	key_press(int keycode, t_game *game)
 		game->player.right_rotate = true;
 	if (keycode == ECHAP)
 		close_win(game);
+	if (keycode == CTRL)
+		game->player.sprint = true;
 	return (0);
 }
 
@@ -45,6 +47,8 @@ int	key_release(int keycode, t_player *player)
 		player->left_rotate = false;
 	if (keycode == RIGHT)
 		player->right_rotate = false;
+	if (keycode == CTRL)
+		player->sprint = false;
 	return (0);
 }
 
@@ -53,12 +57,16 @@ void	move_forward(t_game *game)
 	double	x_cpy;
 	double	y_cpy;
 
-	x_cpy = game->player.x + cos(game->player.rot_angle) * (MOVE_SPEED + COLLISION_OFFSET);
-	y_cpy = game->player.y + sin(game->player.rot_angle) * (MOVE_SPEED + COLLISION_OFFSET);
+	x_cpy = game->player.x + cos(game->player.rot_angle)
+		* (SPRINT(game->player.sprint) + COLLISION_OFFSET);
+	y_cpy = game->player.y + sin(game->player.rot_angle)
+		* (SPRINT(game->player.sprint) + COLLISION_OFFSET);
 	if (!is_a_wall(game, x_cpy, game->player.y))
-		game->player.x = game->player.x + cos(game->player.rot_angle) * MOVE_SPEED;
+		game->player.x = game->player.x + cos(game->player.rot_angle)
+			* SPRINT(game->player.sprint);
 	if (!is_a_wall(game, game->player.x, y_cpy))
-		game->player.y = game->player.y + sin(game->player.rot_angle) * MOVE_SPEED;
+		game->player.y = game->player.y + sin(game->player.rot_angle)
+			* SPRINT(game->player.sprint);
 }
 
 void	move_right(t_game *game)
@@ -66,12 +74,16 @@ void	move_right(t_game *game)
 	double	x_cpy;
 	double	y_cpy;
 
-	x_cpy = game->player.x - sin(game->player.rot_angle) * (MOVE_SPEED + COLLISION_OFFSET);
-	y_cpy = game->player.y + cos(game->player.rot_angle) * (MOVE_SPEED + COLLISION_OFFSET);
+	x_cpy = game->player.x - sin(game->player.rot_angle)
+		* (SPRINT(game->player.sprint) + COLLISION_OFFSET);
+	y_cpy = game->player.y + cos(game->player.rot_angle)
+		* (SPRINT(game->player.sprint) + COLLISION_OFFSET);
 	if (!is_a_wall(game, x_cpy, game->player.y))
-		game->player.x = game->player.x - sin(game->player.rot_angle) * MOVE_SPEED;
+		game->player.x = game->player.x - sin(game->player.rot_angle)
+			* SPRINT(game->player.sprint);
 	if (!is_a_wall(game, game->player.x, y_cpy))
-		game->player.y = game->player.y + cos(game->player.rot_angle) * MOVE_SPEED;
+		game->player.y = game->player.y + cos(game->player.rot_angle)
+			* SPRINT(game->player.sprint);
 }
 
 void	move_left(t_game *game)
@@ -79,12 +91,16 @@ void	move_left(t_game *game)
 	double	x_cpy;
 	double	y_cpy;
 
-	x_cpy = game->player.x + sin(game->player.rot_angle) * (MOVE_SPEED + COLLISION_OFFSET);
-	y_cpy = game->player.y - cos(game->player.rot_angle) * (MOVE_SPEED + COLLISION_OFFSET);
+	x_cpy = game->player.x + sin(game->player.rot_angle)
+		* (SPRINT(game->player.sprint) + COLLISION_OFFSET);
+	y_cpy = game->player.y - cos(game->player.rot_angle)
+		* (SPRINT(game->player.sprint) + COLLISION_OFFSET);
 	if (!is_a_wall(game, x_cpy, game->player.y))
-		game->player.x = game->player.x + sin(game->player.rot_angle) * MOVE_SPEED;
+		game->player.x = game->player.x + sin(game->player.rot_angle)
+			* SPRINT(game->player.sprint);
 	if (!is_a_wall(game, game->player.x, y_cpy))
-		game->player.y = game->player.y - cos(game->player.rot_angle) * MOVE_SPEED;
+		game->player.y = game->player.y - cos(game->player.rot_angle)
+			* SPRINT(game->player.sprint);
 }
 
 void	move_backward(t_game *game)
@@ -92,12 +108,16 @@ void	move_backward(t_game *game)
 	double	x_cpy;
 	double	y_cpy;
 
-	x_cpy = game->player.x - cos(game->player.rot_angle) * (MOVE_SPEED + COLLISION_OFFSET);
-	y_cpy = game->player.y - sin(game->player.rot_angle) * (MOVE_SPEED + COLLISION_OFFSET);
+	x_cpy = game->player.x - cos(game->player.rot_angle)
+		* (SPRINT(game->player.sprint) + COLLISION_OFFSET);
+	y_cpy = game->player.y - sin(game->player.rot_angle)
+		* (SPRINT(game->player.sprint) + COLLISION_OFFSET);
 	if (!is_a_wall(game, x_cpy, game->player.y))
-		game->player.x = game->player.x - cos(game->player.rot_angle) * MOVE_SPEED;
+		game->player.x = game->player.x - cos(game->player.rot_angle)
+			* SPRINT(game->player.sprint);
 	if (!is_a_wall(game, game->player.x, y_cpy))
-		game->player.y = game->player.y - sin(game->player.rot_angle) * MOVE_SPEED;
+		game->player.y = game->player.y - sin(game->player.rot_angle)
+			* SPRINT(game->player.sprint);
 }
 
 void	move_player(t_game *game)

@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/14 00:02:29 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/14 00:35:16 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define MINIMAP_TILE 10
 # define FOV 60 * (PI / 180)
 # define MOVE_SPEED 0.5
+# define SPRINT(x) ((x) ? 2 : MOVE_SPEED)
 # define ROTATION_SPEED 0.010
 # define COLLISION_OFFSET 20
 # define T 119 // w
@@ -47,6 +48,7 @@
 # define S PI / 2
 # define E 0
 # define W PI
+# define CTRL 65507
 
 typedef struct s_texture
 {
@@ -79,10 +81,6 @@ typedef struct s_player
 {
 	double		x;
 	double		y;
-	// double		dirX;
-	// double		dirY;
-	// double		planeX;
-	// double		planeY;
 	bool		key_up;
 	bool		key_down;
 	bool		key_left;
@@ -92,8 +90,9 @@ typedef struct s_player
 	bool		right_rotate;
 
 	double		radius;
-	int turn_dir; // -1 == left, +1 == right
-	int walk_dir; // -1 == back, +1 == front
+	int			turn_dir;
+	int			walk_dir;
+	bool		sprint;
 	double		rot_angle;
 }				t_player;
 
