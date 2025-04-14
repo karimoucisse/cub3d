@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:52:09 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/14 16:58:36 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/14 17:49:51 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void	create_map(t_game *game)
 		while (map[i][j])
 		{
 			if (map[i][j] == '1')
-				draw_map_square(j * MINIMAP_TILE, i * MINIMAP_TILE, 0xFFFF0000, game);
+				draw_map_square(j * MINIMAP_TILE, i * MINIMAP_TILE, 0xFFFF0000,
+					game);
 			j++;
 		}
 		i++;
