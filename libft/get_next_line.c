@@ -6,7 +6,7 @@
 /*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 18:12:36 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/13 21:38:04 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:48:26 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ char	*handle_temp_var(char *remain_char, char *buffer)
 	char	*temp;
 
 	if (!remain_char)
+	{
 		remain_char = ft_strdup("");
+		if (!remain_char)
+			return (0);
+	}
 	temp = remain_char;
 	remain_char = ft_strjoin(temp, buffer);
 	if (!remain_char)

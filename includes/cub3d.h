@@ -6,7 +6,7 @@
 /*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/13 22:39:53 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:07:42 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@
 # define MINIMAP_TILE 8
 # define FOV 60 * (PI / 180)
 # define MOVE_SPEED 5
-# define ROTATION_SPEED 0.020
+# define ROTATION_SPEED 0.030
+# define MOUSE_SPEED 0.010
 # define T 119 // w
 # define B 115 // s
 # define L 97  // a

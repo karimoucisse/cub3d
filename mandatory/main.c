@@ -6,7 +6,7 @@
 /*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 19:02:23 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/13 21:44:44 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:18:08 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,25 @@ int	close_win(t_game *game)
 	exit(0);
 }
 
+
+int	mouse_move(int x, int y, t_game *game)
+{
+	int			center_x;
+	int			center_y;
+	int			delta_x;
+	double		sensitivity;
+	(void)y;
+
+	center_x = WIDTH / 2;
+	center_y = HEIGHT / 2;
+	sensitivity = 0.001;
+	delta_x = x - center_x;
+	game->player.rot_angle += delta_x * sensitivity;
+	mlx_mouse_move(game->mlx_ptr, game->mlx_win, center_x, center_y);
+	return (0);
+}
+
+
 int	main(int ac, char **av)
 {
 	t_game	game;
@@ -192,10 +211,12 @@ int	main(int ac, char **av)
 
 	if (init_game(&game) != SUCCESS)
 		return (free_structure(&game), ERROR);
-		
+	// mlx_mouse_hide(game.mlx_ptr, game.mlx_win);
 	mlx_hook(game.mlx_win, 2, 1L << 0, key_press, &game);
 	mlx_hook(game.mlx_win, 3, 1L << 1, key_release, &game.player);
+	mlx_hook(game.mlx_win, 6, 1L << 6, mouse_move, &game);
 	mlx_hook(game.mlx_win, 17, 0, close_win, &game);
+	
 	mlx_loop_hook(game.mlx_ptr, start_game, &game);
 	mlx_loop(game.mlx_ptr);
 	return (0);
