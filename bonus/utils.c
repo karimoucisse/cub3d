@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 13:44:22 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/14 16:53:35 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/14 17:43:31 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,3 @@ void	clear_map(t_game *game)
 	}
 }
 
-t_texture	get_texture(t_game *game, double angle)
-{
-	if (game->raycast_info.v_hit_dist > game->raycast_info.h_hit_dist)
-	{
-		if (sin(angle) > 0)
-			return (game->NO_data);
-		else
-			return (game->SO_data);
-	}
-	else
-	{
-		if (cos(angle) > 0)
-			return (game->WE_data);
-		else
-			return (game->EA_data);
-	}
-}

@@ -3,18 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:14:38 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/13 21:37:51 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:34:28 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+int	check_file_name(char *file_name)
+{
+	int	len;
+
+	len = ft_strlen(file_name);
+	if (len < 4)
+		return (0);
+	if (file_name[len - 1] != 'b' || file_name[len - 2] != 'u')
+		return (0);
+	if (file_name[len - 3] != 'c' || file_name[len - 4] != '.')
+		return (0);
+	if (file_name[len - 5] == '/' || file_name[len - 5] == ' ')
+		return (0);
+	return (1);
+}
+
 int	parsing(char *line, t_game_info *data)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (line[i] && (line[i] == ' ' || line[i] == '\t'))

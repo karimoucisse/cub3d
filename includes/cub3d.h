@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/14 16:42:36 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/14 17:43:35 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,19 +136,7 @@ typedef struct s_game
 
 // PARSING
 //		FILE
-void			ft_trim(char *line);
-int				file_exist(char *str, char **texture_var);
-int				ft_tab_len(char **tab);
 int				check_file_name(char *file_name);
-//		MAP
-char			**parse_map(int fd, char *line);
-int				check_map_wall(char **map, int map_height);
-int				check_map_content(char **map);
-//		TEXTURE
-int				check_texture(t_game_info *info);
-int				parse_texture(char *str, t_game_info *info);
-int				parse_color(char *str, int *texture_var);
-int				check_is_valid_color(char **colors, int *texture_var);
 
 // MOVE PLAYER
 void			move_player(t_game *game);
@@ -179,7 +167,6 @@ void			calc_ray_distance(t_game *game, double angle);
 // UTILS
 void			clear_map(t_game *game);
 int				is_a_wall(t_game *game, double x, double y);
-t_texture		get_texture(t_game *game, double angle);
 
 // NEW AJOUT KENNY
 int				init_structure(t_game *data);

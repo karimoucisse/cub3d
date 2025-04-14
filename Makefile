@@ -8,14 +8,14 @@ CFLAGS = -Wall -Werror -Wextra -g
 LIBFT_DIR = libft/
 LIBFT = $(LIBFT_DIR)libft.a
 
-CFILES = $(MANDATORY)main.c $(MANDATORY)$(PARSING)check_file.c $(MANDATORY)$(PARSING)check_map.c $(MANDATORY)$(PARSING)check_texture.c\
+CFILES = $(MANDATORY)main.c\
     $(MANDATORY)player_move.c $(MANDATORY)utils.c $(MANDATORY)$(RAYCASTING)3draycasting.c $(MANDATORY)$(RAYCASTING)horizontal_intersection.c\
     $(MANDATORY)$(RAYCASTING)vertical_intersinction.c $(MANDATORY)$(RAYCASTING)check_direction.c $(MANDATORY)$(RAYCASTING)calculation.c\
     $(MANDATORY)init_structure.c $(MANDATORY)parsing.c $(MANDATORY)map_parsing.c $(MANDATORY)colors_fonctions.c $(MANDATORY)textures_fonctions.c\
 	$(MANDATORY)key_action.c $(MANDATORY)map_parsing2.c $(MANDATORY)handle_end.c $(MANDATORY)init_structure2.c $(MANDATORY)put_pixels.c
 
 OFILES = $(CFILES:.c=.o)
-CFILESBONUS = $(BONUS)main.c $(BONUS)$(PARSING)check_file.c $(BONUS)$(PARSING)check_map.c $(BONUS)$(PARSING)check_texture.c\
+CFILESBONUS = $(BONUS)main.c\
     $(BONUS)player_move.c $(BONUS)utils.c $(BONUS)$(RAYCASTING)3draycasting.c $(BONUS)$(RAYCASTING)horizontal_intersection.c\
     $(BONUS)$(RAYCASTING)vertical_intersinction.c $(BONUS)$(RAYCASTING)check_direction.c $(BONUS)$(RAYCASTING)calculation.c\
 	$(BONUS)minimap.c $(BONUS)init_structure.c $(BONUS)parsing.c $(BONUS)map_parsing.c $(BONUS)colors_fonctions.c\
