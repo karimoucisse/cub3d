@@ -6,7 +6,7 @@
 /*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:16:21 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/13 21:22:19 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/13 23:30:43 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	is_valid_textures(char **line)
 	const char	*prefix;
 
 	prefix = "includes/textures";
+	if (ft_strlen(*line) <= 1)
+		return (ERROR);
 	file = malloc(ft_strlen(prefix) + ft_strlen(*line + 1) + 1);
 	if (!file)
 		return (ERROR);
@@ -48,7 +50,6 @@ int	textures_function(char **file, char *line, int i)
 		new_line = ft_strcopy_until(line + i + 2, ' ');
 		if (!new_line)
 			return (ERROR);
-		printf("new_line = %s\n", new_line);
 		if (ft_strlen(new_line) >= 4
 			&& ft_strncmp(new_line + ft_strlen(new_line) - 4, ".xpm", 4) != 0)
 		{

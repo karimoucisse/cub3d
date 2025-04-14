@@ -6,7 +6,7 @@
 /*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 12:45:40 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/12 19:12:31 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:13:06 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ int	check_map(char **map, int x, int y)
 			if (map[x][y] == '0' || map[x][y] == 'N' || map[x][y] == 'S'
 				|| map[x][y] == 'E' || map[x][y] == 'W')
 			{
-				if (!map[x - 1] || !map[x - 1][y] || map[x - 1][y] == ' ')
+				if (x == 0 || !map[x - 1] || !map[x - 1][y] || map[x - 1][y] == ' ')
 					return (printf("Error: map invalid.\n"), ERROR);
 				else if (!map[x + 1] || !map[x + 1][y] || map[x + 1][y] == ' ')
 					return (printf("Error: map invalid2.\n"), ERROR);
 				else if (!map[x] || !map[x][y + 1] || map[x][y + 1] == ' ')
 					return (printf("Error: map invalid3.\n"), ERROR);
-				else if (!map[x] || !map[x][y - 1] || map[x][y - 1] == ' ')
+				else if (y == 0 || !map[x] || !map[x][y - 1] || map[x][y - 1] == ' ')
 					return (printf("Error: map invalid4.\n"), ERROR);
 			}
 			y++;
