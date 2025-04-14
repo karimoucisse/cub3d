@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 13:44:22 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/13 21:47:39 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:53:35 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,10 @@ int	is_a_wall(t_game *game, double x, double y)
 		return (1);
 	if (x_block < 0 || x_block >= (int)strlen(game->game_info->map[y_block]))
 		return (1);
-	if (game->game_info->map[y_block][x_block] == '1' || game->game_info->map[y_block][x_block] == ' ')
+	if (game->game_info->map[y_block][x_block] == '1'
+		|| game->game_info->map[y_block][x_block] == ' ')
 		return (1);
 	return (0);
-}
-
-void	ft_put_pixel(int x, int y, int color, t_game *game)
-{
-	char	*pxl;
-
-	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
-	{
-		pxl = game->addr + (y * game->line_length + x * (game->bits_per_pixel
-					/ 8));
-		*(unsigned int *)pxl = color;
-	}
 }
 
 void	clear_map(t_game *game)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/14 14:39:26 by kcisse            #+#    #+#             */
+/*   Updated: 2025/04/14 14:39:32 by kcisse           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	check_map_content(char **map)
@@ -25,6 +37,7 @@ int	check_map_content(char **map)
 		return (0);
 	return (1);
 }
+
 int	check_map_wall(char **map, int map_height)
 {
 	int	i;

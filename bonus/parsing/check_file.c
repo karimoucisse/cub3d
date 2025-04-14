@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:10 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/11 13:24:17 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/14 14:38:48 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	ft_trim(char *line)
 	ft_memmove(line, line + start, end - start + 1);
 	line[end - start + 1] = '\0';
 }
+
 int	file_exist(char *str, char **texture_var)
 {
 	int	fd;
@@ -63,44 +64,4 @@ int	file_exist(char *str, char **texture_var)
 	if (!texture_var)
 		return (0);
 	return (1);
-}
-
-void	init_game_info(t_game_info *info)
-{
-	info->x = -1;
-	info->y = -1;
-	info->north_texture = NULL;
-	info->south_texture = NULL;
-	info->west_texture = NULL;
-	info->east_texture = NULL;
-	info->map = NULL;
-	info->floor_color[0] = -1;
-	info->floor_color[1] = -1;
-	info->floor_color[2] = -1;
-	info->ceiling_color[0] = -1;
-	info->ceiling_color[1] = -1;
-	info->ceiling_color[2] = -1;
-}
-
-t_game_info	*parse_file(char *file)
-{
-	(void)file;
-	t_game_info	*game_info;
-
-	game_info = malloc(sizeof(t_game_info));
-	game_info->map = malloc(sizeof(char *) * 11);
-	if (!game_info->map)
-		return NULL;
-	game_info->map[0] = "11111111111111111111111111";
-	game_info->map[1] = "10000000000000000011000011";
-	game_info->map[2] = "1000000E000000000010000001";
-	game_info->map[3] = "10000000000011101100000001";
-	game_info->map[4] = "1000000001110 100000001011";
-	game_info->map[5] = "10000000110011100011000011";
-	game_info->map[6] = "10100100000011000010000001";
-	game_info->map[7] = "10100100000011001100000001";
-	game_info->map[8] = "10000000011110000000001011";
-	game_info->map[9] = "11111111111111111111111111";
-	game_info->map[10] = NULL;
-	return (game_info);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_texture.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/14 14:39:54 by kcisse            #+#    #+#             */
+/*   Updated: 2025/04/14 14:41:20 by kcisse           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	check_is_valid_color(char **colors, int *texture_var)
@@ -30,6 +42,7 @@ int	check_is_valid_color(char **colors, int *texture_var)
 	}
 	return (1);
 }
+
 int	parse_color(char *str, int *texture_var)
 {
 	char	**colors;

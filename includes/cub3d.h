@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/14 00:35:16 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/14 16:42:36 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@
 # define TILE 64
 # define MINIMAP_TILE 10
 # define FOV 60 * (PI / 180)
-# define MOVE_SPEED 0.5
-# define SPRINT(x) ((x) ? 2 : MOVE_SPEED)
+# define MOVE_SPEED 1
+# define SPRINT(x) ((x) ? 3.5 : MOVE_SPEED)
 # define ROTATION_SPEED 0.010
 # define COLLISION_OFFSET 20
 # define T 119 // w
@@ -136,8 +136,6 @@ typedef struct s_game
 
 // PARSING
 //		FILE
-t_game_info		*parse_file(char *file);
-void			init_game_info(t_game_info *info);
 void			ft_trim(char *line);
 int				file_exist(char *str, char **texture_var);
 int				ft_tab_len(char **tab);
@@ -159,7 +157,7 @@ int				key_release(int keycode, t_player *player);
 
 // RAYCASTING
 void			raycast_3d(t_game *game);
-void			render_3d_map(t_game *game, t_texture texture, int column);
+void			render_map(t_game *game, t_texture texture, int column);
 void			minimap(t_game *game);
 
 // RAYCASTING -> CHECK INTERSECTIONS
@@ -175,10 +173,11 @@ bool			is_down(double angle);
 double			calc_dist(double x1, double y1, double x2, double y2);
 double			puissance2(double val);
 double			normalize_angle(double angle);
+int				get_xcord(t_game *game);
+void			calc_ray_distance(t_game *game, double angle);
 
 // UTILS
 void			clear_map(t_game *game);
-void			ft_put_pixel(int x, int y, int color, t_game *game);
 int				is_a_wall(t_game *game, double x, double y);
 t_texture		get_texture(t_game *game, double angle);
 
@@ -190,6 +189,21 @@ int				map_parsing(char *line, t_game_info *data);
 int				textures_function(char **file, char *line, int i);
 int				colors_function(int (*tab)[3], char *line);
 int				rgb_to_int(int r, int g, int b);
+
+// INIT 2
+int				init_game(t_game *game);
+int				init_textures(void *mlx, char *file, t_texture *img);
+
+// HANDLE END
+void			free_list(t_list *lst);
+void			free_map(char **map);
+void			free_structure(t_game *game);
 int				close_win(t_game *game);
+
+// PUT PIXELS
+void			ft_put_pixel(int x, int y, int color, t_game *game);
+double			put_ceiling_pixel(t_game *game, int x);
+double			put_floor_pixel(t_game *game, int x);
+void			put_wall_pixel(t_game *game, t_texture texture, int y, int x);
 
 #endif

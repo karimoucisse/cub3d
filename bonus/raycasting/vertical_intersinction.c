@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vertical_intersinction.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/14 14:42:28 by kcisse            #+#    #+#             */
+/*   Updated: 2025/04/14 16:50:59 by kcisse           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	calc_v_hit_distance(t_game *game, bool is_wall_hit, double hit_x,
@@ -15,42 +27,53 @@ void	calc_v_hit_distance(t_game *game, bool is_wall_hit, double hit_x,
 		game->raycast_info.v_hit_dist = __INT_MAX__;
 }
 
+void	calc_next_v_point(t_game *game, double angle, double *nxt_x_point,
+		double *nxt_y_point)
+{
+	*nxt_x_point = floor(game->player.x / TILE) * TILE;
+	if (is_right(angle))
+		*nxt_x_point += TILE;
+	*nxt_y_point = game->player.y + ((*nxt_x_point - game->player.x)
+			* tan(angle));
+}
+
+void	calc_v_steps(double angle, double *xstep, double *ystep)
+{
+	*xstep = TILE;
+	if (is_left(angle))
+		*xstep *= -1;
+	*ystep = TILE * tan(angle);
+	if (is_up(angle) && *ystep > 0)
+		*ystep *= -1;
+	if (is_down(angle) && *ystep < 0)
+		*ystep *= -1;
+}
+
 void	vertical_intersection(t_game *game, double angle)
 {
 	double	xstep;
 	double	ystep;
-	double	nxt_xstep;
-	double	nxt_ystep;
-	double	verif;
+	double	nxt_x_point;
+	double	nxt_y_point;
 	bool	hit_wall;
 
+	xstep = 0;
+	ystep = 0;
+	nxt_x_point = 0;
+	nxt_y_point = 0;
 	hit_wall = false;
-	nxt_xstep = floor(game->player.x / TILE) * TILE;
-	if (is_right(angle))
-		nxt_xstep += TILE;
-	nxt_ystep = game->player.y + ((nxt_xstep - game->player.x) * tan(angle));
-	xstep = TILE;
-	if (is_left(angle))
-		xstep *= -1;
-	ystep = TILE * tan(angle);
-	if (is_up(angle) && ystep > 0)
-		ystep *= -1;
-	if (is_down(angle) && ystep < 0)
-		ystep *= -1;
-	verif = nxt_xstep;
-	while (nxt_xstep >= 0 && nxt_ystep >= 0)
+	calc_next_v_point(game, angle, &nxt_x_point, &nxt_y_point);
+	calc_v_steps(angle, &xstep, &ystep);
+	while (nxt_x_point >= 0 && nxt_y_point >= 0)
 	{
-		if (is_left(angle))
-			verif = nxt_xstep - 1;
-		else
-			verif = nxt_xstep;
-		if (is_a_wall(game, verif, nxt_ystep))
+		if ((is_left(angle) && is_a_wall(game, nxt_x_point - 1, nxt_y_point))
+			|| (!is_left(angle) && is_a_wall(game, nxt_x_point, nxt_y_point)))
 		{
 			hit_wall = true;
 			break ;
 		}
-		nxt_xstep += xstep;
-		nxt_ystep += ystep;
+		nxt_x_point += xstep;
+		nxt_y_point += ystep;
 	}
-	calc_v_hit_distance(game, hit_wall, nxt_xstep, nxt_ystep);
+	calc_v_hit_distance(game, hit_wall, nxt_x_point, nxt_y_point);
 }

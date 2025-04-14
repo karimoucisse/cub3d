@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   horizontal_intersection.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/14 14:42:41 by kcisse            #+#    #+#             */
+/*   Updated: 2025/04/14 16:51:44 by kcisse           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	calc_h_hit_distance(t_game *game, bool is_wall_hit, double hit_x,
@@ -14,82 +26,54 @@ void	calc_h_hit_distance(t_game *game, bool is_wall_hit, double hit_x,
 	else
 		game->raycast_info.h_hit_dist = __INT_MAX__;
 }
+
+void	calc_next_h_point(t_game *game, double angle, double *nxt_x_point,
+		double *nxt_y_point)
+{
+	*nxt_y_point = floor(game->player.y / TILE) * TILE;
+	if (is_down(angle))
+		*nxt_y_point += TILE;
+	*nxt_x_point = game->player.x + ((*nxt_y_point - game->player.y)
+			/ tan(angle));
+}
+
+void	calc_h_steps(double angle, double *xstep, double *ystep)
+{
+	*ystep = TILE;
+	if (is_up(angle))
+		*ystep *= -1;
+	*xstep = TILE / tan(angle);
+	if (is_left(angle) && *xstep > 0)
+		*xstep *= -1;
+	if (is_right(angle) && *xstep < 0)
+		*xstep *= -1;
+}
+
 void	horizontal_intersection(t_game *game, double angle)
 {
 	double	xstep;
 	double	ystep;
-	double	nxt_xstep;
-	double	nxt_ystep;
-	double	verif;
+	double	nxt_x_point;
+	double	nxt_y_point;
 	bool	hit_wall;
 
+	xstep = 0;
+	ystep = 0;
+	nxt_x_point = 0;
+	nxt_y_point = 0;
 	hit_wall = false;
-	nxt_ystep = floor(game->player.y / TILE) * TILE;
-	if (is_down(angle))
-		nxt_ystep += TILE;
-	nxt_xstep = game->player.x + ((nxt_ystep - game->player.y) / tan(angle));
-	ystep = TILE;
-	if (is_up(angle))
-		ystep *= -1;
-	xstep = TILE / tan(angle);
-	if (is_left(angle) && xstep > 0)
-		xstep *= -1;
-	if (is_right(angle) && xstep < 0)
-		xstep *= -1;
-	verif = nxt_ystep;
-	while (nxt_xstep >= 0 && nxt_ystep >= 0)
+	calc_next_h_point(game, angle, &nxt_x_point, &nxt_y_point);
+	calc_h_steps(angle, &xstep, &ystep);
+	while (nxt_x_point >= 0 && nxt_y_point >= 0)
 	{
-		if (is_up(angle))
-			verif = nxt_ystep - 1;
-		else
-			verif = nxt_ystep;
-		if (is_a_wall(game, nxt_xstep, verif))
+		if ((is_up(angle) && is_a_wall(game, nxt_x_point, nxt_y_point - 1))
+			|| (!is_up(angle) && is_a_wall(game, nxt_x_point, nxt_y_point)))
 		{
 			hit_wall = true;
 			break ;
 		}
-		nxt_xstep += xstep;
-		nxt_ystep += ystep;
+		nxt_x_point += xstep;
+		nxt_y_point += ystep;
 	}
-	calc_h_hit_distance(game, hit_wall, nxt_xstep, nxt_ystep);
-}
-
-void	calc_ray_distance(t_game *game, double angle)
-{
-	game->raycast_info.was_hit_vertical = false;
-	if (game->raycast_info.v_hit_dist < game->raycast_info.h_hit_dist)
-	{
-		game->raycast_info.was_hit_vertical = true;
-		game->raycast_info.wall_hit_dist = game->raycast_info.v_hit_dist
-			* cos(angle - game->player.rot_angle);
-		game->raycast_info.wall_hitx = game->raycast_info.v_hit_posx;
-		game->raycast_info.wall_hity = game->raycast_info.v_hit_posy;
-	}
-	else
-	{
-		game->raycast_info.wall_hit_dist = game->raycast_info.h_hit_dist
-			* cos(angle - game->player.rot_angle);
-		game->raycast_info.wall_hitx = game->raycast_info.h_hit_posx;
-		game->raycast_info.wall_hity = game->raycast_info.h_hit_posy;
-	}
-}
-void	check_intersections(t_game *game, double angle, int x)
-{
-	horizontal_intersection(game, angle);
-	vertical_intersection(game, angle);
-	calc_ray_distance(game, angle);
-	if (!game->raycast_info.was_hit_vertical)
-	{
-		if (sin(angle) > 0)
-			render_3d_map(game, game->SO_data, x);
-		else
-			render_3d_map(game, game->NO_data, x);
-	}
-	else
-	{
-		if (cos(angle) > 0)
-			render_3d_map(game, game->WE_data, x);
-		else
-			render_3d_map(game, game->EA_data, x);
-	}
+	calc_h_hit_distance(game, hit_wall, nxt_x_point, nxt_y_point);
 }
