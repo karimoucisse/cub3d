@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/14 17:43:35 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/15 12:57:12 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,5 +192,7 @@ void			ft_put_pixel(int x, int y, int color, t_game *game);
 double			put_ceiling_pixel(t_game *game, int x);
 double			put_floor_pixel(t_game *game, int x);
 void			put_wall_pixel(t_game *game, t_texture texture, int y, int x);
+
+void			draw_ray(t_game *game, double angle);
 
 #endif

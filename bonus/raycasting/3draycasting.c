@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:52:38 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/14 16:52:39 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/15 13:25:42 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	raycast_3d(t_game *game)
 	while (i < WIDTH)
 	{
 		check_intersections(game, normalize_angle(angle), i);
+		draw_ray(game, normalize_angle(angle));
 		angle += FOV / WIDTH;
 		i++;
 	}

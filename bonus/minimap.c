@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:52:09 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/14 17:49:51 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/15 13:26:18 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,20 @@ void	draw_ray(t_game *game, double angle)
 			break ;
 		i++;
 		ft_put_pixel(x, y, 0xFFFFF0, game);
+		if (!is_up(angle) && (is_left(angle) && ((int)y / MINIMAP_TILE
+					* TILE) >= (int)game->raycast_info.wall_hity))
+			break ;
+		if (is_right(angle) && ((int)x / MINIMAP_TILE
+				* TILE) >= (int)game->raycast_info.wall_hitx)
+			break ;
 	}
+	// printf("x = %f, y = %f, hx = %f, hy = %f\n", x / MINIMAP_TILE * TILE, y
+	// 	/ MINIMAP_TILE * TILE, game->raycast_info.wall_hitx,
+	// 	game->raycast_info.wall_hity);
 }
 
 void	minimap(t_game *game)
 {
-	int		i;
-	double	angle;
 	double	x;
 	double	y;
 
@@ -97,12 +104,4 @@ void	minimap(t_game *game)
 	x = game->player.x / TILE * MINIMAP_TILE;
 	y = game->player.y / TILE * MINIMAP_TILE;
 	draw_player(x, y, 0, game);
-	i = 0;
-	angle = game->player.rot_angle - (FOV / 2);
-	while (i < WIDTH)
-	{
-		draw_ray(game, angle);
-		angle += FOV / WIDTH;
-		i++;
-	}
 }
