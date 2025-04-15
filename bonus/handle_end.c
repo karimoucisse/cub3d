@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:27:07 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/14 14:34:50 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/15 15:50:51 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,14 @@ void	ft_destroy_image(t_game *game)
 {
 	if (game->img_ptr)
 		mlx_destroy_image(game->mlx_ptr, game->img_ptr);
-	if (game->NO_data.img_ptr)
-		mlx_destroy_image(game->mlx_ptr, game->NO_data.img_ptr);
-	if (game->SO_data.img_ptr)
-		mlx_destroy_image(game->mlx_ptr, game->SO_data.img_ptr);
-	if (game->WE_data.img_ptr)
-		mlx_destroy_image(game->mlx_ptr, game->WE_data.img_ptr);
-	if (game->EA_data.img_ptr)
-		mlx_destroy_image(game->mlx_ptr, game->EA_data.img_ptr);
+	if (game->no_data.img_ptr)
+		mlx_destroy_image(game->mlx_ptr, game->no_data.img_ptr);
+	if (game->so_data.img_ptr)
+		mlx_destroy_image(game->mlx_ptr, game->so_data.img_ptr);
+	if (game->we_data.img_ptr)
+		mlx_destroy_image(game->mlx_ptr, game->we_data.img_ptr);
+	if (game->ea_data.img_ptr)
+		mlx_destroy_image(game->mlx_ptr, game->ea_data.img_ptr);
 }
 
 int	close_win(t_game *game)
@@ -81,14 +81,14 @@ int	close_win(t_game *game)
 		ft_destroy_image(game);
 		if (game->mlx_win)
 			mlx_destroy_window(game->mlx_ptr, game->mlx_win);
-		if (game->EA_data.pixels)
-			free(game->EA_data.pixels);
-		if (game->SO_data.pixels)
-			free(game->SO_data.pixels);
-		if (game->WE_data.pixels)
-			free(game->WE_data.pixels);
-		if (game->NO_data.pixels)
-			free(game->NO_data.pixels);
+		if (game->ea_data.pixels)
+			free(game->ea_data.pixels);
+		if (game->so_data.pixels)
+			free(game->so_data.pixels);
+		if (game->we_data.pixels)
+			free(game->we_data.pixels);
+		if (game->no_data.pixels)
+			free(game->no_data.pixels);
 		mlx_destroy_display(game->mlx_ptr);
 		free(game->mlx_ptr);
 	}

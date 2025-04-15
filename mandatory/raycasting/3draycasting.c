@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:42:33 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/14 16:51:33 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/15 15:57:35 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +32,25 @@ void	check_intersections(t_game *game, double angle, int x)
 {
 	double	project_plane;
 
-	project_plane = (WIDTH / 2) / tan(FOV / 2);
 	horizontal_intersection(game, angle);
 	vertical_intersection(game, angle);
 	calc_ray_distance(game, angle);
-	project_plane = (WIDTH / 2) / tan(FOV / 2);
+	project_plane = (WIDTH / 2) / tan((FOV * (PI / 180)) / 2);
 	game->raycast_info.wall_height = (TILE / game->raycast_info.wall_hit_dist)
 		* project_plane;
 	if (!game->raycast_info.was_hit_vertical)
 	{
 		if (sin(angle) > 0)
-			render_map(game, game->SO_data, x);
+			render_map(game, game->so_data, x);
 		else
-			render_map(game, game->NO_data, x);
+			render_map(game, game->no_data, x);
 	}
 	else
 	{
 		if (cos(angle) > 0)
-			render_map(game, game->WE_data, x);
+			render_map(game, game->we_data, x);
 		else
-			render_map(game, game->EA_data, x);
+			render_map(game, game->ea_data, x);
 	}
 }
 
@@ -62,11 +61,11 @@ void	raycast_3d(t_game *game)
 
 	move_player(game);
 	i = 0;
-	angle = game->player.rot_angle - (FOV / 2);
+	angle = game->player.rot_angle - ((FOV * (PI / 180)) / 2);
 	while (i < WIDTH)
 	{
 		check_intersections(game, normalize_angle(angle), i);
-		angle += FOV / WIDTH;
+		angle += (FOV * (PI / 180)) / WIDTH;
 		i++;
 	}
 	mlx_put_image_to_window(game->mlx_ptr, game->mlx_win, game->img_ptr, 0, 0);

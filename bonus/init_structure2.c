@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:27:22 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/14 14:34:57 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/15 15:54:21 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ int	init_game_loop(t_game *game)
 				game->player.y = i * TILE + TILE / 2;
 			}
 			if (game->game_info->map[i][j] == 'N')
-				game->player.rot_angle = N;
+				game->player.rot_angle = (3 * PI / 2);
 			if (game->game_info->map[i][j] == 'S')
-				game->player.rot_angle = S;
+				game->player.rot_angle = PI / 2;
 			if (game->game_info->map[i][j] == 'E')
-				game->player.rot_angle = E;
+				game->player.rot_angle = 0;
 			if (game->game_info->map[i][j] == 'W')
-				game->player.rot_angle = W;
+				game->player.rot_angle = PI;
 		}
 	}
 	return (i);
@@ -88,11 +88,11 @@ int	init_game(t_game *game)
 			&game->line_length, &game->endian);
 	i = init_game_loop(game);
 	game->game_info->map_height = i;
-	init_textures(game->mlx_ptr, game->game_info->east_texture, &game->EA_data);
+	init_textures(game->mlx_ptr, game->game_info->east_texture, &game->ea_data);
 	init_textures(game->mlx_ptr, game->game_info->north_texture,
-		&game->NO_data);
+		&game->no_data);
 	init_textures(game->mlx_ptr, game->game_info->south_texture,
-		&game->SO_data);
-	init_textures(game->mlx_ptr, game->game_info->west_texture, &game->WE_data);
+		&game->so_data);
+	init_textures(game->mlx_ptr, game->game_info->west_texture, &game->we_data);
 	return (SUCCESS);
 }

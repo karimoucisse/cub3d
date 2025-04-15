@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/15 12:57:12 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/15 16:06:41 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,11 @@
 # define HEIGHT 620
 # define TILE 64
 # define MINIMAP_TILE 10
-# define FOV 60 * (PI / 180)
-# define MOVE_SPEED 1
-# define SPRINT(x) ((x) ? 3.5 : MOVE_SPEED)
+# define FOV 60
+# define MOVE_SPEED 1.2
+# define SPRINT 3.5
 # define ROTATION_SPEED 0.010
+# define FAST_ROTATION 0.020
 # define COLLISION_OFFSET 20
 # define T 119 // w
 # define B 115 // s
@@ -44,10 +45,10 @@
 # define LEFT 65361
 # define RIGHT 65363
 # define ECHAP 65307
-# define N (3 * PI / 2)
-# define S PI / 2
-# define E 0
-# define W PI
+// # define N (3 * PI / 2)
+// # define S PI / 2
+// # define E 0
+// # define W PI
 # define CTRL 65507
 
 typedef struct s_texture
@@ -111,7 +112,7 @@ typedef struct s_game_info
 	int			map_height;
 	int			lock;
 	int			lock_valid_map_lines;
-	int			lock_NEWS;
+	int			lock_news;
 
 }				t_game_info;
 
@@ -128,10 +129,10 @@ typedef struct s_game
 	t_game_info	*game_info;
 	t_raycast	raycast_info;
 
-	t_texture	NO_data;
-	t_texture	SO_data;
-	t_texture	WE_data;
-	t_texture	EA_data;
+	t_texture	no_data;
+	t_texture	so_data;
+	t_texture	we_data;
+	t_texture	ea_data;
 }				t_game;
 
 // PARSING

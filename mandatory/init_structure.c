@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_structure.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:26:28 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/13 21:14:58 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/15 15:50:51 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	init_info(t_game_info *info)
 	info->map_list = NULL;
 	info->lock = 0;
 	info->lock_valid_map_lines = 0;
-	info->lock_NEWS = 0;
+	info->lock_news = 0;
 	return (SUCCESS);
 }
 
@@ -113,10 +113,10 @@ int	init_structure(t_game *data)
 		return (ERROR);
 	if (init_raycast(&data->raycast_info) != SUCCESS)
 		return (ERROR);
-	if (init_texture(&data->NO_data) != SUCCESS
-		|| init_texture(&data->SO_data) != SUCCESS
-		|| init_texture(&data->EA_data) != SUCCESS
-		|| init_texture(&data->WE_data) != SUCCESS)
+	if (init_texture(&data->no_data) != SUCCESS
+		|| init_texture(&data->so_data) != SUCCESS
+		|| init_texture(&data->ea_data) != SUCCESS
+		|| init_texture(&data->we_data) != SUCCESS)
 		return (ERROR);
 	return (SUCCESS);
 }
