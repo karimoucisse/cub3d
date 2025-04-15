@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:52:09 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/15 13:26:18 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/15 17:53:49 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	create_map(t_game *game)
 		i++;
 	}
 }
-
+// x = 323.112886, y = 188.509789, hx = 326.196331, hy = 192.000000
+// x = 430.770544, y = 333.571118, hx = 337.287714, hy = 192.000000
 void	draw_ray(t_game *game, double angle)
 {
 	int		i;
@@ -75,6 +76,9 @@ void	draw_ray(t_game *game, double angle)
 	i = 0;
 	new_x = game->player.x / TILE * MINIMAP_TILE;
 	new_y = game->player.y / TILE * MINIMAP_TILE;
+	// printf("x = %f, y = %f, hx = %f, hy = %f\n", ((new_x) + cos(angle) * i)
+	// 	/ MINIMAP_TILE * TILE, ((new_y) + cos(angle) * i) / MINIMAP_TILE * TILE,
+	// 	game->raycast_info.wall_hitx, game->raycast_info.wall_hity);
 	while (1)
 	{
 		x = (new_x) + cos(angle) * i;
@@ -82,7 +86,25 @@ void	draw_ray(t_game *game, double angle)
 		if (is_a_wall(game, x / MINIMAP_TILE * TILE, y / MINIMAP_TILE * TILE))
 			break ;
 		i++;
+		// if (game->raycast_info.was_hit_vertical)
+		// {
+		// 	if ((is_left(angle) && ((int)x / MINIMAP_TILE
+		// 				* TILE) >= (int)game->raycast_info.wall_hitx))
+		// 		break ;
+		// }
+		// else
+		// {
+		// 	if ((is_up(angle) && is_a_wall(game, x / MINIMAP_TILE * TILE, (y
+		// 					/ MINIMAP_TILE * TILE) - 1)) || (!is_up(angle)
+		// 			&& is_a_wall(game, x / MINIMAP_TILE * TILE, y / MINIMAP_TILE
+		// 				* TILE)))
+		// 		break ;
+		// }
+		// (y / MINIMAP_TILE * TILE)
 		ft_put_pixel(x, y, 0xFFFFF0, game);
+		// && ((int)y / MINIMAP_TILE * TILE <= (int)game->raycast_info.wall_hity)
+		if (angle > PI && angle < (3 * PI / 2) && ((int)y / MINIMAP_TILE * TILE <= (int)game->raycast_info.wall_hity))
+			break;
 		if (!is_up(angle) && (is_left(angle) && ((int)y / MINIMAP_TILE
 					* TILE) >= (int)game->raycast_info.wall_hity))
 			break ;
@@ -90,7 +112,11 @@ void	draw_ray(t_game *game, double angle)
 				* TILE) >= (int)game->raycast_info.wall_hitx)
 			break ;
 	}
-	// printf("x = %f, y = %f, hx = %f, hy = %f\n", x / MINIMAP_TILE * TILE, y
+	// printf("angle = %f\n", angle);
+	// printf("debut x = %f, y = %f, hx = %f, hy = %f\n", ((new_x) + cos(angle) * i)
+	// 	/ MINIMAP_TILE * TILE, ((new_y) + cos(angle) * i) / MINIMAP_TILE * TILE,
+	// 	game->raycast_info.wall_hitx, game->raycast_info.wall_hity);
+	// printf("FIN x = %f, y = %f, hx = %f, hy = %f\n", x / MINIMAP_TILE * TILE, y
 	// 	/ MINIMAP_TILE * TILE, game->raycast_info.wall_hitx,
 	// 	game->raycast_info.wall_hity);
 }

@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:42:41 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/14 16:51:44 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/15 16:33:20 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,7 @@ void	calc_h_steps(double angle, double *xstep, double *ystep)
 	if (is_up(angle))
 		*ystep *= -1;
 	*xstep = TILE / tan(angle);
-	if (is_left(angle) && *xstep > 0)
-		*xstep *= -1;
-	if (is_right(angle) && *xstep < 0)
+	if ((is_left(angle) && *xstep > 0) || (is_right(angle) && *xstep < 0))
 		*xstep *= -1;
 }
 

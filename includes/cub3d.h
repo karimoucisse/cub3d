@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/15 16:06:41 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/15 16:28:53 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,6 @@
 # define LEFT 65361
 # define RIGHT 65363
 # define ECHAP 65307
-// # define N (3 * PI / 2)
-// # define S PI / 2
-// # define E 0
-// # define W PI
 # define CTRL 65507
 
 typedef struct s_texture

@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 12:45:40 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/15 15:49:29 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/15 18:06:09 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	is_valid_map_lines(char *line, t_game_info *data)
 		data->lock_valid_map_lines = 1;
 	while (line[i])
 	{
-		if (line[i] == 'N' || line[i] == 'E'
-			|| line[i] == 'W' || line[i] == 'S')
+		if (line[i] == 'N' || line[i] == 'E' || line[i] == 'W'
+			|| line[i] == 'S')
 		{
 			if (data->lock_news == 1)
 				return (printf("Error : duplicates [N,E,W,S]\n"), ERROR);
@@ -51,13 +51,15 @@ int	check_map(char **map, int x, int y)
 			if (map[x][y] == '0' || map[x][y] == 'N' || map[x][y] == 'S'
 				|| map[x][y] == 'E' || map[x][y] == 'W')
 			{
-				if (!map[x - 1] || !map[x - 1][y] || map[x - 1][y] == ' ')
+				if (x == 0 || !map[x - 1] || !map[x - 1][y] || map[x
+					- 1][y] == ' ')
 					return (printf("Error: map invalid.\n"), ERROR);
 				else if (!map[x + 1] || !map[x + 1][y] || map[x + 1][y] == ' ')
 					return (printf("Error: map invalid2.\n"), ERROR);
 				else if (!map[x] || !map[x][y + 1] || map[x][y + 1] == ' ')
 					return (printf("Error: map invalid3.\n"), ERROR);
-				else if (!map[x] || !map[x][y - 1] || map[x][y - 1] == ' ')
+				else if (y == 0 || !map[x] || !map[x][y - 1] || map[x][y
+					- 1] == ' ')
 					return (printf("Error: map invalid4.\n"), ERROR);
 			}
 			y++;

@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:42:44 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/14 16:50:00 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/15 16:35:13 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	calc_v_hit_distance(t_game *game, bool is_wall_hit, double hit_x,
 		game->raycast_info.v_hit_posy = hit_y;
 		game->raycast_info.v_hit_dist = calc_dist(game->player.x,
 				game->player.y, hit_x, hit_y);
-		game->raycast_info.was_hit_vertical = true;
 	}
 	else
 		game->raycast_info.v_hit_dist = __INT_MAX__;
@@ -43,9 +42,7 @@ void	calc_v_steps(double angle, double *xstep, double *ystep)
 	if (is_left(angle))
 		*xstep *= -1;
 	*ystep = TILE * tan(angle);
-	if (is_up(angle) && *ystep > 0)
-		*ystep *= -1;
-	if (is_down(angle) && *ystep < 0)
+	if ((is_up(angle) && *ystep > 0) || (is_down(angle) && *ystep < 0))
 		*ystep *= -1;
 }
 
