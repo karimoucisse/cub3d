@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:52:09 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/15 23:58:19 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/16 00:09:05 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,12 @@ void	draw_ray(t_game *game, double angle)
 	int		i;
 	double	x;
 	double	y;
-	double	new_x;
-	double	new_y;
 
 	i = 0;
-	new_x = game->player.x / TILE * MINIMAP_TILE;
-	new_y = game->player.y / TILE * MINIMAP_TILE;
 	while (1)
 	{
-		x = (new_x) + cos(angle) * i;
-		y = (new_y) + sin(angle) * i;
-		if (is_a_wall(game, x / MINIMAP_TILE * TILE, y / MINIMAP_TILE * TILE))
-			break ;
+		x = (game->player.x / TILE * MINIMAP_TILE) + cos(angle) * i;
+		y = (game->player.y / TILE * MINIMAP_TILE) + sin(angle) * i;
 		i++;
 		if ((is_left(angle) && is_a_wall(game, ((x - 1) / MINIMAP_TILE * TILE),
 					y / MINIMAP_TILE * TILE)))
@@ -89,10 +83,12 @@ void	draw_ray(t_game *game, double angle)
 		if ((is_up(angle) && is_a_wall(game, x / MINIMAP_TILE * TILE, ((y - 1)
 						/ MINIMAP_TILE * TILE))))
 			break ;
-		ft_put_pixel(x, y, 0xFFFFF0, game);
+		if (is_a_wall(game, x / MINIMAP_TILE * TILE, y / MINIMAP_TILE * TILE))
+			break ;
 		if (is_right(angle) && ((int)x / MINIMAP_TILE
 				* TILE) >= (int)game->raycast_info.wall_hitx)
 			break ;
+		ft_put_pixel(x, y, 0xFFFFF0, game);
 	}
 }
 
