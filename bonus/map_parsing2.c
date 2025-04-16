@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 12:45:40 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/16 13:04:33 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/16 14:59:22 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	is_valid_map_lines(char *line, t_game_info *data)
 		else if (line[i] != '1' && line[i] != '0' && line[i] != 'W'
 			&& line[i] != 'E' && line[i] != 'N' && line[i] != 'S'
 			&& line[i] != ' ' && line[i] != 'D')
-			return (printf("Error\nother [0,1,N,D,E,W,S] in the map.\n"), ERROR);
+			return (printf("Error\nother [0,1,N,D,E,W,S].\n"), ERROR);
 		else if (data->lock_valid_map_lines == 1)
 			return (printf("Error\nmap separate by line empty.\n"), ERROR);
 		i++;
@@ -51,13 +51,15 @@ int	check_map(char **map, int x, int y)
 			if (map[x][y] == '0' || map[x][y] == 'N' || map[x][y] == 'S'
 				|| map[x][y] == 'E' || map[x][y] == 'W' || map[x][y] == 'D')
 			{
-				if (x == 0 || !map[x - 1] || !map[x - 1][y] || map[x - 1][y] == ' ')
+				if (x == 0 || !map[x - 1] || !map[x - 1][y] || map[x
+					- 1][y] == ' ')
 					return (printf("Error\nmap invalid.\n"), ERROR);
 				else if (!map[x + 1] || !map[x + 1][y] || map[x + 1][y] == ' ')
 					return (printf("Error\nmap invalid2.\n"), ERROR);
 				else if (!map[x] || !map[x][y + 1] || map[x][y + 1] == ' ')
 					return (printf("Error\nmap invalid3.\n"), ERROR);
-				else if (y == 0 || !map[x] || !map[x][y - 1] || map[x][y - 1] == ' ')
+				else if (y == 0 || !map[x] || !map[x][y - 1] || map[x][y
+					- 1] == ' ')
 					return (printf("Error\nmap invalid4.\n"), ERROR);
 			}
 			y++;

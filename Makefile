@@ -20,7 +20,7 @@ CFILESBONUS2 = $(BONUS2)main.c\
     $(BONUS2)$(RAYCASTING)vertical_intersinction.c $(BONUS2)$(RAYCASTING)check_direction.c $(BONUS2)$(RAYCASTING)calculation.c\
 	$(BONUS2)init_structure.c $(BONUS2)parsing.c $(BONUS2)map_parsing.c $(BONUS2)colors_fonctions.c\
 	$(BONUS2)textures_fonctions.c $(BONUS2)key_action.c $(BONUS2)map_parsing2.c $(BONUS2)handle_end.c $(BONUS2)init_structure2.c\
-	$(BONUS2)put_pixels.c $(BONUS2)minimap.c
+	$(BONUS2)put_pixels.c $(BONUS2)minimap.c $(BONUS2)door_move.c
 
 OFILESBONUS2 = $(CFILESBONUS2:.c=.o)
 RM = rm -f

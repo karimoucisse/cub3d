@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vertical_intersinction.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:42:28 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/16 12:29:14 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/16 15:22:54 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,17 @@ void	calc_v_steps(double angle, double *xstep, double *ystep)
 		*ystep *= -1;
 }
 
+bool	is_vertical_intersection_wall_hit(t_game *game, double angle,
+		double nxt_x_point, double nxt_y_point)
+{
+	if ((is_left(angle) && is_a_wall_bonus(game, nxt_x_point - 1, nxt_y_point,
+				&game->raycast_info.hit_type_vertical)) || (!is_left(angle)
+			&& is_a_wall_bonus(game, nxt_x_point, nxt_y_point,
+				&game->raycast_info.hit_type_vertical)))
+		return (true);
+	return (false);
+}
+
 void	vertical_intersection(t_game *game, double angle)
 {
 	double	xstep;
@@ -66,9 +77,8 @@ void	vertical_intersection(t_game *game, double angle)
 	calc_v_steps(angle, &xstep, &ystep);
 	while (nxt_x_point >= 0 && nxt_y_point >= 0)
 	{
-	
-		if ((is_left(angle) && is_a_wall(game, nxt_x_point - 1, nxt_y_point, &game->raycast_info.hit_type_vertical))
-			|| (!is_left(angle) && is_a_wall(game, nxt_x_point, nxt_y_point, &game->raycast_info.hit_type_vertical)))
+		if (is_vertical_intersection_wall_hit(game, angle, nxt_x_point,
+				nxt_y_point))
 		{
 			hit_wall = true;
 			break ;

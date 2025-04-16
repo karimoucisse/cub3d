@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   horizontal_intersection.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:42:21 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/16 12:25:37 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/16 15:25:25 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,17 @@ void	calc_h_steps(double angle, double *xstep, double *ystep)
 		*xstep *= -1;
 }
 
+bool	is_horizontal_intersection_wall_hit(t_game *game, double angle,
+		double nxt_x_point, double nxt_y_point)
+{
+	if ((is_up(angle) && is_a_wall_bonus(game, nxt_x_point, nxt_y_point - 1,
+				&game->raycast_info.hit_type_horizontal)) || (!is_up(angle)
+			&& is_a_wall_bonus(game, nxt_x_point, nxt_y_point,
+				&game->raycast_info.hit_type_horizontal)))
+		return (true);
+	return (false);
+}
+
 void	horizontal_intersection(t_game *game, double angle)
 {
 	double	xstep;
@@ -66,8 +77,8 @@ void	horizontal_intersection(t_game *game, double angle)
 	calc_h_steps(angle, &xstep, &ystep);
 	while (nxt_x_point >= 0 && nxt_y_point >= 0)
 	{
-		if ((is_up(angle) && is_a_wall(game, nxt_x_point, nxt_y_point - 1, &game->raycast_info.hit_type_horizontal))
-			|| (!is_up(angle) && is_a_wall(game, nxt_x_point, nxt_y_point, &game->raycast_info.hit_type_horizontal)))
+		if (is_horizontal_intersection_wall_hit(game, angle, nxt_x_point,
+				nxt_y_point))
 		{
 			hit_wall = true;
 			break ;

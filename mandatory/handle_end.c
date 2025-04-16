@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_end.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:27:13 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/15 23:22:39 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/16 15:08:36 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	free_structure(t_game *game)
 		ft_free(&game->game_info->east_texture);
 		ft_free(&game->game_info->south_texture);
 		ft_free(&game->game_info->west_texture);
-		ft_free(&game->game_info->door_texture);
 		free_list(game->game_info->map_list);
 		free_map(game->game_info->map);
 		free(game->game_info);
@@ -71,8 +70,6 @@ void	ft_destroy_image(t_game *game)
 		mlx_destroy_image(game->mlx_ptr, game->we_data.img_ptr);
 	if (game->ea_data.img_ptr)
 		mlx_destroy_image(game->mlx_ptr, game->ea_data.img_ptr);
-	if (game->do_data.img_ptr)
-		mlx_destroy_image(game->mlx_ptr, game->do_data.img_ptr);
 }
 
 int	close_win(t_game *game)
@@ -92,8 +89,6 @@ int	close_win(t_game *game)
 			free(game->we_data.pixels);
 		if (game->no_data.pixels)
 			free(game->no_data.pixels);
-		if (game->do_data.pixels)
-			free(game->do_data.pixels);
 		mlx_destroy_display(game->mlx_ptr);
 		free(game->mlx_ptr);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 19:02:23 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/16 13:07:03 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/16 14:57:35 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		return (EXIT_FAILURE);
 	if (!check_file_name(av[1]))
-		return(printf("Error\n"), ERROR);
+		return (printf("Error\n"), ERROR);
 	if (init_structure(&game) != SUCCESS)
-	return (free_structure(&game), ERROR);
+		return (free_structure(&game), ERROR);
 	if (opening_parsing(game.game_info, av[1]) != SUCCESS)
 		return (free_structure(&game), ERROR);
 	if (init_game(&game) != SUCCESS)

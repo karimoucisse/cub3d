@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:52:38 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/16 13:36:45 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/16 15:19:22 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,50 @@ void	render_map(t_game *game, t_texture texture, int x)
 	}
 }
 
+void	render_horizontal_map(t_game *game, double angle, int x)
+{
+	if (!game->raycast_info.was_hit_vertical)
+	{
+		if (sin(angle) > 0)
+		{
+			if (game->raycast_info.hit_type_horizontal == 1)
+			{
+				render_map(game, game->do_data, x);
+			}
+			else
+				render_map(game, game->no_data, x);
+		}
+		else
+		{
+			if (game->raycast_info.hit_type_horizontal == 1)
+				render_map(game, game->do_data, x);
+			else
+				render_map(game, game->so_data, x);
+		}
+	}
+}
+
+void	render_vertical_map(t_game *game, double angle, int x)
+{
+	if (game->raycast_info.was_hit_vertical)
+	{
+		if (cos(angle) > 0)
+		{
+			if (game->raycast_info.hit_type_vertical == 1)
+				render_map(game, game->do_data, x);
+			else
+				render_map(game, game->we_data, x);
+		}
+		else
+		{
+			if (game->raycast_info.hit_type_vertical == 1)
+				render_map(game, game->do_data, x);
+			else
+				render_map(game, game->ea_data, x);
+		}
+	}
+}
+
 void	check_intersections_bonus(t_game *game, double angle, int x,
 		bool minimap)
 {
@@ -41,42 +85,8 @@ void	check_intersections_bonus(t_game *game, double angle, int x,
 		* project_plane;
 	if (!minimap)
 	{
-		if (!game->raycast_info.was_hit_vertical)
-		{
-			if (sin(angle) > 0)
-			{
-				if (game->raycast_info.hit_type_horizontal == 1)
-				{
-					render_map(game, game->do_data, x);
-				}
-				else
-					render_map(game, game->no_data, x);
-			}
-			else
-			{
-				if (game->raycast_info.hit_type_horizontal == 1)
-					render_map(game, game->do_data, x);
-				else
-					render_map(game, game->so_data, x);
-			}
-		}
-		else
-		{
-			if (cos(angle) > 0)
-			{
-				if (game->raycast_info.hit_type_vertical == 1)
-					render_map(game, game->do_data, x);
-				else
-					render_map(game, game->we_data, x);
-			}
-			else
-			{
-				if (game->raycast_info.hit_type_vertical == 1)
-					render_map(game, game->do_data, x);
-				else
-					render_map(game, game->ea_data, x);
-			}
-		}
+		render_vertical_map(game, angle, x);
+		render_horizontal_map(game, angle, x);
 	}
 }
 

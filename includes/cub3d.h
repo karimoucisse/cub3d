@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/16 13:45:57 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/16 15:17:20 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,8 @@ void			calc_ray_distance(t_game *game, double angle);
 
 // UTILS
 void			clear_map(t_game *game);
-int				is_a_wall(t_game *game, double x, double y, int *door);
+int				is_a_wall_bonus(t_game *game, double x, double y, int *door);
+int				is_a_wall(t_game *game, double x, double y);
 
 // NEW AJOUT KENNY
 int				init_structure(t_game *data);
@@ -200,5 +201,6 @@ void			put_wall_pixel(t_game *game, t_texture texture, int y, int x);
 
 void			draw_ray(t_game *game, double angle);
 int				mouse_move(int x, int y, t_game *game);
-
+// DOOR
+void			open_doors_in_radius(t_game *game, double radius);
 #endif

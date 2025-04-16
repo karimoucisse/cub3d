@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_action.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:53:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/15 23:21:09 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/16 14:57:13 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ int	key_release(int keycode, t_player *player)
 
 int	mouse_move(int x, int y, t_game *game)
 {
-	int			center_x;
-	int			center_y;
-	int			delta_x;
-	double		sensitivity;
-	(void)y;
+	int		center_x;
+	int		center_y;
+	int		delta_x;
+	double	sensitivity;
 
+	(void)y;
 	center_x = WIDTH / 2;
 	center_y = HEIGHT / 2;
 	sensitivity = 0.001;
