@@ -50,3 +50,28 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+
+
+
+# Makefile principal
+
+# LIBFT_DIR = libft
+# LIBFT_AR = libft.a
+# LIB_DIR = lib
+
+# all: $(LIB_DIR)/$(LIBFT_AR)
+# 	# autres règles de compilation ici
+
+# $(LIB_DIR)/$(LIBFT_AR):
+# 	$(MAKE) -C $(LIBFT_DIR)
+# 	mkdir -p $(LIB_DIR)
+# 	cp $(LIBFT_DIR)/$(LIBFT_AR) $(LIB_DIR)/
+
+# clean:
+# 	$(MAKE) -C $(LIBFT_DIR) clean
+
+# fclean:
+# 	$(MAKE) -C $(LIBFT_DIR) fclean
+# 	rm -f $(LIB_DIR)/$(LIBFT_AR)
+
+# re: fclean all
