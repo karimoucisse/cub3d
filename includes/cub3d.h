@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/15 16:28:53 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/16 12:31:40 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/stat.h>
 # include <unistd.h>
 
+# define HIT_DOOR 2
 # define SUCCESS 0
 # define ERROR 1
 # define PI 3.14159265359
@@ -33,7 +34,7 @@
 # define TILE 64
 # define MINIMAP_TILE 10
 # define FOV 60
-# define MOVE_SPEED 1.2
+# define MOVE_SPEED 0.5
 # define SPRINT 3.5
 # define ROTATION_SPEED 0.010
 # define FAST_ROTATION 0.020
@@ -61,6 +62,8 @@ typedef struct s_texture
 typedef struct s_raycast
 {
 	bool		was_hit_vertical;
+	int			hit_type_vertical;
+	int			hit_type_horizontal;	
 	double		v_hit_posx;
 	double		v_hit_posy;
 	double		v_hit_dist;
@@ -101,11 +104,13 @@ typedef struct s_game_info
 	char		*south_texture;
 	char		*west_texture;
 	char		*east_texture;
+	char		*door_texture;
 	int			floor_color[3];
 	int			ceiling_color[3];
 	char		**map;
 	t_list		*map_list;
 	int			map_height;
+	int			map_widht;
 	int			lock;
 	int			lock_valid_map_lines;
 	int			lock_news;
@@ -129,6 +134,7 @@ typedef struct s_game
 	t_texture	so_data;
 	t_texture	we_data;
 	t_texture	ea_data;
+	t_texture	do_data;
 }				t_game;
 
 // PARSING
@@ -163,7 +169,7 @@ void			calc_ray_distance(t_game *game, double angle);
 
 // UTILS
 void			clear_map(t_game *game);
-int				is_a_wall(t_game *game, double x, double y);
+int				is_a_wall(t_game *game, double x, double y, int *door);
 
 // NEW AJOUT KENNY
 int				init_structure(t_game *data);
@@ -191,5 +197,6 @@ double			put_floor_pixel(t_game *game, int x);
 void			put_wall_pixel(t_game *game, t_texture texture, int y, int x);
 
 void			draw_ray(t_game *game, double angle);
+int				mouse_move(int x, int y, t_game *game);
 
 #endif

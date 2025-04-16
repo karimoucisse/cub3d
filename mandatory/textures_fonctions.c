@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures_fonctions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:16:21 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/13 22:58:32 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/16 13:08:32 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,16 @@ int	textures_function(char **file, char *line, int i)
 			&& ft_strncmp(new_line + ft_strlen(new_line) - 4, ".xpm", 4) != 0)
 		{
 			*file = new_line;
-			return (printf("not xpm file.\n"), ERROR);
+			return (printf("Error\nnot xpm file.\n"), ERROR);
 		}
 		if (is_valid_textures(&new_line) != SUCCESS)
 		{
-			printf("Error : unable to open the texture [%s].\n", line);
+			printf("Error\nunable to open the texture [%s].\n", line);
 			return (ft_free(&new_line), ERROR);
 		}
 		*file = new_line;
 		return (SUCCESS);
 	}
-	printf("Error : %s duplicates\n", *file);
+	printf("Error\n%s duplicates\n", *file);
 	return (ERROR);
 }

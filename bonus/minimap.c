@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:52:09 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/15 17:53:49 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/16 12:25:56 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	draw_ray(t_game *game, double angle)
 	{
 		x = (new_x) + cos(angle) * i;
 		y = (new_y) + sin(angle) * i;
-		if (is_a_wall(game, x / MINIMAP_TILE * TILE, y / MINIMAP_TILE * TILE))
+		if (is_a_wall(game, x / MINIMAP_TILE * TILE, y / MINIMAP_TILE * TILE, NULL))
 			break ;
 		i++;
 		// if (game->raycast_info.was_hit_vertical)

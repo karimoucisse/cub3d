@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_structure2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:27:22 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/15 15:54:21 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/16 13:04:33 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,15 @@ int	init_textures(void *mlx, char *file, t_texture *img)
 
 	y = 0;
 	img->img_ptr = mlx_xpm_file_to_image(mlx, file, &img->width, &img->height);
+	if (!img->img_ptr)
+		return (printf("Error\nFailed mlx_xpm_to_img.\n"), ERROR);
 	img->addr = mlx_get_data_addr(img->img_ptr, &img->bpp, &img->line_len,
 			&img->endian);
 	if (img->width != img->height)
-		return (printf("Error: width and height not identique.\n"), ERROR);
+		return (printf("Error\nwidth and height not identique.\n"), ERROR);
 	img->pixels = malloc(sizeof(int) * img->width * img->height);
 	if (!img->pixels)
-		return (printf("Error: malloc failed for texture pixels.\n"), ERROR);
+		return (printf("Error\nmalloc failed for texture pixels.\n"), ERROR);
 	while (y < img->height)
 	{
 		x = 0;
@@ -67,6 +69,7 @@ int	init_game_loop(t_game *game)
 				game->player.rot_angle = PI;
 		}
 	}
+	game->game_info->map_widht = j;
 	return (i);
 }
 
@@ -77,22 +80,22 @@ int	init_game(t_game *game)
 	i = 0;
 	game->mlx_ptr = mlx_init();
 	if (!game->mlx_ptr)
-		return (printf("Error: mlx_init failed\n"), ERROR);
+		return (printf("Error\nmlx_init failed\n"), ERROR);
 	game->mlx_win = mlx_new_window(game->mlx_ptr, WIDTH, HEIGHT, "Game");
 	if (!game->mlx_win)
-		return (printf("Error: mlx_new_window failed\n"), ERROR);
+		return (printf("Error\nmlx_new_window failed\n"), ERROR);
 	game->img_ptr = mlx_new_image(game->mlx_ptr, WIDTH, HEIGHT);
 	if (!game->img_ptr)
-		return (printf("Error: mlx_new_image failed\n"), ERROR);
+		return (printf("Error\nmlx_new_image failed\n"), ERROR);
 	game->addr = mlx_get_data_addr(game->img_ptr, &game->bits_per_pixel,
 			&game->line_length, &game->endian);
 	i = init_game_loop(game);
 	game->game_info->map_height = i;
-	init_textures(game->mlx_ptr, game->game_info->east_texture, &game->ea_data);
-	init_textures(game->mlx_ptr, game->game_info->north_texture,
-		&game->no_data);
-	init_textures(game->mlx_ptr, game->game_info->south_texture,
-		&game->so_data);
-	init_textures(game->mlx_ptr, game->game_info->west_texture, &game->we_data);
+	if (init_textures(game->mlx_ptr, game->game_info->east_texture, &game->ea_data) != SUCCESS
+		|| init_textures(game->mlx_ptr, game->game_info->north_texture, &game->no_data) != SUCCESS
+		|| init_textures(game->mlx_ptr, game->game_info->south_texture, &game->so_data) != SUCCESS
+		|| init_textures(game->mlx_ptr, game->game_info->west_texture, &game->we_data) != SUCCESS
+		|| init_textures(game->mlx_ptr, game->game_info->door_texture, &game->do_data) != SUCCESS)
+		return (ERROR);
 	return (SUCCESS);
 }

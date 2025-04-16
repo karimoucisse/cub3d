@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   horizontal_intersection.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:42:21 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/14 16:52:59 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/16 12:25:37 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void	horizontal_intersection(t_game *game, double angle)
 	calc_h_steps(angle, &xstep, &ystep);
 	while (nxt_x_point >= 0 && nxt_y_point >= 0)
 	{
-		if ((is_up(angle) && is_a_wall(game, nxt_x_point, nxt_y_point - 1))
-			|| (!is_up(angle) && is_a_wall(game, nxt_x_point, nxt_y_point)))
+		if ((is_up(angle) && is_a_wall(game, nxt_x_point, nxt_y_point - 1, &game->raycast_info.hit_type_horizontal))
+			|| (!is_up(angle) && is_a_wall(game, nxt_x_point, nxt_y_point, &game->raycast_info.hit_type_horizontal)))
 		{
 			hit_wall = true;
 			break ;

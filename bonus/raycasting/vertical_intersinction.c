@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vertical_intersinction.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:42:28 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/14 16:50:59 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/16 12:29:14 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,9 @@ void	vertical_intersection(t_game *game, double angle)
 	calc_v_steps(angle, &xstep, &ystep);
 	while (nxt_x_point >= 0 && nxt_y_point >= 0)
 	{
-		if ((is_left(angle) && is_a_wall(game, nxt_x_point - 1, nxt_y_point))
-			|| (!is_left(angle) && is_a_wall(game, nxt_x_point, nxt_y_point)))
+	
+		if ((is_left(angle) && is_a_wall(game, nxt_x_point - 1, nxt_y_point, &game->raycast_info.hit_type_vertical))
+			|| (!is_left(angle) && is_a_wall(game, nxt_x_point, nxt_y_point, &game->raycast_info.hit_type_vertical)))
 		{
 			hit_wall = true;
 			break ;

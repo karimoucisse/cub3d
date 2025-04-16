@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3draycasting.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:52:38 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/15 17:53:56 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/16 12:16:23 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,39 @@ void	check_intersections(t_game *game, double angle, int x)
 	if (!game->raycast_info.was_hit_vertical)
 	{
 		if (sin(angle) > 0)
-			render_map(game, game->so_data, x);
+		{
+			if (game->raycast_info.hit_type_horizontal == 1)
+			{
+				render_map(game, game->do_data, x);
+				
+			}
+			else
+				render_map(game, game->no_data, x);
+		}
 		else
-			render_map(game, game->no_data, x);
+		{
+			if (game->raycast_info.hit_type_horizontal == 1)
+				render_map(game, game->do_data, x);
+			else
+				render_map(game, game->so_data, x);
+		}
 	}
 	else
 	{
 		if (cos(angle) > 0)
-			render_map(game, game->we_data, x);
+		{
+			if (game->raycast_info.hit_type_vertical == 1)
+				render_map(game, game->do_data, x);
+			else
+				render_map(game, game->we_data, x);
+		}
 		else
-			render_map(game, game->ea_data, x);
+		{
+			if (game->raycast_info.hit_type_vertical == 1)
+				render_map(game, game->do_data, x);
+			else
+				render_map(game, game->ea_data, x);
+		}
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_action.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:53:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/14 16:53:19 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/15 23:21:09 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,22 @@ int	key_release(int keycode, t_player *player)
 		player->right_rotate = false;
 	if (keycode == CTRL)
 		player->sprint = false;
+	return (0);
+}
+
+int	mouse_move(int x, int y, t_game *game)
+{
+	int			center_x;
+	int			center_y;
+	int			delta_x;
+	double		sensitivity;
+	(void)y;
+
+	center_x = WIDTH / 2;
+	center_y = HEIGHT / 2;
+	sensitivity = 0.001;
+	delta_x = x - center_x;
+	game->player.rot_angle += delta_x * sensitivity;
+	mlx_mouse_move(game->mlx_ptr, game->mlx_win, center_x, center_y);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 12:45:40 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/14 13:57:02 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/16 13:04:33 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	map_after_textures(t_game_info *data)
 		|| data->floor_color[0] == -1
 		|| data->ceiling_color[0] == -1)
 	{
-		printf("Error : map before instructions or incorrect line detected.\n");
+		printf("Error\nmap before instructions or incorrect line detected.\n");
 		return (ERROR);
 	}
 	return (SUCCESS);
