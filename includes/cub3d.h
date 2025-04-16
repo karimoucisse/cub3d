@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/16 12:31:40 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/16 13:45:57 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define MINIMAP_TILE 10
 # define FOV 60
 # define MOVE_SPEED 0.5
-# define SPRINT 3.5
+# define SPRINT 1.2
 # define ROTATION_SPEED 0.010
 # define FAST_ROTATION 0.020
 # define COLLISION_OFFSET 20
@@ -63,7 +63,7 @@ typedef struct s_raycast
 {
 	bool		was_hit_vertical;
 	int			hit_type_vertical;
-	int			hit_type_horizontal;	
+	int			hit_type_horizontal;
 	double		v_hit_posx;
 	double		v_hit_posy;
 	double		v_hit_dist;
@@ -153,6 +153,8 @@ void			minimap(t_game *game);
 
 // RAYCASTING -> CHECK INTERSECTIONS
 void			check_intersections(t_game *game, double angle, int x);
+void			check_intersections_bonus(t_game *game, double angle, int x,
+					bool minimap);
 void			vertical_intersection(t_game *game, double angle);
 void			horizontal_intersection(t_game *game, double angle);
 // RAYCASTING -> CHECK DIRECTION

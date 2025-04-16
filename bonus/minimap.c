@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:52:09 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/16 12:25:56 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/16 13:41:36 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,17 @@
 void	draw_map_square(int x, int y, int color, t_game *game)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	while (i < MINIMAP_TILE)
 	{
-		ft_put_pixel(x + i, y, color, game);
-		ft_put_pixel(x + i, y + MINIMAP_TILE, color, game);
-		ft_put_pixel(x, y + i, color, game);
-		ft_put_pixel(x + MINIMAP_TILE, y + i, color, game);
+		j = 0;
+		while (j < MINIMAP_TILE)
+		{
+			ft_put_pixel(x + j, y + i, color, game);
+			j++;
+		}
 		i++;
 	}
 }
@@ -58,76 +61,64 @@ void	create_map(t_game *game)
 			if (map[i][j] == '1')
 				draw_map_square(j * MINIMAP_TILE, i * MINIMAP_TILE, 0xFFFF0000,
 					game);
+			if (map[i][j] == 'D')
+				draw_map_square(j * MINIMAP_TILE, i * MINIMAP_TILE, 0xFF00FF00,
+					game);
+			if (map[i][j] == '0' || map[i][j] == 'N' || map[i][j] == 'W'
+				|| map[i][j] == 'S' || map[i][j] == 'E' || map[i][j] == 'O')
+				draw_map_square(j * MINIMAP_TILE, i * MINIMAP_TILE, 0, game);
 			j++;
 		}
 		i++;
 	}
 }
-// x = 323.112886, y = 188.509789, hx = 326.196331, hy = 192.000000
-// x = 430.770544, y = 333.571118, hx = 337.287714, hy = 192.000000
+
 void	draw_ray(t_game *game, double angle)
 {
 	int		i;
 	double	x;
 	double	y;
-	double	new_x;
-	double	new_y;
 
 	i = 0;
-	new_x = game->player.x / TILE * MINIMAP_TILE;
-	new_y = game->player.y / TILE * MINIMAP_TILE;
-	// printf("x = %f, y = %f, hx = %f, hy = %f\n", ((new_x) + cos(angle) * i)
-	// 	/ MINIMAP_TILE * TILE, ((new_y) + cos(angle) * i) / MINIMAP_TILE * TILE,
-	// 	game->raycast_info.wall_hitx, game->raycast_info.wall_hity);
 	while (1)
 	{
-		x = (new_x) + cos(angle) * i;
-		y = (new_y) + sin(angle) * i;
-		if (is_a_wall(game, x / MINIMAP_TILE * TILE, y / MINIMAP_TILE * TILE, NULL))
-			break ;
+		x = (game->player.x / TILE * MINIMAP_TILE) + cos(angle) * i;
+		y = (game->player.y / TILE * MINIMAP_TILE) + sin(angle) * i;
 		i++;
-		// if (game->raycast_info.was_hit_vertical)
-		// {
-		// 	if ((is_left(angle) && ((int)x / MINIMAP_TILE
-		// 				* TILE) >= (int)game->raycast_info.wall_hitx))
-		// 		break ;
-		// }
-		// else
-		// {
-		// 	if ((is_up(angle) && is_a_wall(game, x / MINIMAP_TILE * TILE, (y
-		// 					/ MINIMAP_TILE * TILE) - 1)) || (!is_up(angle)
-		// 			&& is_a_wall(game, x / MINIMAP_TILE * TILE, y / MINIMAP_TILE
-		// 				* TILE)))
-		// 		break ;
-		// }
-		// (y / MINIMAP_TILE * TILE)
-		ft_put_pixel(x, y, 0xFFFFF0, game);
-		// && ((int)y / MINIMAP_TILE * TILE <= (int)game->raycast_info.wall_hity)
-		if (angle > PI && angle < (3 * PI / 2) && ((int)y / MINIMAP_TILE * TILE <= (int)game->raycast_info.wall_hity))
-			break;
-		if (!is_up(angle) && (is_left(angle) && ((int)y / MINIMAP_TILE
-					* TILE) >= (int)game->raycast_info.wall_hity))
+		if ((is_left(angle) && is_a_wall(game, ((x - 1) / MINIMAP_TILE * TILE),
+					y / MINIMAP_TILE * TILE, NULL)))
+			break ;
+		if ((is_up(angle) && is_a_wall(game, x / MINIMAP_TILE * TILE, ((y - 1)
+						/ MINIMAP_TILE * TILE), NULL)))
+			break ;
+		if (is_a_wall(game, x / MINIMAP_TILE * TILE, y / MINIMAP_TILE * TILE,
+				NULL))
 			break ;
 		if (is_right(angle) && ((int)x / MINIMAP_TILE
 				* TILE) >= (int)game->raycast_info.wall_hitx)
 			break ;
+		ft_put_pixel(x, y, 0xFFFFF0, game);
 	}
-	// printf("angle = %f\n", angle);
-	// printf("debut x = %f, y = %f, hx = %f, hy = %f\n", ((new_x) + cos(angle) * i)
-	// 	/ MINIMAP_TILE * TILE, ((new_y) + cos(angle) * i) / MINIMAP_TILE * TILE,
-	// 	game->raycast_info.wall_hitx, game->raycast_info.wall_hity);
-	// printf("FIN x = %f, y = %f, hx = %f, hy = %f\n", x / MINIMAP_TILE * TILE, y
-	// 	/ MINIMAP_TILE * TILE, game->raycast_info.wall_hitx,
-	// 	game->raycast_info.wall_hity);
 }
 
 void	minimap(t_game *game)
 {
 	double	x;
 	double	y;
+	int		i;
+	double	angle;
 
-	create_map(game);
 	x = game->player.x / TILE * MINIMAP_TILE;
 	y = game->player.y / TILE * MINIMAP_TILE;
 	draw_player(x, y, 0, game);
+	i = 0;
+	angle = game->player.rot_angle - ((FOV * (PI / 180)) / 2);
+	create_map(game);
+	while (i < WIDTH)
+	{
+		check_intersections_bonus(game, normalize_angle(angle), i, true);
+		draw_ray(game, normalize_angle(angle));
+		angle += (FOV * (PI / 180)) / WIDTH;
+		i++;
+	}
 }

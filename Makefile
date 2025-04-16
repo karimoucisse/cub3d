@@ -1,6 +1,6 @@
 NAME = cub3D
 CC = cc
-BONUS = bonus/
+BONUS2 = bonus/
 MANDATORY = mandatory/
 PARSING = parsing/
 RAYCASTING = raycasting/
@@ -15,14 +15,14 @@ CFILES = $(MANDATORY)main.c\
 	$(MANDATORY)key_action.c $(MANDATORY)map_parsing2.c $(MANDATORY)handle_end.c $(MANDATORY)init_structure2.c $(MANDATORY)put_pixels.c
 
 OFILES = $(CFILES:.c=.o)
-CFILESBONUS = $(BONUS)main.c\
-    $(BONUS)player_move.c $(BONUS)utils.c $(BONUS)$(RAYCASTING)3draycasting.c $(BONUS)$(RAYCASTING)horizontal_intersection.c\
-    $(BONUS)$(RAYCASTING)vertical_intersinction.c $(BONUS)$(RAYCASTING)check_direction.c $(BONUS)$(RAYCASTING)calculation.c\
-	$(BONUS)minimap.c $(BONUS)init_structure.c $(BONUS)parsing.c $(BONUS)map_parsing.c $(BONUS)colors_fonctions.c\
-	$(BONUS)textures_fonctions.c $(BONUS)key_action.c $(BONUS)map_parsing2.c $(BONUS)handle_end.c $(BONUS)init_structure2.c\
-	$(BONUS)put_pixels.c
+CFILESBONUS2 = $(BONUS2)main.c\
+    $(BONUS2)player_move.c $(BONUS2)utils.c $(BONUS2)$(RAYCASTING)3draycasting.c $(BONUS2)$(RAYCASTING)horizontal_intersection.c\
+    $(BONUS2)$(RAYCASTING)vertical_intersinction.c $(BONUS2)$(RAYCASTING)check_direction.c $(BONUS2)$(RAYCASTING)calculation.c\
+	$(BONUS2)init_structure.c $(BONUS2)parsing.c $(BONUS2)map_parsing.c $(BONUS2)colors_fonctions.c\
+	$(BONUS2)textures_fonctions.c $(BONUS2)key_action.c $(BONUS2)map_parsing2.c $(BONUS2)handle_end.c $(BONUS2)init_structure2.c\
+	$(BONUS2)put_pixels.c $(BONUS2)minimap.c
 
-OFILESBONUS = $(CFILESBONUS:.c=.o)
+OFILESBONUS2 = $(CFILESBONUS2:.c=.o)
 RM = rm -f
 
 all: $(NAME)
@@ -33,14 +33,14 @@ $(LIBFT):
 $(NAME): $(LIBFT) $(OFILES)
 	$(CC) $(OFILES) -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz -L$(LIBFT_DIR) -lft -o $(NAME)
 
-bonus: $(LIBFT) $(OFILESBONUS)
-	$(CC) $(OFILESBONUS) -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz -L$(LIBFT_DIR) -lft -o $(NAME)
+bonus: $(LIBFT) $(OFILESBONUS2)
+	$(CC) $(OFILESBONUS2) -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz -L$(LIBFT_DIR) -lft -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -I/usr/include -I ./includes -Imlx -O3 -c $< -o $@
 
 clean:
-	$(RM) $(OFILES) $(OFILESBONUS)
+	$(RM) $(OFILES) $(OFILESBONUS2)
 	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean

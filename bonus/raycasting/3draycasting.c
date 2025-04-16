@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3draycasting.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:52:38 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/16 12:16:23 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/16 13:36:45 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	render_map(t_game *game, t_texture texture, int x)
 	}
 }
 
-void	check_intersections(t_game *game, double angle, int x)
+void	check_intersections_bonus(t_game *game, double angle, int x,
+		bool minimap)
 {
 	double	project_plane;
 
@@ -38,41 +39,43 @@ void	check_intersections(t_game *game, double angle, int x)
 	project_plane = (WIDTH / 2) / tan((FOV * (PI / 180)) / 2);
 	game->raycast_info.wall_height = (TILE / game->raycast_info.wall_hit_dist)
 		* project_plane;
-	if (!game->raycast_info.was_hit_vertical)
+	if (!minimap)
 	{
-		if (sin(angle) > 0)
+		if (!game->raycast_info.was_hit_vertical)
 		{
-			if (game->raycast_info.hit_type_horizontal == 1)
+			if (sin(angle) > 0)
 			{
-				render_map(game, game->do_data, x);
-				
+				if (game->raycast_info.hit_type_horizontal == 1)
+				{
+					render_map(game, game->do_data, x);
+				}
+				else
+					render_map(game, game->no_data, x);
 			}
 			else
-				render_map(game, game->no_data, x);
+			{
+				if (game->raycast_info.hit_type_horizontal == 1)
+					render_map(game, game->do_data, x);
+				else
+					render_map(game, game->so_data, x);
+			}
 		}
 		else
 		{
-			if (game->raycast_info.hit_type_horizontal == 1)
-				render_map(game, game->do_data, x);
+			if (cos(angle) > 0)
+			{
+				if (game->raycast_info.hit_type_vertical == 1)
+					render_map(game, game->do_data, x);
+				else
+					render_map(game, game->we_data, x);
+			}
 			else
-				render_map(game, game->so_data, x);
-		}
-	}
-	else
-	{
-		if (cos(angle) > 0)
-		{
-			if (game->raycast_info.hit_type_vertical == 1)
-				render_map(game, game->do_data, x);
-			else
-				render_map(game, game->we_data, x);
-		}
-		else
-		{
-			if (game->raycast_info.hit_type_vertical == 1)
-				render_map(game, game->do_data, x);
-			else
-				render_map(game, game->ea_data, x);
+			{
+				if (game->raycast_info.hit_type_vertical == 1)
+					render_map(game, game->do_data, x);
+				else
+					render_map(game, game->ea_data, x);
+			}
 		}
 	}
 }
@@ -87,8 +90,7 @@ void	raycast_3d(t_game *game)
 	angle = game->player.rot_angle - ((FOV * (PI / 180)) / 2);
 	while (i < WIDTH)
 	{
-		check_intersections(game, normalize_angle(angle), i);
-		draw_ray(game, normalize_angle(angle));
+		check_intersections_bonus(game, normalize_angle(angle), i, false);
 		angle += (FOV * (PI / 180)) / WIDTH;
 		i++;
 	}
