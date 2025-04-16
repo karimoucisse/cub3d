@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 12:45:40 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/14 13:57:02 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/16 12:47:46 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,9 @@
 int	map_after_textures(t_game_info *data)
 {
 	if (data->north_texture == NULL || data->south_texture == NULL
-		|| data->west_texture == NULL
-		|| data->east_texture == NULL
-		|| data->floor_color[0] == -1
-		|| data->ceiling_color[0] == -1)
-	{
-		printf("Error : map before instructions or incorrect line detected.\n");
-		return (ERROR);
-	}
+		|| data->west_texture == NULL || data->east_texture == NULL
+		|| data->floor_color[0] == -1 || data->ceiling_color[0] == -1)
+		return (print_error("Error : map before instructions or incorrect line detected.\n"));
 	return (SUCCESS);
 }
 

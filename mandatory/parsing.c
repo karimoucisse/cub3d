@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:14:38 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/14 17:34:28 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/16 12:53:32 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	opening_parsing(t_game_info *data, char *str)
 	file = open(str, O_RDONLY);
 	if (file == -1)
 	{
-		printf("Error opening file %s\n", str);
+		printf("Error\nError opening file %s\n", str);
 		return (ERROR);
 	}
 	line = get_next_line(file, 0);

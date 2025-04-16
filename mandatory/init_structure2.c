@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:27:17 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/15 15:54:27 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/16 12:47:17 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ int	init_textures(void *mlx, char *file, t_texture *img)
 	img->addr = mlx_get_data_addr(img->img_ptr, &img->bpp, &img->line_len,
 			&img->endian);
 	if (img->width != img->height)
-		return (printf("Error: width and height not identique.\n"), ERROR);
+		return (print_error("Error: width and height not identique.\n"));
 	img->pixels = malloc(sizeof(int) * img->width * img->height);
 	if (!img->pixels)
-		return (printf("Error: malloc failed for texture pixels.\n"), ERROR);
+		return (print_error("Error: malloc failed for texture pixels.\n"));
 	while (y < img->height)
 	{
 		x = 0;
@@ -77,13 +77,13 @@ int	init_game(t_game *game)
 	i = 0;
 	game->mlx_ptr = mlx_init();
 	if (!game->mlx_ptr)
-		return (printf("Error: mlx_init failed\n"), ERROR);
+		return (print_error("Error: mlx_init failed\n"));
 	game->mlx_win = mlx_new_window(game->mlx_ptr, WIDTH, HEIGHT, "Game");
 	if (!game->mlx_win)
-		return (printf("Error: mlx_new_window failed\n"), ERROR);
+		return (print_error("Error: mlx_new_window failed\n"));
 	game->img_ptr = mlx_new_image(game->mlx_ptr, WIDTH, HEIGHT);
 	if (!game->img_ptr)
-		return (printf("Error: mlx_new_image failed\n"), ERROR);
+		return (print_error("Error: mlx_new_image failed\n"));
 	game->addr = mlx_get_data_addr(game->img_ptr, &game->bits_per_pixel,
 			&game->line_length, &game->endian);
 	i = init_game_loop(game);

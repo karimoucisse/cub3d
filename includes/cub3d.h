@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 11:47:18 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/15 16:28:53 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/16 11:15:39 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,8 @@ void			minimap(t_game *game);
 
 // RAYCASTING -> CHECK INTERSECTIONS
 void			check_intersections(t_game *game, double angle, int x);
+void			check_intersections_bonus(t_game *game, double angle, int x,
+					bool minimap);
 void			vertical_intersection(t_game *game, double angle);
 void			horizontal_intersection(t_game *game, double angle);
 // RAYCASTING -> CHECK DIRECTION
@@ -164,6 +166,7 @@ void			calc_ray_distance(t_game *game, double angle);
 // UTILS
 void			clear_map(t_game *game);
 int				is_a_wall(t_game *game, double x, double y);
+int				print_error(char *msg);
 
 // NEW AJOUT KENNY
 int				init_structure(t_game *data);
@@ -191,5 +194,5 @@ double			put_floor_pixel(t_game *game, int x);
 void			put_wall_pixel(t_game *game, t_texture texture, int y, int x);
 
 void			draw_ray(t_game *game, double angle);
-
+void			create_map(t_game *game);
 #endif

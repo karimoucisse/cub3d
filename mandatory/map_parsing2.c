@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 12:45:40 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/15 18:06:09 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/16 12:48:21 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ int	is_valid_map_lines(char *line, t_game_info *data)
 			|| line[i] == 'S')
 		{
 			if (data->lock_news == 1)
-				return (printf("Error : duplicates [N,E,W,S]\n"), ERROR);
+				return (print_error("Error : duplicates [N,E,W,S]\n"));
 			data->lock_news = 1;
 		}
 		else if (line[i] != '1' && line[i] != '0' && line[i] != 'W'
 			&& line[i] != 'E' && line[i] != 'N' && line[i] != 'S'
 			&& line[i] != ' ')
-			return (printf("Error : other [0,1,N,E,W,S] in the map.\n"), ERROR);
+			return (print_error("Error : other [0,1,N,E,W,S] in the map.\n"));
 		else if (data->lock_valid_map_lines == 1)
-			return (printf("Error : map separate by line empty.\n"), ERROR);
+			return (print_error("Error : map separate by line empty.\n"));
 		i++;
 	}
 	return (SUCCESS);
@@ -53,14 +53,14 @@ int	check_map(char **map, int x, int y)
 			{
 				if (x == 0 || !map[x - 1] || !map[x - 1][y] || map[x
 					- 1][y] == ' ')
-					return (printf("Error: map invalid.\n"), ERROR);
+					return (print_error("Error: map invalid.\n"));
 				else if (!map[x + 1] || !map[x + 1][y] || map[x + 1][y] == ' ')
-					return (printf("Error: map invalid2.\n"), ERROR);
+					return (print_error("Error: map invalid2.\n"));
 				else if (!map[x] || !map[x][y + 1] || map[x][y + 1] == ' ')
-					return (printf("Error: map invalid3.\n"), ERROR);
+					return (print_error("Error: map invalid3.\n"));
 				else if (y == 0 || !map[x] || !map[x][y - 1] || map[x][y
 					- 1] == ' ')
-					return (printf("Error: map invalid4.\n"), ERROR);
+					return (print_error("Error: map invalid4.\n"));
 			}
 			y++;
 		}
@@ -80,7 +80,7 @@ int	error_checking_list_size(int *len, t_list *tmp, t_game_info *data)
 		tmp = tmp->next;
 	}
 	if (data->lock_news != 1)
-		return (printf("Error: no [N,E,W,S].\n"), ERROR);
+		return (print_error("Error: no [N,E,W,S].\n"));
 	return (SUCCESS);
 }
 

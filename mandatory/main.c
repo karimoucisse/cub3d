@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 19:02:23 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/14 14:14:05 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/16 12:56:59 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		return (EXIT_FAILURE);
 	if (!check_file_name(av[1]))
-		printf("Error\n");
+		return(print_error("File must be *.cub\n"));
 	if (init_structure(&game) != SUCCESS)
 		return (ERROR);
 	if (opening_parsing(game.game_info, av[1]) != SUCCESS)

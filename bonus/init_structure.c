@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:26:28 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/15 15:50:51 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/16 11:19:04 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ int	init_info(t_game_info *info)
 
 	i = 0;
 	if (!info)
-	{
-		printf("Error : info not initialized\n.");
-		return (ERROR);
-	}
+		print_error("Error : info not initialized\n.");
 	info->north_texture = NULL;
 	info->south_texture = NULL;
 	info->west_texture = NULL;
@@ -97,7 +94,7 @@ int	init_texture(t_texture *tex)
 int	init_structure(t_game *data)
 {
 	if (!data)
-		return (printf("Error: data not initialized.\n"), ERROR);
+		return (print_error("Error: data not initialized.\n"));
 	data->mlx_ptr = NULL;
 	data->mlx_win = NULL;
 	data->img_ptr = NULL;
@@ -107,7 +104,7 @@ int	init_structure(t_game *data)
 	data->endian = 0;
 	data->game_info = malloc(sizeof(t_game_info));
 	if (!data->game_info)
-		return (printf("Error: malloc failed for game_info.\n"), ERROR);
+		return (print_error("Error: malloc failed for game_info.\n"));
 	if (init_info(data->game_info) != SUCCESS)
 		return (ERROR);
 	if (init_player(&data->player) != SUCCESS)

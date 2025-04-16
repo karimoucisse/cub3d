@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 13:44:22 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/14 17:43:25 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/16 12:52:31 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,12 @@ void	clear_map(t_game *game)
 		}
 		i++;
 	}
+}
+
+int print_error(char *msg)
+{
+	printf("Error\n");
+	if(msg)
+		printf("%s", msg);
+	return (ERROR);
 }

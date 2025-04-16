@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:52:09 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/16 00:16:04 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/16 10:54:32 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,21 @@
 void	draw_map_square(int x, int y, int color, t_game *game)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	while (i < MINIMAP_TILE)
 	{
-		ft_put_pixel(x + i, y, color, game);
-		ft_put_pixel(x + i, y + MINIMAP_TILE, color, game);
-		ft_put_pixel(x, y + i, color, game);
-		ft_put_pixel(x + MINIMAP_TILE, y + i, color, game);
+		j = 0;
+		while (j < MINIMAP_TILE)
+		{
+			ft_put_pixel(x + j, y + i, color, game);
+			j++;
+		}
+		// ft_put_pixel(x + i, y, color, game);
+		// ft_put_pixel(x + i, y + MINIMAP_TILE, color, game);
+		// ft_put_pixel(x, y + i, color, game);
+		// ft_put_pixel(x + MINIMAP_TILE, y + i, color, game);
 		i++;
 	}
 }
@@ -58,6 +65,9 @@ void	create_map(t_game *game)
 			if (map[i][j] == '1')
 				draw_map_square(j * MINIMAP_TILE, i * MINIMAP_TILE, 0xFFFF0000,
 					game);
+			if (map[i][j] == '0' || map[i][j] == 'N' || map[i][j] == 'W'
+				|| map[i][j] == 'S' || map[i][j] == 'E')
+				draw_map_square(j * MINIMAP_TILE, i * MINIMAP_TILE, 0, game);
 			j++;
 		}
 		i++;
@@ -95,9 +105,20 @@ void	minimap(t_game *game)
 {
 	double	x;
 	double	y;
+	int		i;
+	double	angle;
 
-	create_map(game);
 	x = game->player.x / TILE * MINIMAP_TILE;
 	y = game->player.y / TILE * MINIMAP_TILE;
 	draw_player(x, y, 0, game);
+	i = 0;
+	angle = game->player.rot_angle - ((FOV * (PI / 180)) / 2);
+	create_map(game);
+	while (i < WIDTH)
+	{
+		check_intersections_bonus(game, normalize_angle(angle), i, true);
+		draw_ray(game, normalize_angle(angle));
+		angle += (FOV * (PI / 180)) / WIDTH;
+		i++;
+	}
 }
