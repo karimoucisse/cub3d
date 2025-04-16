@@ -1,6 +1,8 @@
 
-				 NO              ./Wall_pompier.xpm
-SO            									./Wall_classic.xpm
+NO includes/textures/wolfenstein/blue_stone.xpm
+SO includes/textures/wolfenstein/color_stone.xpm
+WE includes/textures/wolfenstein/grey_stone.xpm
+EA includes/textures/wolfenstein/mossy.xpm
 
 
 			C 			0,100,150
@@ -8,10 +10,8 @@ SO            									./Wall_classic.xpm
 
 			F      30,30,30
 
-			EA   			./Wall_window.xpm
 
-DO 		./Wall_door.xpm
-WE    			./Wall_windowx2.xpm
+DO 		includes/textures/Wall_door.xpm
 
 
 

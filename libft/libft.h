@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 19:45:24 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/13 21:37:03 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/16 17:00:18 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char				*ft_strrchr(const char *s, int c);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 char				*ft_strnstr(const char *big, const char *little,
 						size_t len);
-int					ft_atoi(const char *str);
+long				ft_atoi(const char *str);
 size_t				ft_strlcpy(char *dst, const char *src, size_t size);
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
 char				*ft_strdup(const char *str);
@@ -66,10 +66,9 @@ void				*ft_memmove(void *dst, const void *src, size_t n);
 void				*ft_calloc(size_t nmemb, size_t size);
 char				*ft_strndup(char *src, int size);
 char				*ft_strcopy_until(char *line, char stop_char);
-void  				ft_free(char **str);
+void				ft_free(char **str);
 char				*ft_strcpy(char *dest, const char *src);
 void				ft_strcat(char *dest, char *src);
-
 
 // FUNC SUPP
 void				ft_putnbr_fd(int n, int fd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_structure2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:27:17 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/16 13:04:33 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:20:38 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ int	init_textures(void *mlx, char *file, t_texture *img)
 	int	y;
 	int	x;
 
-	y = 0;
 	img->img_ptr = mlx_xpm_file_to_image(mlx, file, &img->width, &img->height);
+	if (!img->img_ptr)
+		return (printf("Error\nFailed mlx_xpm_to_img.\n"), ERROR);
 	img->addr = mlx_get_data_addr(img->img_ptr, &img->bpp, &img->line_len,
 			&img->endian);
 	if (img->width != img->height)
@@ -27,16 +28,15 @@ int	init_textures(void *mlx, char *file, t_texture *img)
 	img->pixels = malloc(sizeof(int) * img->width * img->height);
 	if (!img->pixels)
 		return (printf("Error\nmalloc failed for texture pixels.\n"), ERROR);
-	while (y < img->height)
+	y = -1;
+	while (++y < img->height)
 	{
-		x = 0;
-		while (x < img->width)
+		x = -1;
+		while (++x < img->width)
 		{
 			pixel_pos = (y * img->line_len) + (x * (img->bpp / 8));
 			img->pixels[y * img->width + x] = *(int *)(img->addr + pixel_pos);
-			x++;
 		}
-		y++;
 	}
 	return (0);
 }
@@ -88,11 +88,12 @@ int	init_game(t_game *game)
 			&game->line_length, &game->endian);
 	i = init_game_loop(game);
 	game->game_info->map_height = i;
-	init_textures(game->mlx_ptr, game->game_info->east_texture, &game->ea_data);
-	init_textures(game->mlx_ptr, game->game_info->north_texture,
-		&game->no_data);
-	init_textures(game->mlx_ptr, game->game_info->south_texture,
-		&game->so_data);
-	init_textures(game->mlx_ptr, game->game_info->west_texture, &game->we_data);
+	if (init_textures(game->mlx_ptr, game->game_info->east_texture,
+			&game->ea_data) != SUCCESS || init_textures(game->mlx_ptr,
+			game->game_info->north_texture, &game->no_data) != SUCCESS
+		|| init_textures(game->mlx_ptr, game->game_info->south_texture,
+			&game->so_data) != SUCCESS || init_textures(game->mlx_ptr,
+			game->game_info->west_texture, &game->we_data) != SUCCESS)
+		return (ERROR);
 	return (SUCCESS);
 }

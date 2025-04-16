@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors_fonctions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:23:21 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/16 13:08:16 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/16 17:08:35 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	colors_verifing(char *str)
 	int	value;
 
 	i = 0;
-	if (!str || *str == '\0')
-		return (ERROR);
+	if (!str || *str == '\0' || ft_strlen(str) > 3)
+		return (printf("Error\nRGB color is no good\n"), ERROR);
 	while (str[i] && str[i] != ' ' && str[i] != '\t')
 	{
 		if (!ft_isdigit(str[i]))
@@ -38,6 +38,22 @@ int	colors_verifing(char *str)
 	return (SUCCESS);
 }
 
+int	count_virgule(char *line)
+{
+	int	i;
+	int	count;
+
+	count = 0;
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == ',')
+			count++;
+		i++;
+	}
+	return (count);
+}
+
 int	colors_function(int (*tab)[3], char *line)
 {
 	char	*temp_number;
@@ -47,6 +63,8 @@ int	colors_function(int (*tab)[3], char *line)
 	start = 0;
 	i = 0;
 	temp_number = NULL;
+	if (count_virgule(line) != 2)
+		return (printf("Error\ninvalid colors\n"), ERROR);
 	if ((*tab)[0] != -1)
 		return (printf("Error\ncolors duplicates\n"), ERROR);
 	while (start < 3)

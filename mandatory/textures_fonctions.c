@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures_fonctions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:16:21 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/16 13:08:32 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:00:30 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,10 @@
 int	is_valid_textures(char **line)
 {
 	int			fd;
-	char		*file;
-	const char	*prefix;
 
-	prefix = "includes/textures";
-	file = malloc(ft_strlen(prefix) + ft_strlen(*line + 1) + 1);
-	if (!file)
-		return (ERROR);
-	ft_strcpy(file, prefix);
-	ft_strcat(file, *line + 1);
-	if (!file)
-		return (ERROR);
-	fd = open(file, O_RDONLY);
+	fd = open(*line, O_RDONLY);
 	if (fd == -1)
-	{
-		ft_free(&file);
 		return (ERROR);
-	}
-	ft_free(line);
-	*line = file;
 	close(fd);
 	return (SUCCESS);
 }

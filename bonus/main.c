@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 19:02:23 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/16 14:57:35 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/16 16:16:14 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int ac, char **av)
 	if (opening_parsing(game.game_info, av[1]) != SUCCESS)
 		return (free_structure(&game), ERROR);
 	if (init_game(&game) != SUCCESS)
-		return (free_structure(&game), ERROR);
+		return (close_win(&game), ERROR);
 	mlx_hook(game.mlx_win, 2, 1L << 0, key_press, &game);
 	mlx_hook(game.mlx_win, 3, 1L << 1, key_release, &game.player);
 	mlx_hook(game.mlx_win, 6, 1L << 6, mouse_move, &game);
