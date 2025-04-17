@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures_fonctions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:16:21 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/16 16:00:59 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/17 12:18:07 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,21 @@ int	textures_function(char **file, char *line, int i)
 	new_line = NULL;
 	if (*file == NULL)
 	{
+		int pos = i + 2;
+		while (line[pos] && (line[pos] == ' ' || line[pos] == '\t'))
+			pos++;
 		new_line = ft_strcopy_until(line + i + 2, ' ');
 		if (!new_line)
 			return (ERROR);
+		pos += ft_strlen(new_line);
+		while (line[pos] && (line[pos] == ' ' || line[pos] == '\t'))
+			pos++;
+		if (line[pos] != '\0' && line[pos] != '\n')
+			return (ft_free(&new_line), ERROR);
 		if (ft_strlen(new_line) >= 4 && ft_strncmp(new_line
 				+ ft_strlen(new_line) - 4, ".xpm", 4) != 0)
 		{
-			*file = new_line;
+			free(new_line);
 			return (printf("Error\nnot xpm file.\n"), ERROR);
 		}
 		if (is_valid_textures(&new_line) != SUCCESS)
