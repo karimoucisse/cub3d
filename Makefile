@@ -7,6 +7,8 @@ RAYCASTING = raycasting/
 CFLAGS = -Wall -Werror -Wextra -g
 LIBFT_DIR = libft/
 LIBFT = $(LIBFT_DIR)libft.a
+MLX_DIR = mlx/
+MLX = $(MLX_DIR)libmlx.a
 
 CFILES = $(MANDATORY)main.c\
     $(MANDATORY)player_move.c $(MANDATORY)utils.c $(MANDATORY)$(RAYCASTING)3draycasting.c $(MANDATORY)$(RAYCASTING)horizontal_intersection.c\
@@ -28,12 +30,14 @@ RM = rm -f
 all: $(NAME)
 
 $(LIBFT):
-	$(MAKE) -C $(LIBFT_DIR) bonus
+	$(MAKE) -C $(LIBFT_DIR)
+$(MLX):
+	$(MAKE) -C $(MLX_DIR)
 
-$(NAME): $(LIBFT) $(OFILES)
+$(NAME): $(LIBFT) $(MLX) $(OFILES)
 	$(CC) $(OFILES) -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz -L$(LIBFT_DIR) -lft -o $(NAME)
 
-bonus: $(LIBFT) $(OFILESBONUS2)
+bonus: $(LIBFT) $(MLX) $(OFILESBONUS2)
 	$(CC) $(OFILESBONUS2) -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz -L$(LIBFT_DIR) -lft -o $(NAME)
 
 %.o: %.c
