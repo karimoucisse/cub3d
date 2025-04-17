@@ -6,7 +6,7 @@
 /*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 18:51:42 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/13 19:47:38 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:37:21 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_strcopy_until(char *line, char stop_char)
 	while (line[start] && (line[start] == ' ' || line[start] == '\t'))
 		start++;
 	while (line[start + len] && line[start + len] != stop_char
-		&& line[start + len] != '\n')
+		&& line[start + len] != '\n' && line[start + len] != '\t')
 		len++;
 	new_str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!new_str)

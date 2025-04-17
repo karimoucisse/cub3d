@@ -6,7 +6,7 @@
 /*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:16:21 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/17 11:49:56 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:43:37 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_valid_textures(char **line)
 {
-	int			fd;
+	int	fd;
 
 	fd = open(*line, O_RDONLY);
 	if (fd == -1)
@@ -23,32 +23,41 @@ int	is_valid_textures(char **line)
 	return (SUCCESS);
 }
 
+int	textures_function2(int pos, char *new_line, char *line)
+{
+	pos += ft_strlen(new_line);
+	while (line[pos] && (line[pos] == ' ' || line[pos] == '\t'))
+		pos++;
+	if (line[pos] != '\0' && line[pos] != '\n')
+		return (printf("Error\nTexture.\n"), ERROR);
+	if (ft_strlen(new_line) >= 4 && ft_strncmp(new_line
+			+ ft_strlen(new_line) - 4, ".xpm", 4) != 0)
+		return (printf("Error\nnot xpm.\n"), ERROR);
+	return (SUCCESS);
+}
+
 int	textures_function(char **file, char *line, int i)
 {
-	char	**new_line;
+	char	*new_line;
+	int		pos;
 
 	new_line = NULL;
+	pos = i + 2;
 	if (*file == NULL)
 	{
-		new_line = ft_split(line + i + 2, ' ');
-		printf("newline0 = %s\nnewline1 = %s\n", new_line[0], new_line[1]);
-		if (!new_line || new_line[1])
-			return (free_map(new_line), ERROR);
-		if (ft_strlen(new_line[0]) >= 4
-			&& ft_strncmp(new_line[0] + (ft_strlen(new_line[0])) - 4, ".xpm", 4) != 0)
-		{
-			printf("line = %s", new_line[0] + (ft_strlen(new_line[0])) - 4 );
-			printf("strncmp = %d\n", ft_strncmp(new_line[0] + ft_strlen(new_line[0]) - 4, ".xpm", 4));
-			printf("newline0 = %s\nstrlen= %zu\n", new_line[0], ft_strlen(new_line[0]));
-			free_map(new_line);
-			return (printf("Error\nnot xpm file.\n"), ERROR);
-		}
-		if (is_valid_textures(&new_line[0]) != SUCCESS)
+		while (line[pos] && (line[pos] == ' ' || line[pos] == '\t'))
+			pos++;
+		new_line = ft_strcopy_until(line + i + 2, ' ');
+		if (!new_line)
+			return (ERROR);
+		if (textures_function2(pos, new_line, line) != SUCCESS)
+			return (ft_free(&new_line), ERROR);
+		if (is_valid_textures(&new_line) != SUCCESS)
 		{
 			printf("Error\nunable to open the texture [%s].\n", line);
-			return (free_map(new_line), ERROR);
+			return (ft_free(&new_line), ERROR);
 		}
-		*file = new_line[0];
+		*file = new_line;
 		return (SUCCESS);
 	}
 	printf("Error\n%s duplicates\n", *file);

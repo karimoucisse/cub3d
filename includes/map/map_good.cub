@@ -1,16 +1,13 @@
 
-NO includes/textures/wolfenstein/blue_stone.xpm  
-SO includes/textures/wolfenstein/color_stone.xpm
+NO includes/textures/wolfenstein/blue_stone.xpm   
+	SO includes/textures/wolfenstein/color_stone.xpm
 WE includes/textures/wolfenstein/grey_stone.xpm
-EA includes/textures/wolfenstein/mossy.xpm
+	 	 	 	 EA 			  includes/textures/wolfenstein/mossy.xpm		  
 
 
-C 	0,100,150
+C 	0 , 	100,	  	 150	 	 	 
 
-
-			F      30,30,30
-
-
+			F      30,30,	 30
 
 
 
@@ -27,7 +24,7 @@ C 	0,100,150
 100000000000000001          1000000001
 100000000000000001          1000000001
 100000000000000001          1000000001
-100000000100000001          1000000001
+1000000001000000011         1000000001
 100000001 100000001         1000000001
 100000000100000001          1000000001
 100000000000000001          1000000001

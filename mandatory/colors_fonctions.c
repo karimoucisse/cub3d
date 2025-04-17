@@ -3,14 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   colors_fonctions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:23:21 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/16 17:08:35 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/17 15:40:55 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int    ft_strlen_color(char *str)
+{
+    int        i;
+    int        len;
+    bool    after_space;
+
+    i = 0;
+    len = 0;
+    after_space = false;
+    while (str[i])
+    {
+        if (str[i] == ' ' || str[i] == '\t')
+            after_space = true;
+        if ((after_space && str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
+            || (!ft_strchr("0123456789 \t", str[i])))
+        {
+            len = -1;
+            break ;
+        }
+        if (!after_space)
+            len++;
+        i++;
+    }
+    if (str[0] == '0' && len > 1)
+        return (-1);
+    return (len);
+}
 
 int	colors_verifing(char *str)
 {
@@ -18,7 +46,8 @@ int	colors_verifing(char *str)
 	int	value;
 
 	i = 0;
-	if (!str || *str == '\0' || ft_strlen(str) > 3)
+	if (!str || *str == '\0' || ft_strlen_color(str) > 3
+		|| ft_strlen_color(str) < 1)
 		return (printf("Error\nRGB color is no good\n"), ERROR);
 	while (str[i] && str[i] != ' ' && str[i] != '\t')
 	{

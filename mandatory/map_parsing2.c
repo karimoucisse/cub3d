@@ -6,7 +6,7 @@
 /*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 12:45:40 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/16 13:04:33 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:35:02 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	is_valid_map_lines(char *line, t_game_info *data)
 		else if (line[i] != '1' && line[i] != '0' && line[i] != 'W'
 			&& line[i] != 'E' && line[i] != 'N' && line[i] != 'S'
 			&& line[i] != ' ')
-			return (printf("Error\nother [0,1,N,E,W,S] in the map.\n"), ERROR);
+			return (printf("Error\nother [0,1,N,E,W,S].\n"), ERROR);
 		else if (data->lock_valid_map_lines == 1)
 			return (printf("Error\nmap separate by line empty.\n"), ERROR);
 		i++;
