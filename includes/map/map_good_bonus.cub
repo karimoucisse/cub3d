@@ -1,17 +1,17 @@
 
-          NO        includes/textures/wolfenstein/blue_stone.xpm    s
+ 	 	 	 NO	 	 	 	 includes/textures/wolfenstein/blue_stone.xpm	 	 	 	
 SO includes/textures/wolfenstein/color_stone.xpm
 WE includes/textures/wolfenstein/grey_stone.xpm
 EA includes/textures/wolfenstein/mossy.xpm
 
 
-C 	0,100,150
+C 	0 	, 	100,	 150       	
 
 
 			F      30,30,30
 
 
-DO 		includes/textures/Wall_door.xpm
+DO 		includes/textures/Wall_door.xpmd
 
 
 

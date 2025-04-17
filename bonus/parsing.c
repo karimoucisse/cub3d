@@ -6,7 +6,7 @@
 /*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:14:38 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/16 13:07:33 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/17 16:01:19 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,16 @@ int	parsing(char *line, t_game_info *data)
 	i = 0;
 	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 		i++;
-	if (line[i] && line[i + 1] && ft_strncmp(line + i, "NO", 2) == 0)
+	printf("line = %s\n", line);
+	if (line[i] && ft_strncmp(line + i, "NO", 2) == 0)
 		return (textures_function(&data->north_texture, line, i));
-	else if (line[i] && line[i + 1] && ft_strncmp(line + i, "SO", 2) == 0)
+	else if (line[i] && ft_strncmp(line + i, "SO", 2) == 0)
 		return (textures_function(&data->south_texture, line, i));
-	else if (line[i] && line[i + 1] && ft_strncmp(line + i, "WE", 2) == 0)
+	else if (line[i] && ft_strncmp(line + i, "WE", 2) == 0)
 		return (textures_function(&data->west_texture, line, i));
-	else if (line[i] && line[i + 1] && ft_strncmp(line + i, "EA", 2) == 0)
+	else if (line[i] && ft_strncmp(line + i, "EA", 2) == 0)
 		return (textures_function(&data->east_texture, line, i));
-	else if (line[i] && line[i + 1] && ft_strncmp(line + i, "DO", 2) == 0)
+	else if (line[i] && ft_strncmp(line + i, "DO", 2) == 0)
 		return (textures_function(&data->door_texture, line, i));
 	else if (line[i] && line[i] == 'F')
 		return (colors_function(&data->floor_color, line + i + 1));

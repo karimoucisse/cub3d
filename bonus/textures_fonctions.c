@@ -6,7 +6,7 @@
 /*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:16:21 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/17 12:18:07 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/17 16:00:01 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,30 +23,36 @@ int	is_valid_textures(char **line)
 	return (SUCCESS);
 }
 
+int	textures_function2(int pos, char *new_line, char *line)
+{
+	pos += ft_strlen(new_line);
+	while (line[pos] && (line[pos] == ' ' || line[pos] == '\t'))
+		pos++;
+	if (line[pos] != '\0' && line[pos] != '\n')
+		return (printf("Error\n"), ERROR);
+	if (ft_strlen(new_line) >= 4 && ft_strncmp(new_line
+			+ ft_strlen(new_line) - 4, ".xpm", 4) != 0)
+		return (printf("Error\nnot xpm.\n"), ERROR);
+	return (SUCCESS);
+}
+
 int	textures_function(char **file, char *line, int i)
 {
 	char	*new_line;
+	int		pos;
 
+	printf("line = %s\n", line);
 	new_line = NULL;
+	pos = i + 2;
 	if (*file == NULL)
 	{
-		int pos = i + 2;
 		while (line[pos] && (line[pos] == ' ' || line[pos] == '\t'))
 			pos++;
 		new_line = ft_strcopy_until(line + i + 2, ' ');
 		if (!new_line)
 			return (ERROR);
-		pos += ft_strlen(new_line);
-		while (line[pos] && (line[pos] == ' ' || line[pos] == '\t'))
-			pos++;
-		if (line[pos] != '\0' && line[pos] != '\n')
+		if (textures_function2(pos, new_line, line) != SUCCESS)
 			return (ft_free(&new_line), ERROR);
-		if (ft_strlen(new_line) >= 4 && ft_strncmp(new_line
-				+ ft_strlen(new_line) - 4, ".xpm", 4) != 0)
-		{
-			free(new_line);
-			return (printf("Error\nnot xpm file.\n"), ERROR);
-		}
 		if (is_valid_textures(&new_line) != SUCCESS)
 		{
 			printf("Error\nunable to open the texture [%s].\n", line);
