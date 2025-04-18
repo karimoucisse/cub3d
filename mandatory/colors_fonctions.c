@@ -6,7 +6,7 @@
 /*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:23:21 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/17 16:14:50 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/18 13:16:13 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,33 @@ int	ft_strlen_color(char *str)
 	if (str[0] == '0' && len > 1)
 		return (-1);
 	return (len);
+}
+
+char	*ft_strcopy_until_t(char *line, char stop_char)
+{
+	char	*new_str;
+	int		i;
+	int		len;
+	int		start;
+
+	i = 0;
+	len = 0;
+	start = 0;
+	if (!line)
+		return (NULL);
+	while (line[start] && (line[start] == ' ' || line[start] == '\t'))
+		start++;
+	while (line[start + len] && line[start + len] != stop_char
+		&& line[start + len] != '\n')
+		len++;
+	new_str = (char *)malloc(sizeof(char) * (len + 1));
+	if (!new_str)
+		return (NULL);
+	len += start;
+	while (start < len)
+		new_str[i++] = line[start++];
+	new_str[i] = '\0';
+	return (new_str);
 }
 
 int	colors_verifing(char *str)
@@ -100,7 +127,7 @@ int	colors_function(int (*tab)[3], char *line)
 	{
 		while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 			i++;
-		temp_number = ft_strcopy_until(line + i, ',');
+		temp_number = ft_strcopy_until_t(line + i, ',');
 		if (!temp_number)
 			return (ERROR);
 		if (colors_verifing(temp_number) != SUCCESS)

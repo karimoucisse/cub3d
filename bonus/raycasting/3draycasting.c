@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3draycasting.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:52:38 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/16 15:19:22 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/18 13:10:21 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ void	render_horizontal_map(t_game *game, double angle, int x)
 				render_map(game, game->do_data, x);
 			}
 			else
-				render_map(game, game->no_data, x);
+				render_map(game, game->so_data, x);
 		}
 		else
 		{
 			if (game->raycast_info.hit_type_horizontal == 1)
 				render_map(game, game->do_data, x);
 			else
-				render_map(game, game->so_data, x);
+				render_map(game, game->no_data, x);
 		}
 	}
 }
@@ -60,14 +60,14 @@ void	render_vertical_map(t_game *game, double angle, int x)
 			if (game->raycast_info.hit_type_vertical == 1)
 				render_map(game, game->do_data, x);
 			else
-				render_map(game, game->we_data, x);
+				render_map(game, game->ea_data, x);
 		}
 		else
 		{
 			if (game->raycast_info.hit_type_vertical == 1)
 				render_map(game, game->do_data, x);
 			else
-				render_map(game, game->ea_data, x);
+				render_map(game, game->we_data, x);
 		}
 	}
 }

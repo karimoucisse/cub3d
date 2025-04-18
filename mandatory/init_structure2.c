@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_structure2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:27:17 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/16 16:20:38 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/18 12:44:35 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	init_textures(void *mlx, char *file, t_texture *img)
 		return (printf("Error\nFailed mlx_xpm_to_img.\n"), ERROR);
 	img->addr = mlx_get_data_addr(img->img_ptr, &img->bpp, &img->line_len,
 			&img->endian);
-	if (img->width != img->height)
-		return (printf("Error\nwidth and height not identique.\n"), ERROR);
+	if (img->width != img->height || img->width != 64)
+		return (printf("Error\nwidth and height problem.\n"), ERROR);
 	img->pixels = malloc(sizeof(int) * img->width * img->height);
 	if (!img->pixels)
 		return (printf("Error\nmalloc failed for texture pixels.\n"), ERROR);

@@ -6,7 +6,7 @@
 /*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:16:21 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/17 15:43:37 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/18 13:07:47 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	textures_function(char **file, char *line, int i)
 
 	new_line = NULL;
 	pos = i + 2;
+	if (line[pos] && line[pos] != ' ' && line[pos] != '\t')
+		return (printf("Error\n"), ERROR);
 	if (*file == NULL)
 	{
 		while (line[pos] && (line[pos] == ' ' || line[pos] == '\t'))
@@ -60,6 +62,5 @@ int	textures_function(char **file, char *line, int i)
 		*file = new_line;
 		return (SUCCESS);
 	}
-	printf("Error\n%s duplicates\n", *file);
-	return (ERROR);
+	return (printf("Error\n%s duplicates\n", *file), ERROR);
 }

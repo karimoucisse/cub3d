@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_move.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 13:42:11 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/16 15:04:30 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/17 18:00:07 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	move_forward(t_game *game)
 		game->player.x = game->player.x + cos(game->player.rot_angle) * speed;
 	if (!is_a_wall_bonus(game, game->player.x, y_cpy, NULL))
 		game->player.y = game->player.y + sin(game->player.rot_angle) * speed;
-	open_doors_in_radius(game, 3);
+	open_doors_in_radius(game, 1);
 }
 
 void	move_right(t_game *game)
@@ -49,7 +49,7 @@ void	move_right(t_game *game)
 		game->player.x = game->player.x - sin(game->player.rot_angle) * speed;
 	if (!is_a_wall_bonus(game, game->player.x, y_cpy, NULL))
 		game->player.y = game->player.y + cos(game->player.rot_angle) * speed;
-	open_doors_in_radius(game, 3);
+	open_doors_in_radius(game, 1);
 }
 
 void	move_left(t_game *game)
@@ -69,7 +69,7 @@ void	move_left(t_game *game)
 		game->player.x = game->player.x + sin(game->player.rot_angle) * speed;
 	if (!is_a_wall_bonus(game, game->player.x, y_cpy, NULL))
 		game->player.y = game->player.y - cos(game->player.rot_angle) * speed;
-	open_doors_in_radius(game, 3);
+	open_doors_in_radius(game, 1);
 }
 
 void	move_backward(t_game *game)
@@ -89,7 +89,7 @@ void	move_backward(t_game *game)
 		game->player.x = game->player.x - cos(game->player.rot_angle) * speed;
 	if (!is_a_wall_bonus(game, game->player.x, y_cpy, NULL))
 		game->player.y = game->player.y - sin(game->player.rot_angle) * speed;
-	open_doors_in_radius(game, 3);
+	open_doors_in_radius(game, 1);
 }
 
 void	move_player(t_game *game)

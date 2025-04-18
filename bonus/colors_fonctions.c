@@ -6,7 +6,7 @@
 /*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:23:21 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/17 16:14:09 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/17 20:54:23 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	colors_verifing(char *str)
 	{
 		if (!ft_isdigit(str[i]))
 		{
-			printf("Error\nRGB color is no good\n");
+			printf("Error\nRGB color is no goood\n");
 			return (ERROR);
 		}
 		i++;
@@ -83,6 +83,33 @@ int	count_virgule(char *line)
 	return (count);
 }
 
+char	*ft_strcopy_until_t(char *line, char stop_char)
+{
+	char	*new_str;
+	int		i;
+	int		len;
+	int		start;
+
+	i = 0;
+	len = 0;
+	start = 0;
+	if (!line)
+		return (NULL);
+	while (line[start] && (line[start] == ' ' || line[start] == '\t'))
+		start++;
+	while (line[start + len] && line[start + len] != stop_char
+		&& line[start + len] != '\n')
+		len++;
+	new_str = (char *)malloc(sizeof(char) * (len + 1));
+	if (!new_str)
+		return (NULL);
+	len += start;
+	while (start < len)
+		new_str[i++] = line[start++];
+	new_str[i] = '\0';
+	return (new_str);
+}
+
 int	colors_function(int (*tab)[3], char *line)
 {
 	char	*temp_number;
@@ -100,7 +127,7 @@ int	colors_function(int (*tab)[3], char *line)
 	{
 		while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 			i++;
-		temp_number = ft_strcopy_until(line + i, ',');
+		temp_number = ft_strcopy_until_t(line + i, ',');
 		if (!temp_number)
 			return (ERROR);
 		if (colors_verifing(temp_number) != SUCCESS)

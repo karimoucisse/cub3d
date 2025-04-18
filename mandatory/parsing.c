@@ -6,7 +6,7 @@
 /*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:14:38 by knavarre          #+#    #+#             */
-/*   Updated: 2025/04/17 15:28:16 by knavarre         ###   ########.fr       */
+/*   Updated: 2025/04/18 13:16:06 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,11 @@ int	parsing(char *line, t_game_info *data)
 		return (textures_function(&data->west_texture, line, i));
 	else if (line[i] && ft_strncmp(line + i, "EA", 2) == 0)
 		return (textures_function(&data->east_texture, line, i));
-	else if (line[i] && line[i] == 'F')
+	else if (line[i] && line[i + 1] && line[i] == 'F'
+		&& (line[i + 1] == ' ' || line[i + 1] == '\t'))
 		return (colors_function(&data->floor_color, line + i + 1));
-	else if (line[i] && line[i] == 'C')
+	else if (line[i] && line[i + 1] && line[i] == 'C'
+		&& (line[i + 1] == ' ' || line[i + 1] == '\t'))
 		return (colors_function(&data->ceiling_color, line + i + 1));
 	else if (line[i] && line[i] == '\n' && data->lock == 0)
 		return (SUCCESS);
@@ -63,7 +65,7 @@ int	opening_parsing(t_game_info *data, char *str)
 	file = open(str, O_RDONLY);
 	if (file == -1)
 	{
-		printf("Error opening file %s\n", str);
+		printf("Error\nopening file %s\n", str);
 		return (ERROR);
 	}
 	line = get_next_line(file, 0);

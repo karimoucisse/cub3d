@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   door_mouve.c                                       :+:      :+:    :+:   */
+/*   door_move.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 15:02:57 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/16 15:32:39 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/17 18:22:39 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ void	close_door_at(t_game *game, double x, double y)
 	if (map_x < 0 || map_y < 0 || map_y >= game->game_info->map_height
 		|| map_x >= game->game_info->map_widht)
 		return ;
+	if (!game->game_info->map || !game->game_info->map[map_y])
+		return ;
+	if ((size_t)map_x >= ft_strlen(game->game_info->map[map_y]))
+		return ;
 	if (game->game_info->map[map_y][map_x] == 'O')
 		game->game_info->map[map_y][map_x] = 'D';
 }
@@ -35,6 +39,10 @@ void	open_door_at(t_game *game, double x, double y)
 	map_y = (int)(y / TILE);
 	if (map_x < 0 || map_y < 0 || map_y >= game->game_info->map_height
 		|| map_x >= game->game_info->map_widht)
+		return ;
+	if (!game->game_info->map || !game->game_info->map[map_y])
+		return ;
+	if ((size_t)map_x >= ft_strlen(game->game_info->map[map_y]))
 		return ;
 	if (game->game_info->map[map_y][map_x] == 'D')
 		game->game_info->map[map_y][map_x] = 'O';
@@ -53,9 +61,9 @@ void	handle_door_at(t_game *game, int x, int y, double radius)
 	dx = world_x - game->player.x;
 	dy = world_y - game->player.y;
 	dist = sqrt(dx * dx + dy * dy);
-	if (dist <= radius * TILE && game->game_info->map[y][x] == 'D')
+	if (dist <= radius * TILE)
 		open_door_at(game, x * TILE, y * TILE);
-	else if (dist > 3 * TILE && game->game_info->map[y][x] == 'O')
+	else if (dist > radius * TILE)
 		close_door_at(game, x * TILE, y * TILE);
 }
 
