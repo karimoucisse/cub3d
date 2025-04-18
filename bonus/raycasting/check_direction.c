@@ -1,18 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   check_direction.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/16 17:36:04 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/16 17:36:05 by kcisse           ###   ########.fr       */
+/*   Created: 2025/04/14 14:42:13 by kcisse            #+#    #+#             */
+/*   Updated: 2025/04/14 14:43:05 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isspace(int c)
+#include "cub3d.h"
+
+bool	is_down(double angle)
 {
-	if (c == 12 || c == 10 || c == 13 || c == 9 || c == 11 || c == 32)
-		return (1);
-	return (0);
+	if (angle > 0 && angle < PI)
+		return (true);
+	return (false);
+}
+
+bool	is_up(double angle)
+{
+	if (!is_down(angle))
+		return (true);
+	return (false);
+}
+
+bool	is_right(double angle)
+{
+	if (angle < (0.5 * PI) || angle > (1.5 * PI))
+		return (true);
+	return (false);
+}
+
+bool	is_left(double angle)
+{
+	if (!is_right(angle))
+		return (true);
+	return (false);
 }

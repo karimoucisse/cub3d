@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: knavarre <knavarre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/16 17:36:04 by kcisse            #+#    #+#             */
-/*   Updated: 2025/04/16 17:36:05 by kcisse           ###   ########.fr       */
+/*   Created: 2025/04/11 20:18:18 by knavarre          #+#    #+#             */
+/*   Updated: 2025/04/13 21:21:54 by knavarre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isspace(int c)
+#include "libft.h"
+
+void	ft_free(char **str)
 {
-	if (c == 12 || c == 10 || c == 13 || c == 9 || c == 11 || c == 32)
-		return (1);
-	return (0);
+	if (!str && !*str)
+		return ;
+	free(*str);
+	*str = NULL;
 }

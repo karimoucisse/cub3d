@@ -6,7 +6,7 @@
 /*   By: kcisse <kcisse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 18:12:36 by kcisse            #+#    #+#             */
-/*   Updated: 2025/02/24 17:46:12 by kcisse           ###   ########.fr       */
+/*   Updated: 2025/04/15 18:04:50 by kcisse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ char	*handle_temp_var(char *remain_char, char *buffer)
 	char	*temp;
 
 	if (!remain_char)
+	{
 		remain_char = ft_strdup("");
+		if (!remain_char)
+			return (0);
+	}
 	temp = remain_char;
 	remain_char = ft_strjoin(temp, buffer);
 	if (!remain_char)
